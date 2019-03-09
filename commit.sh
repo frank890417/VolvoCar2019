@@ -3,9 +3,9 @@ read msg
 echo "Push and Deploy (y/n)? "
 read answer
 
-cd frontend_spa
-npm run build
-cd ..
+# cd frontend_spa
+# npm run build
+# cd ..
 
 sh cache.sh
 git add .
