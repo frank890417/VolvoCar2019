@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>測試區域～</title>
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.8.6/pixi.js"></script>
+</head>
+<style>
+
+    html, body{
+        width: 100%;
+        height: 100vh;
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+</style>
+<body></body>
+
+<script>
+$(document).ready(function(){
+    let showController = false;
+    let mouseDownPos = {};
+    $("body").on("mousedown", function(){
+        showController = true;
+        mouseDownPos.x =  app.renderer.plugins.interaction.mouse.global.x;
+        mouseDownPos.y =  app.renderer.plugins.interaction.mouse.global.y;
+    });
+
+    $("body").on("mouseup", function(){
+        showController = false;
+    });
+
+    var app = new PIXI.Application(window.innerWidth, window.innerHeight, {backgroundColor : 0x1099bb});
+    document.body.appendChild(app.view);
+    
+    let mouseTracker = new PIXI.Graphics();
+    mouseTracker.position.set(0, 0);
+    
+    
+    var basicText = new PIXI.Text('0');
+    basicText.position.set(10, 10);
+
+    app.stage.addChild(mouseTracker);
+    app.stage.addChild(basicText);
+
+    // Listen for animate update
+    app.ticker.add(function(delta) {
+        if(showController){
+            let mousePos = app.renderer.plugins.interaction.mouse.global;
+            
+            let distance = Math.sqrt( (mousePos.x-mouseDownPos.x)*(mousePos.x-mouseDownPos.x) + (mousePos.y-mouseDownPos.y)*(mousePos.y-mouseDownPos.y));
+            mouseTracker.clear();
+            mouseTracker.lineStyle(4, 0xffd900);
+            mouseTracker.moveTo(mouseDownPos.x, mouseDownPos.y);
+            mouseTracker.lineTo(mousePos.x, mousePos.y);
+            mouseTracker.lineStyle(0, 0xffd900);
+            mouseTracker.beginFill(0xffd900);
+            mouseTracker.drawCircle(mousePos.x, mousePos.y, distance/30);
+            basicText.text = distance/(app.screen.width/2);
+
+        }else{
+            mouseTracker.clear();
+        }
+    });
+
+
+
+});
+</script>
+</html>
