@@ -18,7 +18,7 @@ function game1Loop(){
         s.counterY -= groundMoveSpeedG1;
         s.position.y = s.counterY;
         s.position.x = s.counterX;
-        if(s.position.y < 150 && s.position.x > app.screen.width/2 - roadWidth/4 && s.position.x < app.screen.width/2 + roadWidth/4){
+        if(s.position.y < 150 && s.position.x > app.screen.width/2 - roadWidth/4 && s.position.x < app.screen.width/2 + roadWidth/2){
             isInDangerZone = true;
         }
         if(s.counterY<15000){
@@ -64,7 +64,7 @@ function game1Loop(){
 
 
 
-    if(!pressStop){
+    if(!pressStop && !isPrePlaying){
         groundMoveSpeedG1+=1;
         if(groundMoveSpeedG1>50){
             groundMoveSpeedG1 = 50;
@@ -78,7 +78,7 @@ function game1Loop(){
 
 
     //影片速度控制
-    if(pressStop){
+    if(pressStop || isPrePlaying){
         if(cityRoadAniBg.animationSpeed>0){
             cityRoadAniBg.animationSpeed -= 0.03;
             if(cityRoadAniBg.animationSpeed<0){

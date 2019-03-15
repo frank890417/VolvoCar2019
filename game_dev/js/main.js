@@ -112,16 +112,17 @@ function gameLoop(delta){
 }
 
 function resetAllGamesData(){
+    prePlayTimelineG1.restart();
 
     resetG1Data();
     resetG2Data();
     resetG3Data();
     resetG4Data();
-
 }
 
 
 function resetG1Data(){
+
     //crossObjects
 
     //根據斑馬線群組產生物件
@@ -132,7 +133,7 @@ function resetG1Data(){
 
 
     crossingGroup = [];
-    for(let i=0; i<6; i++){
+    for(let i=0; i<crossObjects.length; i++){
         let t;
         if(crossObjects[i].type == "car"){
             t = PIXI.loader.resources.carImg.texture;
@@ -153,15 +154,16 @@ function resetG1Data(){
         crossingGroup.push(s);
     }
     //為了 z-index 反序加入 container  中
-    for(let i=5; i>=0; i--){
+    for(let i=crossObjects.length-1; i>=0; i--){
         world3D.addChild(crossingGroup[i]);
     }
     
-    carCounter = 3;
-    bikeCounter = 1;
-    walkCounter = 2;
+    carCounter = 4;
+    bikeCounter = 2;
+    walkCounter = 4;
     groundMoveSpeedG1 = 0;
-
+    prePlayG1Cover.visible = false;
+    resetAllTimers();
 }
 
 

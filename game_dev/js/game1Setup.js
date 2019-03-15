@@ -109,9 +109,27 @@ function setupGame1(){
     dash.scale.set(0.8, 0.8);
 
 
+    prePlayG1Cover =  new PIXI.Sprite(PIXI.loader.resources.prePlayG1Img.texture);
+    prePlayG1Cover.position.set(0, 0);
+    prePlayG1Cover.anchor.set(0, 0);
+
+
+    prePlayStartTextG1 = new PIXI.Text("READY", new PIXI.TextStyle({
+        fontSize: 120,
+        fill: '#FFFFFF',
+        fontWeight: 500
+    }));
+    prePlayStartTextG1.position.set(app.screen.width/2, app.screen.height/2 - 200);
+    prePlayStartTextG1.anchor.set(0.5, 0.5);
+    prePlayStartTextG1.visible = false;
+    prePlayStartTextG1.alpha = 0.8;
+    prePlayStartTextG1.scale.set(2, 2);
+
+
     world3D = new PIXI.projection.Container2d();
     world3D.position.set(-90, 1075);
     addVanishingAsset();
+
     
 
     stage1.addChild(cityRoadAniBg);
@@ -133,7 +151,10 @@ function setupGame1(){
     stage1.addChild(pedal);
     stage1.addChild(timeText);
     stage1.addChild(timeRemainingText);
+    stage1.addChild(prePlayG1Cover);
+    stage1.addChild(prePlayStartTextG1);
     stage1.addChild(hintRect);
+    
 }
 
 

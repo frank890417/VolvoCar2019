@@ -37,11 +37,11 @@ function loadAllAssets(){
         .add("mirrorBorderLeftImg", "images/game3/mirrorBorderLeft.png")
         .add("mirrorHintLeftImg", "images/game3/mirrorHintLeft.png")
         .add("mirrorHintRightImg", "images/game3/mirrorHintRight.png")
-
         .add("hintG4Img", "images/game4/hint_g4.png")
         .add("roadMapG4Img", "images/game4/roadmap_g4.png")
         .add("myCarG4Img", "images/game4/car_me.png")
-        .add("armyCarG4Img", "images/game4/car_army.png");
+        .add("armyCarG4Img", "images/game4/car_army.png")
+        .add("prePlayG1Img", "images/game1/prePlayG1.png");
         
     for (let index = 36; index < 297; index++) {
         let tempIndex =  (100000+index).toString().substring(1);

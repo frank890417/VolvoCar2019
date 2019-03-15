@@ -1,10 +1,19 @@
 //共用
 var bigWhiteTexture;
 var debug = false;
+var isPrePlaying = false;
 var prePlayTimelineG1;
 var prePlayTimelineG2;
 var prePlayTimelineG3;
 var prePlayTimelineG4;
+var prePlayG1Cover;
+var prePlayG2Cover;
+var prePlayG3Cover;
+var prePlayG4Cover;
+var prePlayStartTextG1;
+var prePlayStartTextG2;
+var prePlayStartTextG3;
+var prePlayStartTextG4;
 //給預覽動畫使用
 var isGameRunning = false;
 
