@@ -202,8 +202,6 @@ function addVanishingAsset(){
         world3D.addChild(crossingGroup[i]);
     }
     
-
-
     vanishingPointStyle = new PIXI.TextStyle({
         fontFamily: 'Arial',
         fontSize: 20,

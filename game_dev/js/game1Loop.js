@@ -21,6 +21,12 @@ function game1Loop(){
         if(s.position.y < 150 && s.position.x > app.screen.width/2 - roadWidth/4 && s.position.x < app.screen.width/2 + roadWidth/4){
             isInDangerZone = true;
         }
+        if(s.counterY<15000){
+            s.visible = true;
+        }else{
+            s.visible = false;
+        }
+
 		if(s.counterY< 2000){
             
             if(s.type == "car"){

@@ -20,7 +20,10 @@ function loadAllAssets(){
         .add("hintImg", "images/game2/hint.png")
         .add("hintG3Img", "images/game3/hint_g3.png")
         .add("carMidImg", "images/game2/car2.png")
-        .add("safeAreaHintImg", "images/game2/hintArea.png")
+        .add("safeAreaHintImg0", "images/game2/hintArea/1.png")
+        .add("safeAreaHintImg1", "images/game2/hintArea/2.png")
+        .add("safeAreaHintImg2", "images/game2/hintArea/3.png")
+        .add("safeAreaHintImg3", "images/game2/hintArea/4.png")
         .add("streetLightImg", "images/game2/streetLight.png")
         .add("carInMirrorLeftImg", "images/game3/carFront.png")
         .add("carInMirrorRightImg", "images/game3/carFront.png")
@@ -47,6 +50,8 @@ function loadAllAssets(){
             url: "images/game1/roadBgG1/bg1_" + tempIndex + ".jpg"
         });
     }
+
+    
 
     // for (let index = 0; index < 480; index++) {
     //     let tempIndex =  (100000+index).toString().substring(1);

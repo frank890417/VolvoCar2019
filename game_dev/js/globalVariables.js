@@ -1,6 +1,10 @@
 //共用
 var bigWhiteTexture;
 var debug = false;
+var prePlayTimelineG1;
+var prePlayTimelineG2;
+var prePlayTimelineG3;
+var prePlayTimelineG4;
 //給預覽動畫使用
 var isGameRunning = false;
 
@@ -31,23 +35,27 @@ var stageLoops;
 var crossingGroups = [];
 var crossingGroup;
 var crossLine;
-var crossSequence = ['car', 'person', 'car', 'person', 'car', 'bike'];
+var crossSequence = ['car', 'person', 'car', 'person', 'car', 'bike', 'person', 'car', 'person', 'bike'];
 
 
 var crossObjects = [
     {type: "car", posY: 8000},
     {type: "walk", posY: 16000},
-    {type: "car", posY: 24000},
-    {type: "walk", posY: 28000},
-    {type: "car", posY: 32000},
-    {type: "bike", posY: 38000}
+    {type: "car", posY: 20000},
+    {type: "walk", posY: 32000},
+    {type: "car", posY: 38000},
+    {type: "bike", posY: 50000},
+    {type: "walk", posY:52000},
+    {type: "car", posY: 57000},
+    {type: "walk", posY: 70000},
+    {type: "bike", posY: 74000}
 ]
 
 var countImg;
 
-var carCounter = 3;
-var bikeCounter = 1;
-var walkCounter = 2;
+var carCounter = 4;
+var bikeCounter = 2;
+var walkCounter = 4;
 
 var hintRect;
 var timerGame1;
@@ -117,8 +125,9 @@ var carSpeedUp = false;
 var carSpeedDown = false;
 
 var currentCarPosition = 1200;
-var safeAreaHint;
-var safeAreaMax = 1280;
+var safeAreaHint = [];
+var safeAreaHintIndex = 0;
+var safeAreaMax = 1100;
 var safeAreaMin = 430;
 var dangerAreaStayTime = 0;
 

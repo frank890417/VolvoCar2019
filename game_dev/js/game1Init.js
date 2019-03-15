@@ -4,6 +4,7 @@ function game1Init(){
     registerGame1Event();
     //校正透視
     updateAxisG1();
+    addG1PrePlay();
 }
 
 function registerGame1Event(){
@@ -62,4 +63,16 @@ function registerGame1Event(){
 function updateAxisG1(){
 	let posY = world3D.toLocal(vanishingPoint.position, undefined, undefined, undefined, PIXI.projection.TRANSFORM_STEP.BEFORE_PROJ);
 	world3D.proj.setAxisY(posY, 1);
+}
+
+
+function addG1PrePlay(){
+    
+    
+    prePlayTimelineG1 = new TimelineMax({
+
+    });
+
+
+
 }

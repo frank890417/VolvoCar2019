@@ -1,6 +1,7 @@
 function game2Init(){
     
     registerGame2Event();
+    setUpSafeAreaAni();
     //校正透視
     updateAxisG2();
 }
@@ -74,4 +75,15 @@ function registerGame2Event(){
 function updateAxisG2(){
 	let posY = world3D_g2.toLocal(vanishingPoint_g2.position, undefined, undefined, undefined, PIXI.projection.TRANSFORM_STEP.BEFORE_PROJ);
 	world3D_g2.proj.setAxisY(posY, 1);
+}
+
+function setUpSafeAreaAni(){
+    let tl = new TimelineMax();
+    tl.add(()=>{
+        for (let i = 0; i < 4; i++) {
+            safeAreaHint[i].visible = (i==safeAreaHintIndex)? true: false;
+            safeAreaHint[i].alpha = (safeAreaHintIndex+1)/4;
+        }
+        safeAreaHintIndex = (safeAreaHintIndex+1)%4;
+    }, 0.8).repeat(-1);
 }

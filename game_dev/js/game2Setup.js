@@ -167,14 +167,18 @@ function addVanishingAssetG2(){
         world3D_g2.addChild(s);
     }
     //安全範圍
-    safeAreaHint = new PIXI.projection.Sprite2d(PIXI.loader.resources.safeAreaHintImg.texture);
-    safeAreaHint.tint = 0xff0000;
-    safeAreaHint.width = roadWidth_g2/5;
-    safeAreaHint.height = 1500;
-    safeAreaHint.scale.y = -1;
-    safeAreaHint.anchor.set(0.5, 0);
-    safeAreaHint.position.set(app.screen.width/2, currentCarPosition);
-    world3D_g2.addChild(safeAreaHint);
+    
+    for (let i = 0; i < 4; i++) {
+        let tempS = new PIXI.projection.Sprite2d(PIXI.Texture.fromFrame('safeAreaHintImg' + i));
+        tempS.width = roadWidth_g2/5;
+        tempS.height = 1500;
+        tempS.scale.y = -1;
+        tempS.tint = 0xff0000;
+        tempS.anchor.set(0.5, 0);
+        tempS.position.set(app.screen.width/2, currentCarPosition);
+        safeAreaHint.push(tempS);
+        world3D_g2.addChild(tempS);
+    }
 
     //敵方車車
     car_g2 = new PIXI.projection.Sprite2d(PIXI.loader.resources.carMidImg.texture);
