@@ -3,7 +3,7 @@ function game3Init(){
     setUpCarMovingAnimation();
     registerGame3Event();    
     updateAxisG3();
-
+    addG3PrePlay();
     rightBtnClick_g3 = false;
     leftBtnClick_g3 = false;
 
@@ -264,4 +264,62 @@ function showMirrorCar(side){
             y: 0.15
         });
     }
+}
+
+
+
+function addG3PrePlay(){
+    prePlayTimelineG3 = new TimelineMax({paused:true});
+    prePlayTimelineG3
+    .add(()=>{
+        timeText_g3.visible = false;
+        timeRemainingText_g3.visible = false;
+        //停車安全讓汽車通過
+        isPrePlaying = true;
+    }, 0)
+    .add(()=>{
+
+    }, 2)
+    .add(()=>{
+        prePlayStartTextG2.text = "5";
+        prePlayStartTextG2.visible = true;
+    }, 4)
+    .add(()=>{
+        
+        prePlayStartTextG2.text = "4";
+    }, 5)
+    .add(()=>{
+        
+        prePlayStartTextG2.text = "3";
+    }, 6)
+    .add(()=>{
+
+        prePlayStartTextG2.text = "2";
+    }, 7)
+    .add(()=>{
+
+        prePlayStartTextG2.text = "1";
+    }, 8)
+    .add(()=>{
+
+        isPrePlaying = false;
+        prePlayStartTextG2.text = "GO!";
+    }, 9)
+    .add(()=>{
+        prePlayStartTextG2.visible = false;
+        timeText_g3.visible = true;
+        timeRemainingText_g3.visible = true;
+        hintTextG3.visible = false;
+        resetAllTimers();
+    }, 10);
+
+
+/*
+    leftBtn_g3.tint = 0X555555;
+    leftBtnClick_g3 = true;
+
+    rightBtn_g3.tint = 0X555555;
+    rightBtnClick_g3 = true;
+*/
+    
 }

@@ -23,6 +23,7 @@ $(document).ready(function(){
 
     $(".game-start").on("click", function(){
         isGameRunning = true;
+        isPrePlaying = false;
         $(this).fadeOut();
         $(".init-text").hide();
         resetAllGamesData();
@@ -112,7 +113,12 @@ function gameLoop(delta){
 }
 
 function resetAllGamesData(){
-    prePlayTimelineG1.restart();
+    if(currentStage==1){
+        prePlayTimelineG1.restart();
+    }else if(currentStage == 2){
+        prePlayTimelineG2.restart();
+    }
+    
 
     resetG1Data();
     resetG2Data();
@@ -122,56 +128,28 @@ function resetAllGamesData(){
 
 
 function resetG1Data(){
-
-    //crossObjects
-
     //根據斑馬線群組產生物件
     crossingGroup.forEach(sprite => {
         sprite.parent.removeChild(sprite);
         sprite.destroy();    
     });
 
-
-    crossingGroup = [];
-    for(let i=0; i<crossObjects.length; i++){
-        let t;
-        if(crossObjects[i].type == "car"){
-            t = PIXI.loader.resources.carImg.texture;
-        }else if(crossObjects[i].type == "walk"){
-            t = PIXI.loader.resources.walkImg.texture;
-        }else if(crossObjects[i].type == "bike"){
-            t = PIXI.loader.resources.bikeImg.texture;
-        }
-        
-        let s = new PIXI.projection.Sprite2d(t);
-        s.type = crossObjects[i].type;
-        s.counterY = crossObjects[i].posY;
-        s.counterX = 0;
-        s.anchor.set(1);
-        s.position.x = 0;
-        //調整物體水平還是垂直
-        s.proj.affine = PIXI.projection.AFFINE.AXIS_X;
-        crossingGroup.push(s);
-    }
-    //為了 z-index 反序加入 container  中
-    for(let i=crossObjects.length-1; i>=0; i--){
-        world3D.addChild(crossingGroup[i]);
-    }
+    generateCrossingGroup();
     
     carCounter = 4;
     bikeCounter = 2;
-    walkCounter = 4;
+    walkCounter = 5;
     groundMoveSpeedG1 = 0;
-    prePlayG1Cover.visible = false;
+
     resetAllTimers();
 }
 
 
 function resetG2Data(){
     //重置橫線
-    for(let i=0; i< 20; i++){
+    for(let i=0; i< 10; i++){
         let s = lineGroup_g2[i];
-        s.counterY = 2000*i;
+        s.counterY = 6000*i;
         s.counterX = 0;
         s.position.set(app.screen.width/2, 10000);
     }
@@ -186,7 +164,7 @@ function resetG2Data(){
             s.position.set(app.screen.width/2 - roadWidth_g2/2, 30000);
         }
         s.anchor.set(0, 1);
-        s.counterY = 12000*i;
+        s.counterY = 24000*i;
         s.counterX = 0;
     }
     carSpeed = 0;

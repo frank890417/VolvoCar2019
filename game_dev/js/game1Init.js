@@ -13,15 +13,18 @@ function registerGame1Event(){
     pedal.buttonMode = true;
     
     pedal.on("pointerdown", function(){
-        pressStop = true;
-        pedal.tint = 0X555555;
-
+        if(!isPrePlaying){
+            pressStop = true;
+            pedal.tint = 0X555555;
+        }
     });
 
     pedal.on("pointerup",function(){
-        pressStop = false;
-        pedal.tint = 0XFFFFFF;
-        cityRoadAniBg.animationSpeed = 1;
+        if(!isPrePlaying){
+            pressStop = false;
+            pedal.tint = 0XFFFFFF;
+            cityRoadAniBg.animationSpeed = 1;
+        }
     });
     
     $( "body" ).keydown(function(e) {
@@ -83,48 +86,41 @@ function addG1PrePlay(){
     prePlayTimelineG1 = new TimelineMax({paused:true});
     prePlayTimelineG1
     .add(()=>{
-        //顯示說明版
-        prePlayG1Cover.visible = true;
-        TweenMax.fromTo(prePlayG1Cover, 0.5, {alpha: 0}, {alpha: 1});
         timeText.visible = false;
         timeRemainingText.visible = false;
-    }, 0)
-    .add(()=>{
         //停車安全讓汽車通過
         pedal.tint = 0X555555;
         isPrePlaying = true;
+    }, 0)
+    .add(()=>{
+        prePlayStartTextG1.text = "5";
+        prePlayStartTextG1.visible = true;
     }, 4)
     .add(()=>{
-        //等待六秒後繼續衝撞
+        prePlayStartTextG1.text = "4";
+    }, 5)
+    .add(()=>{
+        prePlayStartTextG1.text = "3";
+    }, 6)
+    .add(()=>{
+        prePlayStartTextG1.text = "2";
+    }, 7)
+    .add(()=>{
+        prePlayStartTextG1.text = "1";
+    }, 8)
+    .add(()=>{
+        //開始衝撞
         pedal.tint = 0XFFFFFF;
         cityRoadAniBg.animationSpeed = 1;
         isPrePlaying = false;
+        prePlayStartTextG1.text = "GO!";
     }, 9)
     .add(()=>{
-        //一次失敗的
-        pedal.tint = 0X555555;
-        isPrePlaying = true;
-    }, 12)
-    .add(()=>{
-        //繼續走
-        pedal.tint = 0XFFFFFF;
-        cityRoadAniBg.animationSpeed = 1;
-        isPrePlaying = false;
-    }, 14)
-    .add(()=>{
-        //指導結束，遊戲開始倒數
-        prePlayStartTextG1.visible = true;
-    }, 15)
-    .add(startTextAni, 15)
-    .add(()=>{
-        TweenMax.fromTo(prePlayG1Cover, 0.5, {alpha: 1}, {alpha: 0});
-    }, 20)
-    .add(()=>{
         prePlayStartTextG1.visible = false;
-        prePlayG1Cover.visible = false;
         timeText.visible = true;
         timeRemainingText.visible = true;
-        resetG1Data();
-    }, 20.5);
+        hintTextG1.visible = false;
+        resetAllTimers();
+    }, 10);
     
 }

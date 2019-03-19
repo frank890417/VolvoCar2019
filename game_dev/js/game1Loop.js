@@ -6,7 +6,7 @@ function game1Loop(){
         s.counterY -= groundMoveSpeedG1;
 		s.position.y = s.counterY;
 		if(s.counterY< -500){
-			s.counterY = 10000;
+			s.counterY = 60000;
 		}
     }
 
@@ -21,27 +21,33 @@ function game1Loop(){
         if(s.position.y < 150 && s.position.x > app.screen.width/2 - roadWidth/4 && s.position.x < app.screen.width/2 + roadWidth/2){
             isInDangerZone = true;
         }
-        if(s.counterY<15000){
+        
+        if(s.counterY<20000){
             s.visible = true;
         }else{
             s.visible = false;
         }
+        s.alpha = (20-s.counterY/2000)/20;
 
-		if(s.counterY< 2000){
+        let sideVal = s.side == "left" ? 1: -1;
+
+		if(s.counterY< 6000){
             
             if(s.type == "car"){
-                s.counterX += 20;
+                s.counterX += 30*sideVal;
             }else if(s.type == "walk"){
-                s.counterX += 5;
+                s.counterX += 8*sideVal;
             }else if(s.type == "bike"){
-                s.counterX += 12;
+                s.counterX += 15*sideVal;
             }
+
 
             if(s.position.x < app.screen.width/2 + roadWidth/4){
                 isInWarningRange = true;
             }
 
-            if(s.counterY< -1000){
+
+            if(s.counterY < -1000){
                 if(s.type == "car"){
                     carCounter--;
                 }else if(s.type == "walk"){

@@ -44,27 +44,28 @@ var stageLoops;
 var crossingGroups = [];
 var crossingGroup;
 var crossLine;
-var crossSequence = ['car', 'person', 'car', 'person', 'car', 'bike', 'person', 'car', 'person', 'bike'];
+var crossSequence = ['person', 'car', 'person', 'car', 'person', 'car', 'bike', 'person', 'car', 'person', 'bike'];
 
 
 var crossObjects = [
-    {type: "car", posY: 8000},
-    {type: "walk", posY: 16000},
-    {type: "car", posY: 20000},
-    {type: "walk", posY: 32000},
-    {type: "car", posY: 38000},
-    {type: "bike", posY: 50000},
-    {type: "walk", posY:52000},
-    {type: "car", posY: 57000},
-    {type: "walk", posY: 70000},
-    {type: "bike", posY: 74000}
+    {type: "walk", posY: 1000, side: "left"},
+    {type: "car", posY: 8000, side: "right"},
+    {type: "walk", posY: 16000, side: "left"},
+    {type: "car", posY: 20000, side: "left"},
+    {type: "walk", posY: 32000, side: "left"},
+    {type: "car", posY: 41000, side: "right"},
+    {type: "bike", posY: 50000, side: "right"},
+    {type: "walk", posY:52000, side: "left"},
+    {type: "car", posY: 57000, side: "right"},
+    {type: "walk", posY: 70000, side: "right"},
+    {type: "bike", posY: 74000, side: "left"}
 ]
 
 var countImg;
 
 var carCounter = 4;
 var bikeCounter = 2;
-var walkCounter = 4;
+var walkCounter = 5;
 
 var hintRect;
 var timerGame1;
@@ -104,6 +105,7 @@ var lineLeft;
 var lineRight;
 var roadWidth = 2600;
 var lineGroup;
+var hintTextG1;
 
 //第二關
 var hintRect_g2;
@@ -126,7 +128,7 @@ var car_g2;
 
 //設定汽車的最遠距離以及最近可以到多近
 var carMovingAncorMin = 200;
-var carMovingAncorMax = 3000;
+var carMovingAncorMax = 2500;
 var carSpeed = 0;
 var carSpeedMin = -1;
 var carSpeedMax = 1;
@@ -138,7 +140,9 @@ var safeAreaHint = [];
 var safeAreaHintIndex = 0;
 var safeAreaMax = 1100;
 var safeAreaMin = 430;
+var safeState = false;
 var dangerAreaStayTime = 0;
+var safeAreaTimeline;
 
 var world3D_g2;
 var vanishingPoint_g2;
@@ -155,6 +159,7 @@ var carSideSequence = ['left', 'left', 'right', 'right', 'left'];
 
 var timerGame3;
 var hintRect_g3;
+var hintTextG3;
 var hintRectGood_g3
 var timeText_g3;
 var timeRemainingText_g3;

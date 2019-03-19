@@ -1,8 +1,6 @@
 
 function setupGame1(){
 
-    
-
     timeText = new PIXI.Text("Time", new PIXI.TextStyle({
         fontSize: 52,
         fill: '#FFD25D',
@@ -108,23 +106,26 @@ function setupGame1(){
     dash.anchor.set(0.5, 1);
     dash.scale.set(0.8, 0.8);
 
+    hintTextG1 = new PIXI.Text("請適時地按下煞車以確保安全", new PIXI.TextStyle({
+        fontSize: 30,
+        fill: '#FFFFFF',
+        fontWeight: 500
+    }));
 
-    prePlayG1Cover =  new PIXI.Sprite(PIXI.loader.resources.prePlayG1Img.texture);
-    prePlayG1Cover.position.set(0, 0);
-    prePlayG1Cover.anchor.set(0, 0);
+    hintTextG1.position.set(app.screen.width/2, app.screen.height/2);
+    hintTextG1.anchor.set(0.5, 0.5);
 
-
-    prePlayStartTextG1 = new PIXI.Text("READY", new PIXI.TextStyle({
+    prePlayStartTextG1 = new PIXI.Text("5", new PIXI.TextStyle({
         fontSize: 120,
         fill: '#FFFFFF',
         fontWeight: 500
     }));
+
     prePlayStartTextG1.position.set(app.screen.width/2, app.screen.height/2 - 200);
     prePlayStartTextG1.anchor.set(0.5, 0.5);
     prePlayStartTextG1.visible = false;
     prePlayStartTextG1.alpha = 0.8;
     prePlayStartTextG1.scale.set(2, 2);
-
 
     world3D = new PIXI.projection.Container2d();
     world3D.position.set(-90, 1075);
@@ -151,9 +152,9 @@ function setupGame1(){
     stage1.addChild(pedal);
     stage1.addChild(timeText);
     stage1.addChild(timeRemainingText);
-    stage1.addChild(prePlayG1Cover);
     stage1.addChild(prePlayStartTextG1);
     stage1.addChild(hintRect);
+    stage1.addChild(hintTextG1);
     
 }
 
@@ -181,12 +182,12 @@ function addVanishingAsset(){
 
     //橫線
     lineGroup = [];
-    for(let i=0; i< 20; i++){
+    for(let i=0; i< 10; i++){
         let s = new PIXI.projection.Sprite2d(bigWhiteTexture);
-        s.tint = 0xffffff;
+        s.tint = 0xcccccc;
         s.scale.set(roadWidth/30, 0.5);
         s.anchor.set(0.5);
-        s.counterY = 2000*i;
+        s.counterY = 6000*i;
         s.counterX = 0;
         s.position.set(app.screen.width/2, 10000);
         //調整物體水平還是垂直
@@ -196,32 +197,7 @@ function addVanishingAsset(){
         world3D.addChild(s);
     }
 
-    //根據斑馬線群組產生物件
-    crossingGroup = [];
-    for(let i=0; i<6; i++){
-        let t;
-        if(crossObjects[i].type == "car"){
-            t = PIXI.loader.resources.carImg.texture;
-        }else if(crossObjects[i].type == "walk"){
-            t = PIXI.loader.resources.walkImg.texture;
-        }else if(crossObjects[i].type == "bike"){
-            t = PIXI.loader.resources.bikeImg.texture;
-        }
-        
-        let s = new PIXI.projection.Sprite2d(t);
-        s.type = crossObjects[i].type;
-        s.counterY = crossObjects[i].posY;
-        s.counterX = 0;
-        s.anchor.set(1);
-        s.position.x = 0;
-        //調整物體水平還是垂直
-        s.proj.affine = PIXI.projection.AFFINE.AXIS_X;
-        crossingGroup.push(s);
-    }
-    //為了 z-index 反序加入 container  中
-    for(let i=5; i>=0; i--){
-        world3D.addChild(crossingGroup[i]);
-    }
+    generateCrossingGroup();
     
     vanishingPointStyle = new PIXI.TextStyle({
         fontFamily: 'Arial',
@@ -232,6 +208,53 @@ function addVanishingAsset(){
     vanishingPoint = new PIXI.Text('Ｏ', vanishingPointStyle);
     vanishingPoint.anchor.set(0.5);
     vanishingPoint.position.set(960, 715);
+
+}
+
+
+function generateCrossingGroup(){
+    //根據斑馬線群組產生物件
+    crossingGroup = [];
+    for(let i=0; i<crossObjects.length; i++){
+        let t, s;
+        if(crossObjects[i].type == "car"){
+            t = PIXI.loader.resources.carImg.texture;
+            s = new PIXI.projection.Sprite2d(t);
+            s.scale.set(2);
+        }else if(crossObjects[i].type == "walk"){
+            t = PIXI.loader.resources.walkImg.texture;
+            s = new PIXI.projection.Sprite2d(t);
+        }else if(crossObjects[i].type == "bike"){
+            t = PIXI.loader.resources.bikeImg.texture;
+            s = new PIXI.projection.Sprite2d(t);
+        }
+
+        s.type = crossObjects[i].type;
+        s.counterY = crossObjects[i].posY;
+        s.side = crossObjects[i].side;
+        if(s.side == "left"){
+            s.counterX = -1500;
+            if(s.type == "car"){
+                s.counterX = -5000;
+            }
+        }else{
+            s.counterX = app.screen.width + 1500;
+            s.scale.x = -1;
+            if(s.type == "car"){
+                s.counterX = app.screen.width + 5000;
+                s.scale.set(-2.5, 2.5);
+            }
+        }
+        s.anchor.set(0.5);
+        s.position.x = 0;
+        //調整物體水平還是垂直
+        s.proj.affine = PIXI.projection.AFFINE.AXIS_X;
+        crossingGroup.push(s);
+    }
+    //為了 z-index 反序加入 container  中
+    for(let i=crossObjects.length-1; i>=0; i--){
+        world3D.addChild(crossingGroup[i]);
+    }
 
 }
 

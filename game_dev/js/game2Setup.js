@@ -17,6 +17,13 @@ function setupGame2(){
     timeRemainingText_g2.position.set(app.screen.width/2, 120);
     timeRemainingText_g2.anchor.set(0.5, 0);
 
+    hintRect_g2 =  new PIXI.Graphics();
+    hintRect_g2.beginFill(0x000000, 0);
+    hintRect_g2.lineStyle(80, 0xFF0000, 1);
+    hintRect_g2.drawRect(0, 0, app.screen.width, app.screen.height);
+    hintRect_g2.endFill();
+    hintRect_g2.visible = false;
+
     // let bgTexs = [], i;
 
     // for (i = 0; i < 480; i++) {
@@ -82,6 +89,27 @@ function setupGame2(){
     // safeAreaRect.endFill();
 
 
+    hintTextG2 = new PIXI.Text("請將車子保持在適當距離", new PIXI.TextStyle({
+        fontSize: 30,
+        fill: '#FFFFFF',
+        fontWeight: 500
+    }));
+
+    hintTextG2.position.set(app.screen.width/2, app.screen.height/2);
+    hintTextG2.anchor.set(0.5, 0.5);
+
+    prePlayStartTextG2 = new PIXI.Text("5", new PIXI.TextStyle({
+        fontSize: 120,
+        fill: '#FFFFFF',
+        fontWeight: 500
+    }));
+
+    prePlayStartTextG2.position.set(app.screen.width/2, app.screen.height/2 - 200);
+    prePlayStartTextG2.anchor.set(0.5, 0.5);
+    prePlayStartTextG2.visible = false;
+    prePlayStartTextG2.alpha = 0.8;
+    prePlayStartTextG2.scale.set(2, 2);
+
     world3D_g2 = new PIXI.projection.Container2d();
     world3D_g2.position.set(0, 700);
     addVanishingAssetG2();
@@ -101,6 +129,9 @@ function setupGame2(){
     stage2.addChild(timeRemainingText_g2);
     stage2.addChild(rightBtn_g2);
     stage2.addChild(leftBtn_g2);
+    stage2.addChild(prePlayStartTextG2);
+    stage2.addChild(hintTextG2);
+    stage2.addChild(hintRect_g2);
 
 }
 
@@ -128,12 +159,12 @@ function addVanishingAssetG2(){
 
     //橫線
     lineGroup_g2 = [];
-    for(let i=0; i< 20; i++){
+    for(let i=0; i< 10; i++){
         let s = new PIXI.projection.Sprite2d(bigWhiteTexture);
         s.tint = 0xffffff;
         s.scale.set(roadWidth_g2/30, 0.5);
         s.anchor.set(0.5);
-        s.counterY = 2000*i;
+        s.counterY = 6000*i;
         s.counterX = 0;
         s.position.set(app.screen.width/2, 10000);
         //調整物體水平還是垂直
@@ -157,7 +188,7 @@ function addVanishingAssetG2(){
             s.position.set(app.screen.width/2 - roadWidth_g2/2, 30000);
         }
         s.anchor.set(0, 1);
-        s.counterY = 12000*i;
+        s.counterY = 36000*i;
         s.counterX = 0;
         
         //調整物體水平還是垂直
