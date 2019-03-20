@@ -35,6 +35,7 @@ function setupGame1(){
 
 
     //動態背景
+    /*
     let bgTexs = [];
 
     for (let i = 36; i < 297; i++) {
@@ -45,7 +46,7 @@ function setupGame1(){
     cityRoadAniBg = new PIXI.extras.AnimatedSprite(bgTexs);
     cityRoadAniBg.animationSpeed = 1;
     cityRoadAniBg.play();
-
+*/
 
     // let bgTexs = PIXI.Texture.fromVideo("images/game1/roadBgVideoG1.mp4");
     // cityRoadAniBg = new PIXI.Sprite(bgTexs);
@@ -107,16 +108,16 @@ function setupGame1(){
     dash.scale.set(0.8, 0.8);
 
     hintTextG1 = new PIXI.Text("請適時地按下煞車以確保安全", new PIXI.TextStyle({
-        fontSize: 30,
+        fontSize: 24,
         fill: '#FFFFFF',
         fontWeight: 500
     }));
 
-    hintTextG1.position.set(app.screen.width/2, app.screen.height/2);
+    hintTextG1.position.set(app.screen.width/2, app.screen.height - dash.height - 30);
     hintTextG1.anchor.set(0.5, 0.5);
 
     prePlayStartTextG1 = new PIXI.Text("5", new PIXI.TextStyle({
-        fontSize: 120,
+        fontSize: 180,
         fill: '#FFFFFF',
         fontWeight: 500
     }));
@@ -124,8 +125,6 @@ function setupGame1(){
     prePlayStartTextG1.position.set(app.screen.width/2, app.screen.height/2 - 200);
     prePlayStartTextG1.anchor.set(0.5, 0.5);
     prePlayStartTextG1.visible = false;
-    prePlayStartTextG1.alpha = 0.8;
-    prePlayStartTextG1.scale.set(2, 2);
 
     world3D = new PIXI.projection.Container2d();
     world3D.position.set(-90, 1075);
@@ -133,7 +132,7 @@ function setupGame1(){
 
     
 
-    stage1.addChild(cityRoadAniBg);
+    //stage1.addChild(cityRoadAniBg);
     //stage1.addChild(cityRoad);
     //stage1.addChild(crossingGroup);
 
@@ -232,13 +231,15 @@ function generateCrossingGroup(){
         s.type = crossObjects[i].type;
         s.counterY = crossObjects[i].posY;
         s.side = crossObjects[i].side;
+        s.counterX = crossObjects[i].posX;
+
         if(s.side == "left"){
-            s.counterX = -1500;
+            //s.counterX = -1500;
             if(s.type == "car"){
-                s.counterX = -5000;
+          //      s.counterX = -5000;
             }
         }else{
-            s.counterX = app.screen.width + 1500;
+            //s.counterX = app.screen.width + 1500;
             s.scale.x = -1;
             if(s.type == "car"){
                 s.counterX = app.screen.width + 5000;

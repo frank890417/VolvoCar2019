@@ -241,7 +241,7 @@ function setUpCarMovingAnimation(){
 
 function showMirrorCar(side){
     if(side == 'left'){
-        let tl = new TimelineMax();
+        carLeftMirrorTimeline_g3 = new TimelineMax();
 
         let leftMirrowPosStayAni = TweenMax.fromTo(carInMirrorLeft_g3.position, 3, {
             x: 300,
@@ -270,13 +270,13 @@ function showMirrorCar(side){
             y: 0.15
         });
 
-        tl.add(leftMirrowPosStayAni, 0);
-        tl.add(leftMirrowPosAni, 3);
-        tl.add(leftMirrowScaleAni, 3);
+        carLeftMirrorTimeline_g3.add(leftMirrowPosStayAni, 0);
+        carLeftMirrorTimeline_g3.add(leftMirrowPosAni, 3);
+        carLeftMirrorTimeline_g3.add(leftMirrowScaleAni, 3);
 
 
     }else{
-        let tl = new TimelineMax();
+        carRightMirrorTimeline_g3 = new TimelineMax();
 
         let rightMirrowPosStayAni = TweenMax.fromTo(carInMirrorRight_g3.position, 3, {
             x: 105,
@@ -305,9 +305,9 @@ function showMirrorCar(side){
             y: 0.15
         });
 
-        tl.add(rightMirrowPosStayAni, 0);
-        tl.add(rightMirrowPosAni, 3);
-        tl.add(rightMirrowScaleAni, 3);
+        carRightMirrorTimeline_g3.add(rightMirrowPosStayAni, 0);
+        carRightMirrorTimeline_g3.add(rightMirrowPosAni, 3);
+        carRightMirrorTimeline_g3.add(rightMirrowScaleAni, 3);
 
     }
 }
@@ -325,7 +325,7 @@ function setUpWifiAni(){
             leftWifi[i].visible = (i==leftWifiIndex)? true: false;
         }
         leftWifiIndex = (leftWifiIndex+1)%4;
-    }, 0.1).repeat(4);
+    }, 0.2).delay(0.2).repeat(8);
 
     rightWifiTimeline = new TimelineMax({
         pause: true,
@@ -338,7 +338,7 @@ function setUpWifiAni(){
             rightWifi[i].visible = (i==rightWifiIndex)? true: false;
         }
         rightWifiIndex = (rightWifiIndex+1)%4;
-    }, 0.1).repeat(4);
+    }, 0.2).delay(0.2).repeat(8);
 }
 
 
@@ -346,11 +346,24 @@ function addG3PrePlay(){
     prePlayTimelineG3 = new TimelineMax({paused:true});
     prePlayTimelineG3
     .add(()=>{
+        carLeftMirrorTimeline_g3.seek(3);
+        carLeftMirrorTimeline_g3.play();
+        carLeftTimeline_g3.seek(3);
+        carLeftTimeline_g3.play();
+        carMoveLeftAni = TweenMax.to(car_g3.position, 3,{
+            x: app.screen.width/2 - 300,
+            ease: Power0.easeNone
+        });
+        carSideSequenceIndex++;
+        nextCarSideSequence();
+
         timeText_g3.visible = false;
         timeRemainingText_g3.visible = false;
         isPrePlaying = true;
         prePlayStartTextG3.text = "5";
         prePlayStartTextG3.visible = true;
+        leftBtn_g3.tint = 0X555555;
+        rightBtn_g3.tint = 0X555555;
     }, 0)
     .add(()=>{
         prePlayStartTextG3.text = "4";
@@ -362,18 +375,18 @@ function addG3PrePlay(){
         prePlayStartTextG3.text = "2";
     }, 3)
     .add(()=>{
-        leftWifiTimeline.restart();
-        leftBtn_g3.tint = 0X555555;
-        leftBtnClick_g3 = true;
+        rightWifiTimeline.restart();
+        rightBtn_g3.tint = 0Xffffff;
+        rightBtnClick_g3 = true;
         prePlayStartTextG3.text = "1";
     }, 4)
     .add(()=>{
-        leftBtn_g3.tint = 0Xffffff;
-        leftBtnClick_g3 = false;
-        isPrePlaying = false;
+        // leftBtn_g3.tint = 0X555555;
+        // leftBtnClick_g3 = false;
         prePlayStartTextG3.text = "GO!";
     }, 5)
     .add(()=>{
+        leftBtn_g3.tint = 0Xffffff;
         prePlayStartTextG3.visible = false;
         timeText_g3.visible = true;
         timeRemainingText_g3.visible = true;

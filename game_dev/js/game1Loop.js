@@ -23,15 +23,19 @@ function game1Loop(){
         }
         
         if(s.counterY<20000){
-            s.visible = true;
+            if(s.visible==false){
+                s.visible = true;
+                TweenMax.fromTo(s, 1,{alpha:0}, {alpha:1});
+            }
         }else{
+            s.alpha = 0;
             s.visible = false;
         }
-        s.alpha = (20-s.counterY/2000)/20;
 
+    
         let sideVal = s.side == "left" ? 1: -1;
 
-		if(s.counterY< 6000){
+		if(s.counterY< 20000){
             
             if(s.type == "car"){
                 s.counterX += 30*sideVal;
@@ -45,7 +49,6 @@ function game1Loop(){
             if(s.position.x < app.screen.width/2 + roadWidth/4){
                 isInWarningRange = true;
             }
-
 
             if(s.counterY < -1000){
                 if(s.type == "car"){
@@ -70,7 +73,7 @@ function game1Loop(){
 
 
 
-    if(!pressStop && !isPrePlaying){
+    if(!pressStop){
         groundMoveSpeedG1+=1;
         if(groundMoveSpeedG1>50){
             groundMoveSpeedG1 = 50;
@@ -84,7 +87,8 @@ function game1Loop(){
 
 
     //影片速度控制
-    if(pressStop || isPrePlaying){
+    /*
+    if(pressStop){
         if(cityRoadAniBg.animationSpeed>0){
             cityRoadAniBg.animationSpeed -= 0.03;
             if(cityRoadAniBg.animationSpeed<0){
@@ -96,7 +100,7 @@ function game1Loop(){
             cityRoadAniBg.animationSpeed +=0.02;
         }
     }
-    
+    */
 
     //更新數量
     carCounterText.text = "0" + carCounter;

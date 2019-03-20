@@ -41,7 +41,7 @@ function loadAllAssets(){
         .add("roadMapG4Img", "images/game4/roadmap_g4.png")
         .add("myCarG4Img", "images/game4/car_me.png")
         .add("armyCarG4Img", "images/game4/car_army.png")
-        
+        /*
     for (let index = 36; index < 297; index++) {
         let tempIndex =  (100000+index).toString().substring(1);
         // console.log(tempIndex);
@@ -50,7 +50,7 @@ function loadAllAssets(){
             url: "images/game1/roadBgG1/bg1_" + tempIndex + ".jpg"
         });
     }
-
+*/
     for (let index = 1; index < 6; index++) {
         _loader.add({
             name: "wifiImg" + index,

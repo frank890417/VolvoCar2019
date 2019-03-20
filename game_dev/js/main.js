@@ -73,7 +73,7 @@ $(document).ready(function(){
             //stage1
             pressStop = false;
             pedal.tint = 0XFFFFFF;
-            cityRoadAniBg.animationSpeed = 1;
+            //cityRoadAniBg.animationSpeed = 1;
             //stage2
             leftBtn_g2.tint = 0XFFFFFF;
             carSpeedDown = false;
@@ -170,7 +170,7 @@ function resetG2Data(){
         s.counterX = 0;
     }
     carSpeed = 0;
-    currentCarPosition = 1500;
+    currentCarPosition = 1000;
 }
 
 function resetG3Data(){

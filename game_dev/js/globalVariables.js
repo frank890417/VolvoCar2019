@@ -48,17 +48,17 @@ var crossSequence = ['person', 'car', 'person', 'car', 'person', 'car', 'bike', 
 
 
 var crossObjects = [
-    {type: "walk", posY: 1000, side: "left"},
-    {type: "car", posY: 8000, side: "right"},
-    {type: "walk", posY: 16000, side: "left"},
-    {type: "car", posY: 20000, side: "left"},
-    {type: "walk", posY: 32000, side: "left"},
-    {type: "car", posY: 41000, side: "right"},
-    {type: "bike", posY: 50000, side: "right"},
-    {type: "walk", posY:52000, side: "left"},
-    {type: "car", posY: 57000, side: "right"},
-    {type: "walk", posY: 70000, side: "right"},
-    {type: "bike", posY: 74000, side: "left"}
+    {type: "walk", posX: -1000, posY: 1000, side: "left"},
+    {type: "car", posX: 8000, posY: 10000, side: "right"},
+    {type: "walk", posX: -1500, posY: 16000, side: "left"},
+    {type: "car", posX: -8000, posY: 20000, side: "left"},
+    {type: "walk", posX: -2000, posY: 32000, side: "left"},
+    {type: "car", posX: 5000, posY: 41000, side: "right"},
+    {type: "bike", posX: 8000, posY: 50000, side: "right"},
+    {type: "walk", posX: -3000, posY:52000, side: "left"},
+    {type: "car", posX: 8000, posY: 57000, side: "right"},
+    {type: "walk", posX: 6000, posY: 70000, side: "right"},
+    {type: "bike", posX: -3500, posY: 74000, side: "left"}
 ]
 
 var countImg;
@@ -135,10 +135,10 @@ var carSpeedMax = 1;
 var carSpeedUp = false;
 var carSpeedDown = false;
 
-var currentCarPosition = 1200;
+var currentCarPosition;
 var safeAreaHint = [];
 var safeAreaHintIndex = 0;
-var safeAreaMax = 1100;
+var safeAreaMax = 880;
 var safeAreaMin = 430;
 var safeState = false;
 var dangerAreaStayTime = 0;

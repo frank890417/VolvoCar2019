@@ -107,45 +107,44 @@ function addG2PrePlay(){
     .add(()=>{
         timeText_g2.visible = false;
         timeRemainingText_g2.visible = false;
-        //停車安全讓汽車通過
         isPrePlaying = true;
+        leftBtn_g2.tint = 0X555555;
     }, 0)
-    .add(()=>{
-        rightBtn_g2.tint = 0X555555;
-        carSpeedUp = true;
-    }, 2)
     .add(()=>{
         prePlayStartTextG2.text = "5";
         prePlayStartTextG2.visible = true;
-    }, 4)
+        rightBtn_g2.tint = 0Xffffff;
+        carSpeedUp = true;
+    }, 1)
     .add(()=>{
         prePlayStartTextG2.text = "4";
-    }, 5)
-    .add(()=>{
         
-        prePlayStartTextG2.text = "3";
-    }, 6)
+    }, 2)
     .add(()=>{
-        rightBtn_g2.tint = 0XFFFFFF;
+        prePlayStartTextG2.text = "3";
+    }, 3)
+    .add(()=>{
+        rightBtn_g2.tint = 0X555555;
         carSpeedUp = false;
         prePlayStartTextG2.text = "2";
-    }, 7)
-    .add(()=>{
-        leftBtn_g2.tint = 0X555555;
-        carSpeedDown = true;
-        prePlayStartTextG2.text = "1";
-    }, 8)
+    }, 4)
     .add(()=>{
         leftBtn_g2.tint = 0XFFFFFF;
-        carSpeedDown = false;
-        isPrePlaying = false;
-        prePlayStartTextG2.text = "GO!";
-    }, 9)
+        carSpeedDown = true;
+        prePlayStartTextG2.text = "1";
+    }, 5)
     .add(()=>{
+        leftBtn_g2.tint = 0X555555;
+        carSpeedDown = false;
+        prePlayStartTextG2.text = "GO!";
+    }, 6)
+    .add(()=>{
+        rightBtn_g2.tint = 0Xffffff;
+        leftBtn_g2.tint = 0XFFFFFF;
+        timeRemainingText_g2.visible = true;
         prePlayStartTextG2.visible = false;
         timeText_g2.visible = true;
-        timeRemainingText_g2.visible = true;
-        hintTextG2.visible = false;
+        isPrePlaying = false;
         resetAllTimers();
-    }, 10);
+    }, 7)
 }

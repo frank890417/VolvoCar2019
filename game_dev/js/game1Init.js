@@ -13,18 +13,16 @@ function registerGame1Event(){
     pedal.buttonMode = true;
     
     pedal.on("pointerdown", function(){
-        if(!isPrePlaying){
-            pressStop = true;
-            pedal.tint = 0X555555;
-        }
+        if(isPrePlaying) return;
+        pressStop = true;
+        pedal.tint = 0X555555;
     });
 
     pedal.on("pointerup",function(){
-        if(!isPrePlaying){
-            pressStop = false;
-            pedal.tint = 0XFFFFFF;
-            cityRoadAniBg.animationSpeed = 1;
-        }
+        if(isPrePlaying) return;
+        pressStop = false;
+        pedal.tint = 0XFFFFFF;
+        //cityRoadAniBg.animationSpeed = 1;
     });
     
     $( "body" ).keydown(function(e) {
@@ -71,56 +69,42 @@ function updateAxisG1(){
 
 function addG1PrePlay(){
 
-    //閃爍 READY 字
-    let startTextAni = TweenMax.fromTo(prePlayStartTextG1, 0.5, 
-        {
-            alpha: 0
-        },
-        {
-            alpha: 0.6,
-            repeat: 6,
-            yoyo: true
-        }
-    );
-
     prePlayTimelineG1 = new TimelineMax({paused:true});
     prePlayTimelineG1
     .add(()=>{
-        timeText.visible = false;
-        timeRemainingText.visible = false;
-        //停車安全讓汽車通過
         pedal.tint = 0X555555;
         isPrePlaying = true;
+        timeText.visible = false;
+        timeRemainingText.visible = false;
     }, 0)
     .add(()=>{
         prePlayStartTextG1.text = "5";
         prePlayStartTextG1.visible = true;
-    }, 4)
+    }, 1)
     .add(()=>{
         prePlayStartTextG1.text = "4";
-    }, 5)
+    }, 2)
     .add(()=>{
-        prePlayStartTextG1.text = "3";
-    }, 6)
+        prePlayStartTextG1.text = "3";        
+    }, 3)
     .add(()=>{
+        //停車安全讓汽車通過
+        pedal.tint = 0XFFFFFF;
         prePlayStartTextG1.text = "2";
-    }, 7)
+    }, 4)
     .add(()=>{
         prePlayStartTextG1.text = "1";
-    }, 8)
+    }, 5)
     .add(()=>{
-        //開始衝撞
-        pedal.tint = 0XFFFFFF;
-        cityRoadAniBg.animationSpeed = 1;
-        isPrePlaying = false;
         prePlayStartTextG1.text = "GO!";
-    }, 9)
+    }, 6)
     .add(()=>{
+        pedal.tint = 0X555555;
+        //cityRoadAniBg.animationSpeed = 1;
+        isPrePlaying = false;
         prePlayStartTextG1.visible = false;
         timeText.visible = true;
         timeRemainingText.visible = true;
-        hintTextG1.visible = false;
         resetAllTimers();
-    }, 10);
-    
+    }, 7)
 }

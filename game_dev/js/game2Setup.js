@@ -90,16 +90,16 @@ function setupGame2(){
 
 
     hintTextG2 = new PIXI.Text("請將車子保持在適當距離", new PIXI.TextStyle({
-        fontSize: 30,
+        fontSize: 24,
         fill: '#FFFFFF',
         fontWeight: 500
     }));
 
-    hintTextG2.position.set(app.screen.width/2, app.screen.height/2);
+    hintTextG2.position.set(app.screen.width/2, app.screen.height - dash.height - 30);
     hintTextG2.anchor.set(0.5, 0.5);
 
     prePlayStartTextG2 = new PIXI.Text("5", new PIXI.TextStyle({
-        fontSize: 120,
+        fontSize: 180,
         fill: '#FFFFFF',
         fontWeight: 500
     }));
@@ -107,8 +107,6 @@ function setupGame2(){
     prePlayStartTextG2.position.set(app.screen.width/2, app.screen.height/2 - 200);
     prePlayStartTextG2.anchor.set(0.5, 0.5);
     prePlayStartTextG2.visible = false;
-    prePlayStartTextG2.alpha = 0.8;
-    prePlayStartTextG2.scale.set(2, 2);
 
     world3D_g2 = new PIXI.projection.Container2d();
     world3D_g2.position.set(0, 700);

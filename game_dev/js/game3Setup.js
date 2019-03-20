@@ -127,17 +127,17 @@ function setupGame3(){
     mirrorHintRight_g3.visible = false;
 
     hintTextG3 = new PIXI.Text("請注意後照鏡並透過左右按鈕提醒車主", new PIXI.TextStyle({
-        fontSize: 30,
+        fontSize: 24,
         fill: '#FFFFFF',
         fontWeight: 500
     }));
 
-    hintTextG3.position.set(app.screen.width/2, app.screen.height/2);
+    hintTextG3.position.set(app.screen.width/2, app.screen.height/2 + 200);
     hintTextG3.anchor.set(0.5, 0.5);
 
 
     prePlayStartTextG3 = new PIXI.Text("5", new PIXI.TextStyle({
-        fontSize: 120,
+        fontSize: 180,
         fill: '#FFFFFF',
         fontWeight: 500
     }));
@@ -145,8 +145,6 @@ function setupGame3(){
     prePlayStartTextG3.position.set(app.screen.width/2, app.screen.height/2 - 200);
     prePlayStartTextG3.anchor.set(0.5, 0.5);
     prePlayStartTextG3.visible = false;
-    prePlayStartTextG3.alpha = 0.8;
-    prePlayStartTextG3.scale.set(2, 2);
 
     addVanishingAssetG3();
     
