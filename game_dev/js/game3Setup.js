@@ -126,7 +126,6 @@ function setupGame3(){
     mirrorHintRight_g3.position.set(mirrorRightPosition.x-120, mirrorRightPosition.y-120);
     mirrorHintRight_g3.visible = false;
 
-
     hintTextG3 = new PIXI.Text("請注意後照鏡並透過左右按鈕提醒車主", new PIXI.TextStyle({
         fontSize: 30,
         fill: '#FFFFFF',
@@ -135,6 +134,19 @@ function setupGame3(){
 
     hintTextG3.position.set(app.screen.width/2, app.screen.height/2);
     hintTextG3.anchor.set(0.5, 0.5);
+
+
+    prePlayStartTextG3 = new PIXI.Text("5", new PIXI.TextStyle({
+        fontSize: 120,
+        fill: '#FFFFFF',
+        fontWeight: 500
+    }));
+
+    prePlayStartTextG3.position.set(app.screen.width/2, app.screen.height/2 - 200);
+    prePlayStartTextG3.anchor.set(0.5, 0.5);
+    prePlayStartTextG3.visible = false;
+    prePlayStartTextG3.alpha = 0.8;
+    prePlayStartTextG3.scale.set(2, 2);
 
     addVanishingAssetG3();
     
@@ -165,6 +177,10 @@ function setupGame3(){
     stage3.addChild(hintRect_g3);
     stage3.addChild(hintRectGood_g3);
     stage3.addChild(hintTextG3);
+    stage3.addChild(prePlayStartTextG3);
+
+
+    
     
 }
 
@@ -194,12 +210,12 @@ function addVanishingAssetG3(){
 
     //橫線
     lineGroup_g3 = [];
-    for(let i=0; i< 20; i++){
+    for(let i=0; i< 10; i++){
         let s = new PIXI.projection.Sprite2d(bigWhiteTexture);
         s.tint = 0xffffff;
         s.scale.set(roadWidth_g3/30, 0.5);
         s.anchor.set(0.5);
-        s.counterY = 4000*i;
+        s.counterY = 3000*i;
         s.counterX = 0;
         s.position.set(app.screen.width/2, 10000);
         //調整物體水平還是垂直
@@ -207,6 +223,28 @@ function addVanishingAssetG3(){
         //紀錄物件參考
         lineGroup_g3.push(s);
         world3D_g3.addChild(s);
+    }
+
+
+    //wifi
+    for (let i = 1; i < 6; i++) {
+        let tempTex = PIXI.Texture.fromFrame('wifiImg' + i);
+        
+        let tempLeftWifi = new PIXI.projection.Sprite2d(tempTex);
+        tempLeftWifi.scale.set(-1.2, -1.2);
+        tempLeftWifi.tint = 0xffd25d;
+        tempLeftWifi.position.set(app.screen.width/2 - 120, carPosY_g3 - 500);
+        leftWifi.push(tempLeftWifi);
+
+        let tempRightWifi=  new PIXI.projection.Sprite2d(tempTex);
+        tempRightWifi.position.set(app.screen.width/2 + 120, carPosY_g3 - 500);
+        tempRightWifi.scale.set(1.2, -1.2);
+        tempRightWifi.tint = 0xffd25d;
+        rightWifi.push(tempRightWifi);
+        
+        world3D_g3.addChild(tempLeftWifi);
+        world3D_g3.addChild(tempRightWifi);
+
     }
 
     //左右來車
@@ -231,6 +269,11 @@ function addVanishingAssetG3(){
     car_g3.position.set(app.screen.width/2, carPosY_g3);
     car_g3.proj.affine = PIXI.projection.AFFINE.AXIS_Y;
     world3D_g3.addChild(car_g3);
+
+
+    
+    
+    
 
     //消失點標記
     vanishingPointStyle_g3 = new PIXI.TextStyle({

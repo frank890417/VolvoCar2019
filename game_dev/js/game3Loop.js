@@ -1,6 +1,7 @@
 
 var timeCounter3 = 0;
-function game3Loop() {    
+function game3Loop() {
+
     //更新橫線
     for(let i=0; i< lineGroup_g3.length; i++){
         let s = lineGroup_g3[i];
@@ -9,7 +10,7 @@ function game3Loop() {
         }
         s.position.y = s.counterY;
         if(s.counterY< -500){
-            s.counterY = 100000;
+            s.counterY = 3000*11;
         }
     }
 
@@ -44,6 +45,15 @@ function game3Loop() {
         }
     }
 
+    //update wifi
+    for(let i=0; i<5; i++){
+        let tempWifiL = leftWifi[i];
+        let tempWifiR = rightWifi[i];
+        tempWifiL.position.set(car_g3.position.x - 120, car_g3.position.y - 500);
+        tempWifiR.position.set(car_g3.position.x + 120, car_g3.position.y - 500);
+    }
+
+    
     // car_g3.position.x = Math.sin(timeCounter3/100)*50 + app.screen.width/2;
     // car_g3.position.y = Math.sin(timeCounter3/300)*10 + carPosY_g3;
     

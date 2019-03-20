@@ -117,6 +117,8 @@ function resetAllGamesData(){
         prePlayTimelineG1.restart();
     }else if(currentStage == 2){
         prePlayTimelineG2.restart();
+    }else if(currentStage == 3){
+        prePlayTimelineG3.restart();
     }
     
 

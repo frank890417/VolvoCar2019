@@ -35,9 +35,9 @@ function setupGame1(){
 
 
     //動態背景
-    let bgTexs = [], i;
+    let bgTexs = [];
 
-    for (i = 36; i < 297; i++) {
+    for (let i = 36; i < 297; i++) {
          let tempTex = PIXI.Texture.fromFrame('roadBgG1' + i);
          bgTexs.push(tempTex);
     }

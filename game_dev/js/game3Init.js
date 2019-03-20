@@ -4,6 +4,7 @@ function game3Init(){
     registerGame3Event();    
     updateAxisG3();
     addG3PrePlay();
+    setUpWifiAni();
     rightBtnClick_g3 = false;
     leftBtnClick_g3 = false;
 
@@ -23,21 +24,27 @@ function registerGame3Event(){
     leftBtn_g3.buttonMode = true;
     
     rightBtn_g3.on("pointerdown", function(){
+        if(isPrePlaying) return;
+        rightWifiTimeline.restart();
         rightBtn_g3.tint = 0X555555;
         rightBtnClick_g3 = true;
     });
 
     rightBtn_g3.on("pointerup",function(){
+        if(isPrePlaying) return;
         rightBtn_g3.tint = 0XFFFFFF;
         rightBtnClick_g3 = false;
     });
 
     leftBtn_g3.on("pointerdown", function(){
+        if(isPrePlaying) return;
+        leftWifiTimeline.restart();
         leftBtn_g3.tint = 0X555555;
         leftBtnClick_g3 = true;
     });
 
     leftBtn_g3.on("pointerup",function(){
+        if(isPrePlaying) return;
         leftBtn_g3.tint = 0XFFFFFF;
         leftBtnClick_g3 = false;
     });
@@ -45,6 +52,7 @@ function registerGame3Event(){
     
     $( "body" ).keyup(function(e) {
         let k = e.keyCode;
+        if(isPrePlaying) return;
         switch (k) {
             case 37:
             leftBtn_g3.tint = 0XFFFFFF;
@@ -61,13 +69,15 @@ function registerGame3Event(){
         let k = e.keyCode;
         console.log(k);
         let power = 20;
-        
+        if(isPrePlaying) return;
         switch (k) {
             case 37:
+                leftWifiTimeline.restart();
                 leftBtn_g3.tint = 0X555555;
                 leftBtnClick_g3 = true;
                 break;
             case 39:
+                rightWifiTimeline.restart();
                 rightBtn_g3.tint = 0X555555;
                 rightBtnClick_g3 = true;
                 break;
@@ -135,11 +145,12 @@ function setUpCarMovingAnimation(){
         onStart: ()=>{
             isLeftCarComes = true;
             showMirrorCar("left");
-            //這邊會建立 車子往左靠的動畫
+            //車子往左靠的動畫
             carMoveLeftAni = TweenMax.to(car_g3.position, 3,{
                 x: app.screen.width/2 - 300,
                 ease: Power0.easeNone
-            });
+            }).delay(3);
+            
         },
         onComplete: ()=>{
             carLeftTimeline_g3.pause();
@@ -149,8 +160,10 @@ function setUpCarMovingAnimation(){
         paused:true
     });
 
+    
+
     carLeftTimeline_g3
-    .add(carComingLeftMove, 1)
+    .add(carComingLeftMove, 4)
     .add(function(){
         isLeftCarComes = false;
         if(carMoveLeftAni){
@@ -173,7 +186,7 @@ function setUpCarMovingAnimation(){
             });
             tl.fromTo(hintRect_g3, 0.2, {alpha: 0.3}, {alpha: 0}).yoyo(1).repeat(6);
         }
-    }, 1.7);
+    }, 4.7);
 
 
     let carComingRightMove = TweenMax.fromTo(carComingRight_g3.position, 10, {
@@ -191,7 +204,7 @@ function setUpCarMovingAnimation(){
             carMoveRightAni = TweenMax.to(car_g3.position, 3,{
                 x: app.screen.width/2 + 300,
                 ease: Power0.easeNone
-            });
+            }).delay(3);
         },
         onComplete: ()=>{
             carRightTimeline_g3.pause();
@@ -202,7 +215,7 @@ function setUpCarMovingAnimation(){
     });
 
     carRightTimeline_g3
-    .add(carComingRightMove, 1)
+    .add(carComingRightMove, 4)
     .add(function(){
         isRightCarComes = false;
         if(carMoveRightAni){
@@ -222,14 +235,25 @@ function setUpCarMovingAnimation(){
             });
             tl.fromTo(hintRect_g3, 0.2, {alpha: 0.3}, {alpha: 0}).yoyo(1).repeat(6);
         }
-    }, 1.7);
+    }, 4.7);
 }
 
 
 function showMirrorCar(side){
     if(side == 'left'){
-        TweenMax.fromTo(carInMirrorLeft_g3.position, 3, {
-            x: 250,
+        let tl = new TimelineMax();
+
+        let leftMirrowPosStayAni = TweenMax.fromTo(carInMirrorLeft_g3.position, 3, {
+            x: 300,
+            y: 105,
+            ease: Power0.easeNone
+        },{
+            x: 295,
+            y: 100
+        });
+
+        let leftMirrowPosAni = TweenMax.fromTo(carInMirrorLeft_g3.position, 3, {
+            x: 295,
             y: 100,
             ease: Power0.easeNone
         },{
@@ -237,7 +261,7 @@ function showMirrorCar(side){
             y: 300
         });
     
-        TweenMax.fromTo(carInMirrorLeft_g3.scale, 2, {
+        let leftMirrowScaleAni = TweenMax.fromTo(carInMirrorLeft_g3.scale, 2, {
             x: 0.01,
             y: 0.01,
             ease: Power0.easeNone
@@ -245,8 +269,25 @@ function showMirrorCar(side){
             x: 0.15,
             y: 0.15
         });
+
+        tl.add(leftMirrowPosStayAni, 0);
+        tl.add(leftMirrowPosAni, 3);
+        tl.add(leftMirrowScaleAni, 3);
+
+
     }else{
-        TweenMax.fromTo(carInMirrorRight_g3.position, 3, {
+        let tl = new TimelineMax();
+
+        let rightMirrowPosStayAni = TweenMax.fromTo(carInMirrorRight_g3.position, 3, {
+            x: 105,
+            y: 105,
+            ease: Power0.easeNone
+        },{
+            x: 100,
+            y: 100
+        });
+
+        let rightMirrowPosAni = TweenMax.fromTo(carInMirrorRight_g3.position, 3, {
             x: 100,
             y: 100,
             ease: Power0.easeNone
@@ -255,7 +296,7 @@ function showMirrorCar(side){
             y: 300
         });
     
-        TweenMax.fromTo(carInMirrorRight_g3.scale, 2, {
+        let rightMirrowScaleAni = TweenMax.fromTo(carInMirrorRight_g3.scale, 2, {
             x: 0.01,
             y: 0.01,
             ease: Power0.easeNone
@@ -263,9 +304,42 @@ function showMirrorCar(side){
             x: 0.15,
             y: 0.15
         });
+
+        tl.add(rightMirrowPosStayAni, 0);
+        tl.add(rightMirrowPosAni, 3);
+        tl.add(rightMirrowScaleAni, 3);
+
     }
 }
 
+
+function setUpWifiAni(){
+    leftWifiTimeline = new TimelineMax({
+        pause: true,
+        onStart: ()=>{
+            leftWifiIndex = 0;
+        }
+    });
+    leftWifiTimeline.add(()=>{
+        for (let i = 0; i < 5; i++) {
+            leftWifi[i].visible = (i==leftWifiIndex)? true: false;
+        }
+        leftWifiIndex = (leftWifiIndex+1)%4;
+    }, 0.1).repeat(4);
+
+    rightWifiTimeline = new TimelineMax({
+        pause: true,
+        onStart: ()=>{
+            rightWifiIndex = 0;
+        }
+    });
+    rightWifiTimeline.add(()=>{
+        for (let i = 0; i < 5; i++) {
+            rightWifi[i].visible = (i==rightWifiIndex)? true: false;
+        }
+        rightWifiIndex = (rightWifiIndex+1)%4;
+    }, 0.1).repeat(4);
+}
 
 
 function addG3PrePlay(){
@@ -274,44 +348,39 @@ function addG3PrePlay(){
     .add(()=>{
         timeText_g3.visible = false;
         timeRemainingText_g3.visible = false;
-        //停車安全讓汽車通過
         isPrePlaying = true;
+        prePlayStartTextG3.text = "5";
+        prePlayStartTextG3.visible = true;
     }, 0)
     .add(()=>{
-
+        prePlayStartTextG3.text = "4";
+    }, 1)
+    .add(()=>{
+        prePlayStartTextG3.text = "3";
     }, 2)
     .add(()=>{
-        prePlayStartTextG2.text = "5";
-        prePlayStartTextG2.visible = true;
+        prePlayStartTextG3.text = "2";
+    }, 3)
+    .add(()=>{
+        leftWifiTimeline.restart();
+        leftBtn_g3.tint = 0X555555;
+        leftBtnClick_g3 = true;
+        prePlayStartTextG3.text = "1";
     }, 4)
     .add(()=>{
-        
-        prePlayStartTextG2.text = "4";
+        leftBtn_g3.tint = 0Xffffff;
+        leftBtnClick_g3 = false;
+        isPrePlaying = false;
+        prePlayStartTextG3.text = "GO!";
     }, 5)
     .add(()=>{
-        
-        prePlayStartTextG2.text = "3";
-    }, 6)
-    .add(()=>{
-
-        prePlayStartTextG2.text = "2";
-    }, 7)
-    .add(()=>{
-
-        prePlayStartTextG2.text = "1";
-    }, 8)
-    .add(()=>{
-
-        isPrePlaying = false;
-        prePlayStartTextG2.text = "GO!";
-    }, 9)
-    .add(()=>{
-        prePlayStartTextG2.visible = false;
+        prePlayStartTextG3.visible = false;
         timeText_g3.visible = true;
         timeRemainingText_g3.visible = true;
         hintTextG3.visible = false;
+        isPrePlaying = false;
         resetAllTimers();
-    }, 10);
+    }, 6)
 
 
 /*

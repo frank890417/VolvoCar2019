@@ -45,8 +45,16 @@ function loadAllAssets(){
     for (let index = 36; index < 297; index++) {
         let tempIndex =  (100000+index).toString().substring(1);
         // console.log(tempIndex);
-        _loader.add({name: "roadBgG1" + index,
+        _loader.add({
+            name: "roadBgG1" + index,
             url: "images/game1/roadBgG1/bg1_" + tempIndex + ".jpg"
+        });
+    }
+
+    for (let index = 1; index < 6; index++) {
+        _loader.add({
+            name: "wifiImg" + index,
+            url: "images/game3/wifi/" + index + ".png"
         });
     }
 

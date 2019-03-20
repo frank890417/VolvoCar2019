@@ -188,6 +188,12 @@ var lineLeft_g3;
 var lineRight_g3;
 var roadWidth_g3 = 1920*1.5;
 var lineGroup_g3;
+var leftWifi = [];
+var rightWifi = [];
+var leftWifiIndex = 0;
+var rightWifiIndex = 0;
+var leftWifiTimeline;
+var rightWifiTimeline;
 
 //後照鏡
 var mirrorLeft_g3;
