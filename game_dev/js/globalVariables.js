@@ -49,7 +49,7 @@ var crossSequence = ['person', 'car', 'person', 'car', 'person', 'car', 'bike', 
 
 var crossObjects = [
     {type: "walk", posX: -1500, posY: 1000, side: "left"},
-    {type: "car", posX: 8000, posY: 10000, side: "right"},
+    {type: "car", posX: 8000, posY: 7000, side: "right"},
     {type: "walk", posX: -1500, posY: 18000, side: "left"},
     {type: "car", posX: -8000, posY: 26000, side: "left"},
     {type: "walk", posX: -1500, posY: 33000, side: "left"},
