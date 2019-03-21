@@ -76,20 +76,24 @@ function addG1PrePlay(){
         isPrePlaying = true;
         timeText.visible = false;
         timeRemainingText.visible = false;
+        pressStop = true;
     }, 0)
     .add(()=>{
+        pedal.tint = 0XFFFFFF;
         prePlayStartTextG1.text = "5";
         prePlayStartTextG1.visible = true;
+        
     }, 1)
     .add(()=>{
         prePlayStartTextG1.text = "4";
     }, 2)
     .add(()=>{
-        prePlayStartTextG1.text = "3";        
+        pedal.tint = 0X555555;
+        prePlayStartTextG1.text = "3";
+        pressStop = false;   
     }, 3)
     .add(()=>{
         //停車安全讓汽車通過
-        pedal.tint = 0XFFFFFF;
         prePlayStartTextG1.text = "2";
     }, 4)
     .add(()=>{
@@ -99,7 +103,7 @@ function addG1PrePlay(){
         prePlayStartTextG1.text = "GO!";
     }, 6)
     .add(()=>{
-        pedal.tint = 0X555555;
+        pedal.tint = 0XFFFFFF;
         //cityRoadAniBg.animationSpeed = 1;
         isPrePlaying = false;
         prePlayStartTextG1.visible = false;

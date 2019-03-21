@@ -35,7 +35,7 @@ function game1Loop(){
     
         let sideVal = s.side == "left" ? 1: -1;
 
-		if(s.counterY< 20000){
+		if(s.counterY < 8000){
             
             if(s.type == "car"){
                 s.counterX += 30*sideVal;

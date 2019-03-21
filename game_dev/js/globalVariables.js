@@ -48,17 +48,17 @@ var crossSequence = ['person', 'car', 'person', 'car', 'person', 'car', 'bike', 
 
 
 var crossObjects = [
-    {type: "walk", posX: -1000, posY: 1000, side: "left"},
+    {type: "walk", posX: -1500, posY: 1000, side: "left"},
     {type: "car", posX: 8000, posY: 10000, side: "right"},
-    {type: "walk", posX: -1500, posY: 16000, side: "left"},
-    {type: "car", posX: -8000, posY: 20000, side: "left"},
-    {type: "walk", posX: -2000, posY: 32000, side: "left"},
+    {type: "walk", posX: -1500, posY: 18000, side: "left"},
+    {type: "car", posX: -8000, posY: 26000, side: "left"},
+    {type: "walk", posX: -1500, posY: 33000, side: "left"},
     {type: "car", posX: 5000, posY: 41000, side: "right"},
     {type: "bike", posX: 8000, posY: 50000, side: "right"},
-    {type: "walk", posX: -3000, posY:52000, side: "left"},
-    {type: "car", posX: 8000, posY: 57000, side: "right"},
-    {type: "walk", posX: 6000, posY: 70000, side: "right"},
-    {type: "bike", posX: -3500, posY: 74000, side: "left"}
+    {type: "walk", posX: -1500, posY:57000, side: "left"},
+    {type: "car", posX: 8000, posY: 66000, side: "right"},
+    {type: "walk", posX: 6000, posY: 75000, side: "right"},
+    {type: "bike", posX: -3500, posY: 88000, side: "left"}
 ]
 
 var countImg;

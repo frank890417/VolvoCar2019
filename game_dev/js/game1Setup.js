@@ -231,21 +231,26 @@ function generateCrossingGroup(){
         s.type = crossObjects[i].type;
         s.counterY = crossObjects[i].posY;
         s.side = crossObjects[i].side;
-        s.counterX = crossObjects[i].posX;
+        // s.counterX = crossObjects[i].posX;
 
         if(s.side == "left"){
-            //s.counterX = -1500;
+            s.counterX = -1500;
             if(s.type == "car"){
-          //      s.counterX = -5000;
+               s.counterX = -5000;
             }
         }else{
-            //s.counterX = app.screen.width + 1500;
+            s.counterX = app.screen.width + 1500;
             s.scale.x = -1;
             if(s.type == "car"){
                 s.counterX = app.screen.width + 5000;
                 s.scale.set(-2.5, 2.5);
             }
         }
+        if(i==0){
+            s.counterX = 500;
+        }
+
+        
         s.anchor.set(0.5);
         s.position.x = 0;
         //調整物體水平還是垂直
