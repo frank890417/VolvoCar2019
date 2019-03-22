@@ -1,4 +1,8 @@
 function setupGame2(){
+    
+    g2Ui =  new PIXI.Sprite(PIXI.loader.resources.g2Ui.texture);
+    g2Ui.position.set(0, 0);
+    g2Ui.anchor.set(0, 0);
 
     timeText_g2 = new PIXI.Text("Time", new PIXI.TextStyle({
         fontSize: 52,
@@ -24,17 +28,16 @@ function setupGame2(){
     hintRect_g2.endFill();
     hintRect_g2.visible = false;
 
-    // let bgTexs = [], i;
+    let bgTexs = [];
 
-    // for (i = 0; i < 480; i++) {
-    //      let tempTex = PIXI.Texture.fromFrame('roadBgG2' + i);
-    //      bgTexs.push(tempTex);
-    // }
+    for (let i = 0; i < 7; i++) {
+         let tempTex = PIXI.Texture.fromFrame('roadBgG2' + i);
+         bgTexs.push(tempTex);
+    }
     
-    // cityRoadAniBg_g2 = new PIXI.extras.AnimatedSprite(bgTexs);
-    // cityRoadAniBg_g2.scale.set(2, 2);
-    // cityRoadAniBg_g2.animationSpeed = 1;
-    // cityRoadAniBg_g2.play();
+    cityRoadAniBg_g2 = new PIXI.extras.AnimatedSprite(bgTexs);
+    cityRoadAniBg_g2.animationSpeed = 1;
+    cityRoadAniBg_g2.play();
 
 
     // cityRoad_g2 =  new PIXI.Sprite(PIXI.loader.resources.cityImg.texture);
@@ -113,23 +116,24 @@ function setupGame2(){
     addVanishingAssetG2();
     
 
-    //stage2.addChild(cityRoadAniBg_g2)
+    stage2.addChild(cityRoadAniBg_g2)
     // stage2.addChild(cityRoad_g2);
     stage2.addChild(vanishingPoint_g2);
     stage2.addChild(world3D_g2);
 
-    stage2.addChild(dash_g2);
-    stage2.addChild(missImg_g2);
-    stage2.addChild(hint_g2);
-    stage2.addChild(mrImg_g2);
-    stage2.addChild(sysImg_g2);
-    stage2.addChild(timeText_g2);
-    stage2.addChild(timeRemainingText_g2);
+    // stage2.addChild(dash_g2);
+    // stage2.addChild(missImg_g2);
+    // stage2.addChild(hint_g2);
+    // stage2.addChild(mrImg_g2);
+    // stage2.addChild(sysImg_g2);
+    // stage2.addChild(timeText_g2);
+    // stage2.addChild(timeRemainingText_g2);
     stage2.addChild(rightBtn_g2);
     stage2.addChild(leftBtn_g2);
     stage2.addChild(prePlayStartTextG2);
     stage2.addChild(hintTextG2);
     stage2.addChild(hintRect_g2);
+    stage2.addChild(g2Ui);
 
 }
 
@@ -152,8 +156,8 @@ function addVanishingAssetG2(){
     lineRight_g2.anchor.set(0.5, 0.5);
     lineRight_g2.position.set((app.screen.width+roadWidth_g2)/2, 0);
     
-    world3D_g2.addChild(lineLeft_g2);
-    world3D_g2.addChild(lineRight_g2);
+    // world3D_g2.addChild(lineLeft_g2);
+    //world3D_g2.addChild(lineRight_g2);
 
     //橫線
     lineGroup_g2 = [];
@@ -169,7 +173,7 @@ function addVanishingAssetG2(){
         s.proj.affine = PIXI.projection.AFFINE.AXIS_X;
         //紀錄物件參考
         lineGroup_g2.push(s);
-        world3D_g2.addChild(s);
+        // world3D_g2.addChild(s);
     }
 
     //加入路燈

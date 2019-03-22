@@ -2,6 +2,7 @@
 function loadAllAssets(){
     let _loader = PIXI.loader
         .add("g1Ui", "images/game1/Game1_ui_v1.png")
+        .add("g2Ui", "images/game2/Game2_ui_v1.png")
         .add("countImg", "images/game1/count.png")
         .add("bikeImg", "images/game1/bike_g1.png")
         .add("dashImg", "images/game1/dash.png")
@@ -59,12 +60,12 @@ function loadAllAssets(){
         });
     }
 
-    // for (let index = 0; index < 480; index++) {
-    //     let tempIndex =  (100000+index).toString().substring(1);
-    //     _loader.add({name: "roadBgG2" + index,
-    //         url: "images/game2/roadBgG2/roadG2_" + tempIndex + ".jpg"
-    //     });
-    // }
+    for (let index = 0; index < 7; index++) {
+        let tempIndex =  (100000+index).toString().substring(1);
+        _loader.add({name: "roadBgG2" + index,
+            url: "images/game2/roadBgG2/roadG2_" + tempIndex + ".jpg"
+        });
+    }
 
     // _loader.add('roadBgVideoG1').onComplete.once(() => {
     //     const res = _loader.resources['roadBgVideoG1'];

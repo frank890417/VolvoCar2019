@@ -110,6 +110,7 @@ var lineGroup;
 var hintTextG1;
 
 //第二關
+var g2Ui;
 var hintRect_g2;
 var timerGame2;
 var timeText_g2;
