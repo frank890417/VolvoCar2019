@@ -49,10 +49,10 @@ var crossSequence = ['person', 'car', 'person', 'car', 'person', 'car', 'bike', 
 
 var crossObjects = [
     {type: "walk", posX: -1500, posY: 1000, side: "left"},
-    {type: "car", posX: 8000, posY: 7000, side: "right"},
+    {type: "car", posX: 1500, posY: 8000, side: "right"},
     {type: "walk", posX: -1500, posY: 18000, side: "left"},
-    {type: "car", posX: -8000, posY: 26000, side: "left"},
-    {type: "walk", posX: -1500, posY: 33000, side: "left"},
+    {type: "walk", posX: 8000, posY: 26000, side: "right"},
+    {type: "car", posX: -1500, posY: 33000, side: "left"},
     {type: "car", posX: 5000, posY: 41000, side: "right"},
     {type: "bike", posX: 8000, posY: 50000, side: "right"},
     {type: "walk", posX: -1500, posY:57000, side: "left"},
@@ -61,6 +61,7 @@ var crossObjects = [
     {type: "bike", posX: -3500, posY: 88000, side: "left"}
 ]
 
+var g1Ui;
 var countImg;
 
 var carCounter = 4;
@@ -76,6 +77,7 @@ var groupSpeedMax = 2;
 var groupSpeedMin = 0.05;
 var groupSpeed = 2;
 var pressStop = false;
+var bgAnimationSpeed = 0.2;
 
 var cityRoad;
 var cityRoadAniBg;

@@ -22,7 +22,7 @@ function registerGame1Event(){
         if(isPrePlaying) return;
         pressStop = false;
         pedal.tint = 0XFFFFFF;
-        //cityRoadAniBg.animationSpeed = 1;
+        cityRoadAniBg.animationSpeed = bgAnimationSpeed;
     });
     
     $( "body" ).keydown(function(e) {
@@ -91,6 +91,7 @@ function addG1PrePlay(){
         pedal.tint = 0X555555;
         prePlayStartTextG1.text = "3";
         pressStop = false;   
+        cityRoadAniBg.animationSpeed = bgAnimationSpeed;
     }, 3)
     .add(()=>{
         //停車安全讓汽車通過
@@ -104,7 +105,6 @@ function addG1PrePlay(){
     }, 6)
     .add(()=>{
         pedal.tint = 0XFFFFFF;
-        //cityRoadAniBg.animationSpeed = 1;
         isPrePlaying = false;
         prePlayStartTextG1.visible = false;
         timeText.visible = true;

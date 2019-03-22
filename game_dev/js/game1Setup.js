@@ -1,6 +1,10 @@
 
 function setupGame1(){
 
+    g1Ui =  new PIXI.Sprite(PIXI.loader.resources.g1Ui.texture);
+    g1Ui.position.set(0, 0);
+    g1Ui.anchor.set(0, 0);
+
     timeText = new PIXI.Text("Time", new PIXI.TextStyle({
         fontSize: 52,
         fill: '#FFD25D',
@@ -35,18 +39,18 @@ function setupGame1(){
 
 
     //動態背景
-    /*
+    
     let bgTexs = [];
 
-    for (let i = 36; i < 297; i++) {
+    for (let i = 0; i < 119; i++) {
          let tempTex = PIXI.Texture.fromFrame('roadBgG1' + i);
          bgTexs.push(tempTex);
     }
     
     cityRoadAniBg = new PIXI.extras.AnimatedSprite(bgTexs);
-    cityRoadAniBg.animationSpeed = 1;
+    cityRoadAniBg.animationSpeed = bgAnimationSpeed;
     cityRoadAniBg.play();
-*/
+
 
     // let bgTexs = PIXI.Texture.fromVideo("images/game1/roadBgVideoG1.mp4");
     // cityRoadAniBg = new PIXI.Sprite(bgTexs);
@@ -132,28 +136,29 @@ function setupGame1(){
 
     
 
-    //stage1.addChild(cityRoadAniBg);
+    stage1.addChild(cityRoadAniBg);
     //stage1.addChild(cityRoad);
     //stage1.addChild(crossingGroup);
 
     stage1.addChild(vanishingPoint);
     stage1.addChild(world3D);
 
-    stage1.addChild(dash);
-    stage1.addChild(missImg);
-    stage1.addChild(mrImg);
-    stage1.addChild(sysImg);
-    stage1.addChild(countImg);
-    stage1.addChild(carCounterText);
-    stage1.addChild(bikeCounterText);
-    stage1.addChild(walkCounterText);
+    // stage1.addChild(dash);
+    // stage1.addChild(missImg);
+    // stage1.addChild(mrImg);
+    // stage1.addChild(sysImg);
+    // stage1.addChild(countImg);
+    // stage1.addChild(carCounterText);
+    // stage1.addChild(bikeCounterText);
+    // stage1.addChild(walkCounterText);
     stage1.addChild(pedalWarning);
     stage1.addChild(pedal);
-    stage1.addChild(timeText);
-    stage1.addChild(timeRemainingText);
+    // stage1.addChild(timeText);
+    // stage1.addChild(timeRemainingText);
     stage1.addChild(prePlayStartTextG1);
     stage1.addChild(hintRect);
     stage1.addChild(hintTextG1);
+    stage1.addChild(g1Ui);
     
 }
 
@@ -176,8 +181,8 @@ function addVanishingAsset(){
     lineRight.anchor.set(0.5, 0.5);
     lineRight.position.set((app.screen.width+roadWidth)/2, 0);
     
-    world3D.addChild(lineLeft);
-    world3D.addChild(lineRight);
+    // world3D.addChild(lineLeft);
+    // world3D.addChild(lineRight);
 
     //橫線
     lineGroup = [];
@@ -193,7 +198,7 @@ function addVanishingAsset(){
         s.proj.affine = PIXI.projection.AFFINE.AXIS_X;
         //紀錄物件參考
         lineGroup.push(s);
-        world3D.addChild(s);
+        // world3D.addChild(s);
     }
 
     generateCrossingGroup();
@@ -206,7 +211,7 @@ function addVanishingAsset(){
     
     vanishingPoint = new PIXI.Text('Ｏ', vanishingPointStyle);
     vanishingPoint.anchor.set(0.5);
-    vanishingPoint.position.set(960, 715);
+    vanishingPoint.position.set(960, 330);
 
 }
 

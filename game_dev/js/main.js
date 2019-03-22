@@ -73,7 +73,7 @@ $(document).ready(function(){
             //stage1
             pressStop = false;
             pedal.tint = 0XFFFFFF;
-            //cityRoadAniBg.animationSpeed = 1;
+            cityRoadAniBg.animationSpeed = bgAnimationSpeed;
             //stage2
             leftBtn_g2.tint = 0XFFFFFF;
             carSpeedDown = false;

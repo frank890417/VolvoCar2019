@@ -87,7 +87,7 @@ function game1Loop(){
 
 
     //影片速度控制
-    /*
+    
     if(pressStop){
         if(cityRoadAniBg.animationSpeed>0){
             cityRoadAniBg.animationSpeed -= 0.03;
@@ -100,7 +100,7 @@ function game1Loop(){
             cityRoadAniBg.animationSpeed +=0.02;
         }
     }
-    */
+    
 
     //更新數量
     carCounterText.text = "0" + carCounter;
