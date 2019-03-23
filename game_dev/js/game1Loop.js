@@ -90,14 +90,14 @@ function game1Loop(){
     
     if(pressStop){
         if(cityRoadAniBg.animationSpeed>0){
-            cityRoadAniBg.animationSpeed -= 0.03;
+            cityRoadAniBg.animationSpeed -= 0.01;
             if(cityRoadAniBg.animationSpeed<0){
                 cityRoadAniBg.animationSpeed = 0;
             }
         }
     }else{
         if(cityRoadAniBg.animationSpeed>1){
-            cityRoadAniBg.animationSpeed +=0.02;
+            cityRoadAniBg.animationSpeed +=0.005;
         }
     }
     

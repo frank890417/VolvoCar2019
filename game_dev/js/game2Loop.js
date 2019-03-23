@@ -27,18 +27,24 @@ function game2Loop() {
 
     //車子移動設定
     if(carSpeedUp){
-        carSpeed+=0.1;
+        carSpeed+=0.3;
         if(carSpeed > carSpeedMax){
             carSpeed = carSpeedMax;
         }
+    }else{
+        carSpeed-=0.01;
     }
 
     if(carSpeedDown){
-        carSpeed-=0.5;
+        carSpeed-=0.3;
         if(carSpeed < carSpeedMin){
             carSpeed = carSpeedMin;
         }
     }
+
+    //隨機改變車子速度
+    carSpeed += carSpeedRandomSeed;
+
 
     //是否離開安全區
     if(currentCarPosition<safeAreaMax && currentCarPosition > safeAreaMin){

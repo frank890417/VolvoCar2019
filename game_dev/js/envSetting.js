@@ -3,7 +3,8 @@ function setupEnv(){
     if(!PIXI.utils.isWebGLSupported()){
         type = "canvas";
     }
-    PIXI.utils.sayHello(type);
+    // PIXI.utils.sayHello(type);
+    PIXI.utils.skipHello();
     app = new PIXI.Application({
         width: DEFAULT_STAGE_WIDTH,
         height: DEFAULT_STAGE_HEIGHT,

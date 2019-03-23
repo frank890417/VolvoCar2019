@@ -2,6 +2,15 @@ $(document).ready(function(){
     
     setupEnv();
 
+    $("body, html").css("height", document.documentElement.clientHeight);
+    $( window ).resize(function() {
+        $("body, html").css("height", document.documentElement.clientHeight);
+    });
+
+    $(".toggleMenu").on("click", function(){
+        $(".nav").removeClass("inActive");
+    });
+
     //關卡切換按鈕
     $(".item").on("click", function(){
         isGameRunning = false;
@@ -22,6 +31,7 @@ $(document).ready(function(){
     });
 
     $(".game-start").on("click", function(){
+        $(".nav").addClass("inActive");
         isGameRunning = true;
         isPrePlaying = false;
         $(this).fadeOut();

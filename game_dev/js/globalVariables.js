@@ -137,6 +137,7 @@ var carSpeedMin = -1;
 var carSpeedMax = 1;
 var carSpeedUp = false;
 var carSpeedDown = false;
+var carSpeedRandomSeed = 0;
 
 var currentCarPosition;
 var safeAreaHint = [];

@@ -147,4 +147,32 @@ function addG2PrePlay(){
         isPrePlaying = false;
         resetAllTimers();
     }, 7)
+    //車子隨機變速
+    .add(()=>{
+        carSpeedRandomSeed = -0.01;
+    }, 13)
+    .add(()=>{
+        carSpeedRandomSeed = +0.01;
+    }, 16)
+    .add(()=>{
+        carSpeedRandomSeed = -0.01;
+    }, 20)
+    .add(()=>{
+        carSpeedRandomSeed = -0.01;
+    }, 23)
+    .add(()=>{
+        carSpeedRandomSeed = -0.01;
+    }, 27)
+    .add(()=>{
+        carSpeedRandomSeed = +0.01;
+    }, 30)
+    .add(()=>{
+        carSpeedRandomSeed = -0.01;
+    }, 32)
+    .add(()=>{
+        carSpeedRandomSeed = +0.01;
+    }, 35)
+    .add(()=>{
+        carSpeedRandomSeed = -0.01;
+    }, 40)
 }
