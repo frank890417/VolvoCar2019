@@ -1,12 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>game dev index test</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>車車遊戲原型測試</title>
+
+    <link rel="stylesheet" href="./css/main.css">
+
+    <!-- 函式庫 -->
+    <script src="./js/hammer.min.js"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/MorphSVGPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+    <!-- <script src="./pixi.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.8.6/pixi.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pixi-projection@0.2.6/dist/pixi-projection.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
 </head>
 <body>
-  <h1>game dev index test</h1>
+    <div class="container"></div>
+    <div class="nav">
+        <div class="item" stage="1">關卡一 |</div>
+        <div class="item" stage="2">關卡二 |</div>
+        <div class="item" stage="3">關卡三 |</div>
+        <div class="item" stage="4">關卡四</div>
+    </div>
+    <div class="loading">載入進度： 0 %</div>
+    <div class="init-text">請點擊右上方任一關卡進行測試</div>
+    <div class="game-start">遊戲開始</div>
+    <div class="g4Path">
+        <svg width="3999" height="907">
+            <path d="M592,377 C921,478 986,742 1193,1018 C1331,1202 1539.66667,1172.33333 1819,929 C2159.66667,638.333333 2330,729.333333 2330,1202 C2330,1911 2887,1367 3062,1018 C3237,669 3890,13 3951,1018 C4012,2023 4064,2274 4619,1815 C5174,1356 5153,1711 5088,1815 C5023,1919 5038,2139 5310,1977 C5582,1815 5546,1963 5501,2085 C5456,2207 5485,2636 6006,1689 C6527,742 7008,773 6628,1977 C6248,3181 6485,3261 6758,3261 C6940,3261 7065,3128.33333 7133,2863 C6909,2624.33333 6972.66667,2390 7324,2160 C7851,1815 7913,2582 7689,2792 C7465,3002 7743,3091 7779,3110"  id="g4_path" stroke="red" stroke-width="4" fill="none"></path>
+        </svg>
+    </div>
 </body>
+    <!-- 遊戲元件 -->
+    <script src="./js/globalVariables.js"></script>
+    <script src="./js/envSetting.js"></script>
+    <script src="./js/assetLoader.js"></script>
+    <script src="./js/game1Setup.js"></script>
+    <script src="./js/game2Setup.js"></script>
+    <script src="./js/game3Setup.js"></script>
+    <script src="./js/game4Setup.js"></script>
+    <script src="./js/game1Init.js"></script>
+    <script src="./js/game2Init.js"></script>
+    <script src="./js/game3Init.js"></script>
+    <script src="./js/game4Init.js"></script>
+    <script src="./js/game1Loop.js"></script>
+    <script src="./js/game2Loop.js"></script>
+    <script src="./js/game3Loop.js"></script>
+    <script src="./js/game4Loop.js"></script>
+    <script src="./js/main.js"></script>
 </html>
