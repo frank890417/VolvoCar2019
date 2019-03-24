@@ -9,7 +9,7 @@
         img.wow(
             v-for="(layer,layerId) in scene.layers",
             :src="layer", 
-            :style="{'z-index': layerId, 'animation-delay': layerId+'s', 'transform': 'translateY('+getPan(layer,sceneId,layerId)+'px)'}",
+            :style="{'z-index': layerId, 'animation-delay': layerId+'s', 'transform': 'translateY('+getPan(layer,sceneId,layerId)+'px)', 'filter': 'brightness('+(1-0.1/layerId)+')' }",
             :class="getLayerClass(layer)")
         
     //- <h1>{{ msg }}</h1>
@@ -51,16 +51,22 @@ export default {
   },
   mounted(){
     new WOW().init();
+    this.scrollY=window.scrollY
     window.addEventListener("scroll",()=>{
       this.scrollY=window.scrollY
+      this.getSectionHeightList()
     })
+    setTimeout(()=>{
+      this.$forceUpdate()
+      this.getSectionHeightList()
+    },500)
     // console.log(this.$refs.sceneObj2)
   },
   methods: {
     getPan(layer, sceneId, layerId){
       if (layerId==0) return 0
       // if (layer.indexOf('對白')!=-1 || layer.indexOf('dialog')!=-1 ) return 0
-      return -(this.scrollY- this.sectionPositionList[sceneId] - window.outerHeight/2 ) /( 6-layerId) 
+      return -(this.scrollY- (this.sectionPositionList[sceneId] + window.outerHeight/5) ) /(-layerId+6) 
     },
     getLayerClass(layer){
       return {
@@ -69,11 +75,9 @@ export default {
         slideInRight: layer.indexOf('A02_man')!=-1 || layer.indexOf('I02_box')!=-1 ,
         slideInBottom: layer.indexOf('D04_car')!=-1
       }
-    }
-  },
-  computed: {
-    sectionHeightList(){
-      return this.scenes.map((d,i)=>{
+    },
+    getSectionHeightList(){
+      this.sectionHeightList= this.scenes.map((d,i)=>{
         let element = document.getElementById('sec_' + i)
         let offsetTop = 0
         if (element){
@@ -82,6 +86,8 @@ export default {
         return offsetTop
       })
     },
+  },
+  computed: {
 
     sectionPositionList(){
       return this.sectionHeightList.reduce((obj,i)=>{
@@ -95,6 +101,7 @@ export default {
 
   data(){
     return {
+      sectionHeightList: [],
       scrollY: 0,
       sectionHeight: window.outerWidth/1920*1080 ,
       scenes: [
@@ -263,7 +270,6 @@ export default {
 <style scoped lang="sass">
 img
   max-width: 100%
-
 .img-layers
   position: relative
   overflow: hidden
@@ -273,7 +279,6 @@ img
     top: 0
   img:first-child
     position: relative
-
 section
   // border: solid 1px blue
   position: relative

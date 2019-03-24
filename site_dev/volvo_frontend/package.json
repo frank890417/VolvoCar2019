@@ -8,6 +8,8 @@
   },
   "dependencies": {
     "animate.css": "^3.7.0",
+    "gsap": "^2.1.2",
+    "monoame-softscroll": "^1.0.114",
     "pug": "^2.0.3",
     "pug-plain-loader": "^1.0.0",
     "vue": "^2.6.6",

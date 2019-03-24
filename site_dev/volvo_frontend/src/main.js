@@ -6,6 +6,9 @@ import store from './store'
 import "../node_modules/animate.css/animate.min.css"
 import "wow.js"
 
+import softscroll from 'monoame-softscroll'
+softscroll.init()
+
 Vue.config.productionTip = false
 
 new Vue({
