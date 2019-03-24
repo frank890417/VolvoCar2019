@@ -1,12 +1,16 @@
 <template lang="pug">
   .hello
-    section(v-for="(scene,sceneId) in scenes")
+    //- h3 {{sectionPositionList}}
+    section(v-for="(scene,sceneId) in scenes",
+            :ref=" 'sceneObj'+sceneId ",
+            :id="'sec_'+sceneId" )
       h2 {{scene.title}}
       .img-layers
-        img(v-for="(layer,layerId) in scene.layers",
+        img.wow(
+            v-for="(layer,layerId) in scene.layers",
             :src="layer", 
-            :style="{'z-index': layerId, 'animation-delay': layerId+'s', 'transform': 'translateY('+getPan(sceneId,layerId)+'px)'}",
-            :class="{wow: true, 'zoomIn': layer.indexOf('對白')!=-1}")
+            :style="{'z-index': layerId, 'animation-delay': layerId+'s', 'transform': 'translateY('+getPan(layer,sceneId,layerId)+'px)'}",
+            :class="getLayerClass(layer)")
         
     //- <h1>{{ msg }}</h1>
     
@@ -50,15 +54,45 @@ export default {
     window.addEventListener("scroll",()=>{
       this.scrollY=window.scrollY
     })
+    // console.log(this.$refs.sceneObj2)
   },
   methods: {
-    getPan(sceneId, layerId){
-      if (layerId==0){
-        return 0
+    getPan(layer, sceneId, layerId){
+      if (layerId==0) return 0
+      // if (layer.indexOf('對白')!=-1 || layer.indexOf('dialog')!=-1 ) return 0
+      return -(this.scrollY- this.sectionPositionList[sceneId] - window.outerHeight/2 ) /( 6-layerId) 
+    },
+    getLayerClass(layer){
+      return {
+        wow: true, 
+        zoomIn: layer.indexOf('對白')!=-1 || layer.indexOf('dialog')!=-1,
+        slideInRight: layer.indexOf('A02_man')!=-1 || layer.indexOf('I02_box')!=-1 ,
+        slideInBottom: layer.indexOf('D04_car')!=-1
       }
-      return (this.scrollY- this.sectionHeight * (parseInt(sceneId)-0.3) ) /(layerId+5) 
     }
   },
+  computed: {
+    sectionHeightList(){
+      return this.scenes.map((d,i)=>{
+        let element = document.getElementById('sec_' + i)
+        let offsetTop = 0
+        if (element){
+          offsetTop = element.offsetHeight
+        }
+        return offsetTop
+      })
+    },
+
+    sectionPositionList(){
+      return this.sectionHeightList.reduce((obj,i)=>{
+        obj.lastHeight= parseInt(obj.all.slice(-1)) || 0
+        obj.all.push( obj.lastHeight + i)
+        return obj
+      },{lastHeight: 0, all: [0]}).all
+    }
+
+  },
+
   data(){
     return {
       scrollY: 0,
@@ -124,10 +158,100 @@ export default {
         },
 
         {
-          title: "E02_bg_v2",
+          title: "E02",
           layers: ["E/E02/E02_bg_v2.jpg","E/E02/E02_dialog_a.png","E/E01/E02_dialog_b.png"]
         },
 
+        {
+          title: "F01",
+          layers: ["F/F01/F01_bg.png","F/F01/F01_對白.png"]
+        },
+        {
+          title: "F02",
+          layers: ["F/F02/F02.png"]
+        },
+        {
+          title: "F03",
+          layers: ["F/F03/F03.png"]
+        },
+        {
+          title: "F04",
+          layers: ["F/F04/F04.png"]
+        },
+
+
+        {
+          title: "G01",
+          layers: ["G/G01/G01.png","G/G01/G01_對白.png"]
+        },
+        {
+          title: "G02",
+          layers: ["G/G02/G02.png","G/G02/G02_car_1.png","G/G02/G02_car_2.png"]
+        },
+        {
+          title: "G03",
+          layers: ["G/G03/G03.png","G/G03/G03_car.png"]
+        },
+        {
+          title: "G04",
+          layers: ["G/G04/G04.png","G/G04/G04_對白.png"]
+        },
+
+
+        {
+          title: "H01",
+          layers: ["H/H01/H01.png"]
+        },
+        {
+          title: "H02",
+          layers: ["H/H02/H02_bg.png"]
+        },
+        {
+          title: "H03",
+          layers: ["H/H03/H03.jpg","H/H03/H03_dialog_a.png"]
+        },
+        {
+          title: "H04",
+          layers: ["H/H04/H04_v3.jpg"]
+        },
+        {
+          title: "H05",
+          layers: ["H/H05/H05_bg.jpg","H/H05/H05_dialog_a.png","H/H05/H05_dialog_b.png"]
+        },
+
+
+        {
+          title: "I01",
+          layers: ["I/I01/I01.png"]
+        },
+        {
+          title: "I02",
+          layers: ["I/I02/I02.jpg","I/I02/I02_box.png"]
+        },
+        {
+          title: "I03",
+          layers: ["I/I03/I03.png"]
+        },
+        {
+          title: "I04",
+          layers: ["I/I04/I04.png"]
+        },
+        {
+          title: "I05",
+          layers: ["I/I05/I05.png"]
+        },
+        {
+          title: "I06",
+          layers: ["I/I06/I06_bg.jpg","I/I06/I06_man.png"]
+        },
+        {
+          title: "I07",
+          layers: ["I/I07/I07_bg.jpg","I/I07/I07_villan.png"]
+        },
+        {
+          title: "I09",
+          layers: ["I/I09/I09.jpg","I/I09/I09_保護文字.png"]
+        },
 
       ]
     }
@@ -139,6 +263,7 @@ export default {
 <style scoped lang="sass">
 img
   max-width: 100%
+
 .img-layers
   position: relative
   overflow: hidden
@@ -148,18 +273,23 @@ img
     top: 0
   img:first-child
     position: relative
+
 section
-  border: solid 1px blue
+  // border: solid 1px blue
   position: relative
   background-color: #222
   // padding-bottom: calc(1080/1920*100%)
+
   h2
-    padding: 10px 30px
+    padding: 5px 20px
     position: relative
+    font-size: 15px
+    // border: solid 2px white
+    // box-shadow: 0px 0px 5px black
     z-index: 10000
-    background-color: #222
+    background-color: #000
     color: white
     position: absolute
-    top: 30px
-    left: 30px
+    top: 10px
+    left: 20px
 </style>
