@@ -21,6 +21,26 @@
     <script src="https://cdn.jsdelivr.net/npm/pixi-projection@0.2.6/dist/pixi-projection.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/screenfull.js/4.0.0/screenfull.min.js"></script>
+    <script>
+        //android 自動跳轉chrome
+        function isWebview() {
+            var useragent = navigator.userAgent;
+            var rules = ['WebView','(iPhone|iPod|iPad)(?!.*Safari\/)','Android.*(wv|\.0\.0\.0)'];
+            var regex = new RegExp(`(${rules.join('|')})`, 'ig');
+            return Boolean(useragent.match(regex));
+        }
+
+        var iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+
+        if(isWebview()) {
+            if(iOS) {
+                
+            } else {
+                //- var url = window.location.href.split("//")[1];
+                window.location = "intent://"+window.location.href.split("//")[1]+"#Intent;scheme="+window.location.protocol.split(":")[0]+";action=android.intent.action.VIEW;end;";
+            }				
+        }
+    </script>
 </head>
 <body>
     <div class="container"></div>

@@ -1,10 +1,11 @@
 $(document).ready(function(){
-    
-    if (screenfull.enabled) {
-        screenfull.request();
-    }
 
     setupEnv();
+    $("body, html").on("click", function(){
+        if (screenfull.enabled) {
+            screenfull.request();
+        }
+    });
 
     $("body, html").css("height", document.documentElement.clientHeight);
     $( window ).resize(function() {
