@@ -1,12 +1,12 @@
 <template lang="pug">
-  .page.about
+  .page.award
     section.jumbotron(style="background-image: url(/_loading/loading_首頁.png)")
 
     section.content
       .container
         .row
           .col-sm-12
-            h1.text-center 活動辦法
+            h1.text-center 得獎公告
 </template>
 
 <script>

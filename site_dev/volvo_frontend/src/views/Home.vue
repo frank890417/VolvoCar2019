@@ -1,18 +1,27 @@
-<template>
-  <div class="home">
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+<template lang="pug">
+  div.home
+    StoryIndex
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import StoryIndex from '@/components/StoryIndex.vue'
 
+import {mapState,mapMutations} from 'vuex'
 export default {
   name: 'home',
   components: {
-    HelloWorld
+    StoryIndex
+  },
+  mounted(){
+    this.setLoading(true)
+    setTimeout(()=>{
+      this.setLoading(false)
+    },5000)
+
+  },
+  computed:{
+    ...mapMutations(['setLoading'])
   }
 }
 </script>

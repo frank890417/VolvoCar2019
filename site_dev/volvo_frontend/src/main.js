@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 
 import "../node_modules/animate.css/animate.min.css"
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
 import "wow.js"
 
 import softscroll from 'monoame-softscroll'

@@ -9,8 +9,8 @@
         img.wow(
             v-for="(layer,layerId) in scene.layers",
             :src="layer", 
-            :style="{'z-index': layerId, 'animation-delay': layerId+'s', 'transform': 'translateY('+getPan(layer,sceneId,layerId)+'px)', 'filter': 'brightness('+(1-0.1/layerId)+')' }",
-            :class="getLayerClass(layer)")
+            :style="{'z-index': layerId, 'animation-delay': layerId+'s', 'transform': 'translateY('+getPan(layer,sceneId,layerId)+'px) scale('+(layerId==0?1:1.05)+')', 'filter': 'brightness('+(1-0.1/layerId)+')' }",
+            :class="getLayerClass(layer,layerId)")
         
     //- <h1>{{ msg }}</h1>
     
@@ -66,14 +66,17 @@ export default {
     getPan(layer, sceneId, layerId){
       if (layerId==0) return 0
       // if (layer.indexOf('對白')!=-1 || layer.indexOf('dialog')!=-1 ) return 0
-      return -(this.scrollY- (this.sectionPositionList[sceneId] + window.outerHeight/5) ) /(-layerId+6) 
+      let layerPan = -(this.scrollY- (this.sectionPositionList[sceneId] + window.outerHeight*0.7) ) /(-layerId+5) 
+      return layerPan
     },
-    getLayerClass(layer){
+    getLayerClass(layer,layerId){
       return {
         wow: true, 
         zoomIn: layer.indexOf('對白')!=-1 || layer.indexOf('dialog')!=-1,
         slideInRight: layer.indexOf('A02_man')!=-1 || layer.indexOf('I02_box')!=-1 ,
-        slideInBottom: layer.indexOf('D04_car')!=-1
+        slideInBottom: layer.indexOf('D04_car')!=-1,
+        // pulse: layer.indexOf('C01_fire')!=-1,
+        frontItem: layerId!=0
       }
     },
     getSectionHeightList(){
@@ -270,6 +273,7 @@ export default {
 <style scoped lang="sass">
 img
   max-width: 100%
+  width: 100%
 .img-layers
   position: relative
   overflow: hidden
