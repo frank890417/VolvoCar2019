@@ -148,7 +148,7 @@ function setupGame3(){
 
     addVanishingAssetG3();
     
-    // stage3.addChild(cityRoad_g3);
+    stage3.addChild(cityRoad_g3);
 
     stage3.addChild(vanishingPoint_g3);
     stage3.addChild(world3D_g3);
@@ -184,7 +184,7 @@ function setupGame3(){
 
 function addVanishingAssetG3(){
     world3D_g3 = new PIXI.projection.Container2d();
-    world3D_g3.position.set(0, 510);
+    world3D_g3.position.set(300, 910);
 
     bigWhiteTexture = new PIXI.Texture(PIXI.Texture.WHITE.baseTexture);
     bigWhiteTexture.orig.width = 30;
@@ -203,8 +203,8 @@ function addVanishingAssetG3(){
     lineRight_g3.anchor.set(0.5, 0.5);
     lineRight_g3.position.set((app.screen.width+roadWidth_g3)/2, 0);
     
-    world3D_g3.addChild(lineLeft_g3);
-    world3D_g3.addChild(lineRight_g3);
+    // world3D_g3.addChild(lineLeft_g3);
+    // world3D_g3.addChild(lineRight_g3);
 
     //橫線
     lineGroup_g3 = [];
@@ -220,7 +220,7 @@ function addVanishingAssetG3(){
         s.proj.affine = PIXI.projection.AFFINE.AXIS_X;
         //紀錄物件參考
         lineGroup_g3.push(s);
-        world3D_g3.addChild(s);
+        // world3D_g3.addChild(s);
     }
 
 
@@ -231,11 +231,11 @@ function addVanishingAssetG3(){
         let tempLeftWifi = new PIXI.projection.Sprite2d(tempTex);
         tempLeftWifi.scale.set(-1.2, -1.2);
         tempLeftWifi.tint = 0xffd25d;
-        tempLeftWifi.position.set(app.screen.width/2 - 120, carPosY_g3 - 500);
+        tempLeftWifi.position.set(app.screen.width/2 - 300, carPosY_g3 - 500);
         leftWifi.push(tempLeftWifi);
 
         let tempRightWifi=  new PIXI.projection.Sprite2d(tempTex);
-        tempRightWifi.position.set(app.screen.width/2 + 120, carPosY_g3 - 500);
+        tempRightWifi.position.set(app.screen.width/2 + 50, carPosY_g3 - 500);
         tempRightWifi.scale.set(1.2, -1.2);
         tempRightWifi.tint = 0xffd25d;
         rightWifi.push(tempRightWifi);
@@ -251,6 +251,7 @@ function addVanishingAssetG3(){
     carComingLeft_g3.anchor.set(0.5);
     carComingLeft_g3.position.set(app.screen.width/2 - roadWidth_g3/4 +100, -1000);
     carComingLeft_g3.proj.affine = PIXI.projection.AFFINE.AXIS_Y;
+    carComingLeft_g3.visible = false;
     world3D_g3.addChild(carComingLeft_g3);
 
     carComingRight_g3 =  new PIXI.projection.Sprite2d(PIXI.loader.resources.carComingRightImg.texture);
@@ -258,6 +259,7 @@ function addVanishingAssetG3(){
     carComingRight_g3.anchor.set(0.5);
     carComingRight_g3.position.set(app.screen.width/2+ roadWidth_g3/4 -100, -1000);
     carComingRight_g3.proj.affine = PIXI.projection.AFFINE.AXIS_Y;
+    carComingRight_g3.visible = false;
     world3D_g3.addChild(carComingRight_g3);
 
     //中間車車
@@ -282,6 +284,6 @@ function addVanishingAssetG3(){
     
     vanishingPoint_g3 = new PIXI.Text('Ｏ', vanishingPointStyle_g3);
     vanishingPoint_g3.anchor.set(0.5);
-    vanishingPoint_g3.position.set(960, 175);
+    vanishingPoint_g3.position.set(960, 535);
 
 }

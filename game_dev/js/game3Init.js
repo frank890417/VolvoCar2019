@@ -156,6 +156,7 @@ function setUpCarMovingAnimation(){
             carLeftTimeline_g3.pause();
             carLeftTimeline_g3.seek(0);
             nextCarSideSequence();
+            carComingLeft_g3.visible = false;
         },
         paused:true
     });
@@ -163,7 +164,13 @@ function setUpCarMovingAnimation(){
     
 
     carLeftTimeline_g3
+    .add(()=>{
+        carComingLeft_g3.visible = false;
+    }, 0)
     .add(carComingLeftMove, 4)
+    .add(()=>{
+        carComingLeft_g3.visible = true;
+    }, 4.5)
     .add(function(){
         isLeftCarComes = false;
         if(carMoveLeftAni){
@@ -210,12 +217,19 @@ function setUpCarMovingAnimation(){
             carRightTimeline_g3.pause();
             carRightTimeline_g3.seek(0);
             nextCarSideSequence();
+            carComingRight_g3.visible = false;
         },
         paused:true
     });
 
     carRightTimeline_g3
+    .add(()=>{
+        carComingRight_g3.visible = false;
+    }, 0)
     .add(carComingRightMove, 4)
+    .add(()=>{
+        carComingRight_g3.visible = true;
+    }, 4.5)
     .add(function(){
         isRightCarComes = false;
         if(carMoveRightAni){
@@ -392,6 +406,7 @@ function addG3PrePlay(){
         timeRemainingText_g3.visible = true;
         hintTextG3.visible = false;
         isPrePlaying = false;
+        rightBtnClick_g3 = false;
         resetAllTimers();
     }, 6)
 

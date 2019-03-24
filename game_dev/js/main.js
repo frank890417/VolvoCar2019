@@ -1,5 +1,9 @@
 $(document).ready(function(){
     
+    if (screenfull.enabled) {
+        screenfull.request();
+    }
+
     setupEnv();
 
     $("body, html").css("height", document.documentElement.clientHeight);

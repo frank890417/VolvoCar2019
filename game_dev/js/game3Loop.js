@@ -14,7 +14,7 @@ function game3Loop() {
         }
     }
 
-    // if(rightBtnClick_g3);
+    
     if(leftBtnClick_g3){
         if(isLeftCarComes){
             let tl = new TimelineMax();
@@ -49,8 +49,8 @@ function game3Loop() {
     for(let i=0; i<5; i++){
         let tempWifiL = leftWifi[i];
         let tempWifiR = rightWifi[i];
-        tempWifiL.position.set(car_g3.position.x - 120, car_g3.position.y - 500);
-        tempWifiR.position.set(car_g3.position.x + 120, car_g3.position.y - 500);
+        tempWifiL.position.set(car_g3.position.x - 250, car_g3.position.y - 500);
+        tempWifiR.position.set(car_g3.position.x + 50, car_g3.position.y - 500);
     }
 
     
