@@ -3,11 +3,11 @@
   .jumbotron.fadeIn.animated.ani-delay-5(:style="{'background-image':'url('+'_loading/loading_首頁.png'+')'}")
     div.part.p1
       div.title-area
-        img.title.fadeIn.animated.ani-delay-15(src="_loading/volvo_laoding_v2_safety guardian.png").mt-5
-        img.fadeIn.animated.ani-delay-15(src="_loading/volvo_laoding_v2_loadingbar.png" , style="width:450px").mt-5
-        img.fadeIn.animated.ani-delay-15(src="_loading/volvo_laoding_v2_loading.png", style="width:200px").mt-3
+        img.title.fadeIn.animated.ani-delay-15(:src="'_loading/volvo_laoding_v2_safety guardian.png'").mt-5
+        img.fadeIn.animated.ani-delay-15(:src="'_loading/volvo_laoding_v2_loadingbar.png'" , style="width:450px").mt-5
+        img.fadeIn.animated.ani-delay-15(:src="'_loading/volvo_laoding_v2_loading.png'", style="width:200px").mt-3
       div
-        img.fadeIn.animated.ani-delay-15(src="_loading/volvo_laoding_v2_explain.png", style="width:400px")
+        img.fadeIn.animated.ani-delay-15(:src="'_loading/volvo_laoding_v2_explain.png'", style="width:400px")
     //div.part.p2
       img(src="_loading/volvo_laoding_v2_phone.png", style="width:450px")
 </template>
