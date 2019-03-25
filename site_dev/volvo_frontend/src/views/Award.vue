@@ -1,6 +1,6 @@
 <template lang="pug">
   .page.award
-    section.jumbotron(:style="{'background-image':'url('+'_Loading/loading_首頁.png'+')'}")
+    section.jumbotron(:style="{'background-image':'url('+'_Loading/loading_首頁-compressor.png'+')'}")
 
     section.content
       .container

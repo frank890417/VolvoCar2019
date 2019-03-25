@@ -1,6 +1,6 @@
 <template lang="pug">
 .page.loading
-  .jumbotron.fadeIn.animated.ani-delay-5(:style="{'background-image':'url('+'_Loading/loading_首頁.png'+')'}")
+  .jumbotron.fadeIn.animated.ani-delay-5(:style="{'background-image':'url('+'_Loading/loading_首頁-compressor.png'+')'}")
     div.part.p1
       div.title-area
         img.title.fadeIn.animated.ani-delay-15(:src="'_Loading/volvo_laoding_v2_safety guardian.png'").mt-5
