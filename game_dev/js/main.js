@@ -2,8 +2,10 @@ $(document).ready(function(){
 
     setupEnv();
     $("body, html").on("click", function(){
-        if (screenfull.enabled) {
-            screenfull.request();
+        if($(window).innerWidth()<1000){
+            if (screenfull.enabled) {
+                screenfull.request();
+            }
         }
     });
 
