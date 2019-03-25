@@ -83,16 +83,17 @@ export default {
     getPan(layer, sceneId, layerId){
       if (layerId==0) return 0
       // if (layer.indexOf('對白')!=-1 || layer.indexOf('dialog')!=-1 ) return 0
-      let layerPan = -(this.scrollY- (this.sectionPositionList[sceneId] + window.outerHeight*0.7) ) /(-layerId+5) 
+      let layerPan = -(this.scrollY- (this.sectionPositionList[sceneId] + window.outerHeight*0.6) ) /(-layerId+5) 
       return layerPan
     },
     getLayerClass(layer,layerId){
       return {
         wow: true, 
         zoomIn: layer.indexOf('對白')!=-1 || layer.indexOf('dialog')!=-1,
-        slideInRight: layer.indexOf('A02_man')!=-1 || layer.indexOf('I02_box')!=-1 ,
+        tada: layer.indexOf('C01_speedline')!=-1,
+        slideInRight: layer.indexOf('A02_man')!=-1 || layer.indexOf('I02_box')!=-1 || layer.indexOf('I06_man')!=-1,
         slideInBottom: layer.indexOf('D04_car')!=-1,
-        // pulse: layer.indexOf('C01_fire')!=-1,
+        pulse: layer.indexOf('D04_car')!=-1,
         frontItem: layerId!=0
       }
     },
