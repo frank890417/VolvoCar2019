@@ -1,17 +1,28 @@
 <template lang="pug">
   .hello
+
+    .currentSection(v-if="debug")
+      span {{currentSection}}
+      br
+      span {{ scrollY}}
+    
     //- h3 {{sectionPositionList}}
     section(v-for="(scene,sceneId) in scenes",
             :ref=" 'sceneObj'+sceneId ",
             :id="'sec_'+sceneId" )
       h2 {{scene.title}}
       .img-layers
-        img.wow(
-            v-for="(layer,layerId) in scene.layers",
-            :src="layer", 
-            :style="{'z-index': layerId, 'animation-delay': layerId+'s', 'transform': 'translateY('+getPan(layer,sceneId,layerId)+'px) scale('+(layerId==0?1:1.05)+')', 'filter': 'brightness('+(1-0.1/layerId)+')' }",
-            :class="getLayerClass(layer,layerId)")
-        
+        .img-layer(
+          v-for="(layer,layerId) in scene.layers",
+          :style="{'z-index': layerId,'transform': 'translateY('+getPan(layer,sceneId,layerId)+'px) scale('+(layerId==0?1:1.05)+')', 'filter': 'brightness('+(1-0.1/layerId)+')' }")
+          img.wow(
+              :src="layer", 
+              :style="{ 'animation-delay': layerId+'s' }",
+              :class="getLayerClass(layer,layerId)")
+      //- div(v-if="scene && scene.audios")
+      //-   audio( v-for="audioSrc in scene.audios" :volume="0.1" :autoplay="currentPreSection===scene?true:false" preload)
+      //-       source( :src="audioSrc")
+
     //- <h1>{{ msg }}</h1>
     
     //- <p>
@@ -44,6 +55,8 @@
 
 <script>
 import WOW from 'wow.js'
+import {mapState} from 'vuex'
+import {TweenMax} from 'gsap'
 export default {
   name: 'HelloWorld',
   props: {
@@ -59,6 +72,8 @@ export default {
     setTimeout(()=>{
       this.$forceUpdate()
       this.getSectionHeightList()
+    // document.getElementById("bgsound").volume=0.6
+    // document.getElementById("bgsound").play()
     },500)
     // console.log(this.$refs.sceneObj2)
   },
@@ -91,7 +106,32 @@ export default {
     },
   },
   computed: {
+    ...mapState(['debug']),
+    currentSection(){
+      let hList = this.sectionPositionList
+      if (hList){
+        for(var i=0;i<hList.length;i++){
+          if (this.scrollY<hList[i]){
+            return this.scenes[i-1]
+          }
+        }
 
+      }
+      return null
+    },
+    //提前播放音訊用
+    currentPreSection(){
+      let hList = this.sectionPositionList
+      if (hList){
+        for(var i=0;i<hList.length;i++){
+          if (this.scrollY+300<hList[i]){
+            return this.scenes[i-1]
+          }
+        }
+
+      }
+      return null
+    },
     sectionPositionList(){
       return this.sectionHeightList.reduce((obj,i)=>{
         obj.lastHeight= parseInt(obj.all.slice(-1)) || 0
@@ -101,62 +141,101 @@ export default {
     }
 
   },
-
+  watch:{
+    currentPreSection(pre,post){
+      if (!pre || !post) return 
+      if ( pre.title != post.title && this.currentPreSection.audios){
+        this.currentPreSection.audios.forEach(audioSrc=>{
+          let a = new Audio(audioSrc)
+          console.log(audioSrc)
+          a.volume=0.5
+          a.play()
+          this.audioElList.push({
+            scene: this.currentPreSection,
+            element: a,
+            paused: false
+          })
+        })
+      }
+      this.audioElList.forEach(audioItem=>{
+        if (audioItem.scene!==this.currentPreSection && audioItem.scene!==this.currentSection && !audioItem.paused){
+          audioItem.paused=true
+          TweenMax.to(audioItem.element,1,{volume:0})
+          setTimeout(()=>{
+            audioItem.element.pause()
+          },1000)
+        }
+      })
+    }
+  },
   data(){
     return {
       sectionHeightList: [],
+      audioElList: [],
       scrollY: 0,
       sectionHeight: window.outerWidth/1920*1080 ,
       scenes: [
         {
           title: "A01",
-          layers: ["A/A01/A01.png"]
+          layers: ["A/A01/A01.png"],
+          audios: ["Audio/explode.wav"]
         },{
           title: "A02",
-          layers: ["A/A02/A02_bg.png","A/A02/A02_man.png"]
+          layers: ["A/A02/A02_bg.png","A/A02/A02_man.png"],
+          audios: ["Audio/evillaugh.mp3"]
         },{
           title: "A03",
-          layers: ["A/A03/A03_bg.png","A/A03/A03_man.png"]
+          layers: ["A/A03/A03_bg.png","A/A03/A03_man.png"],
+          audios: ["Audio/cardoor.wav"]
         },
         {
           title: "B01",
           layers: ["B/B01/B01.png"]
         },{
           title: "B02",
-          layers: ["B/B02/B02.png"]
+          layers: ["B/B02/B02.png"],
+          audios: ["Audio/datasound.wav"]
         },{
           title: "B03",
-          layers: ["B/B03/B03.png"]
+          layers: ["B/B03/B03.png"],
+          audios: ["Audio/cheer.mp3"]
         },{
           title: "B04",
           layers: ["B/B04/B04.png"]
         },
         {
           title: "C01",
-          layers: ["C/C01/C01_bg.png","C/C01/C01_fire.png","C/C01/C01_man.png","C/C01/C01_speedline.png",]
+          layers: ["C/C01/C01_bg.png","C/C01/C01_fire.png","C/C01/C01_man.png","C/C01/C01_speedline.png",],
+          audios: ["Audio/hey.wav"]
         },{
           title: "C02",
-          layers: ["C/C02/C02_bg.png","C/C02/C02_man.png"]
+          layers: ["C/C02/C02_bg.png","C/C02/C02_man.png"],
+          audios: ["Audio/evillaugh.mp3"]
         },{
           title: "C03",
           layers: ["C/C03/C03_bg.png","C/C03/C03_car.png","C/C03/C03_man.png",]
         },{
           title: "C04",
-          layers: ["C/C04/C04.png","C/C04/C04_對白.png"]
+          layers: ["C/C04/C04.png","C/C04/C04_對白.png"],
+          audios: ["Audio/seatbelt.wav"]
         },{
           title: "C05",
-          layers: ["C/C05/C05.png","C/C05/C05_對白.png"]
+          layers: ["C/C05/C05.png","C/C05/C05_對白.png"],
+          audios: ["Audio/engine_car.wav"]
         },
 
         {
           title: "D01",
-          layers: ["D/D01/D01.png"]
+          layers: ["D/D01/D01.png"],
+          audios: ["Audio/busycity.wav"]
         },{
           title: "D02",
-          layers: ["D/D02/D02.png"]
+          layers: ["D/D02/D02.png"],
+          audios: ["Audio/car_stopping.wav"]
         },{
           title: "D03",
-          layers: ["D/D03/D03.png"]
+          layers: ["D/D03/D03.png"],
+          audios: ["Audio/car_crash.wav"]
         },{
           title: "D04",
           layers: ["D/D04/D04_bg.png","D/D04/D04_car.png"]
@@ -182,7 +261,8 @@ export default {
         },
         {
           title: "F03",
-          layers: ["F/F03/F03.png"]
+          layers: ["F/F03/F03.png"],
+          audios: ["Audio/gun2.mp3"]
         },
         {
           title: "F04",
@@ -196,11 +276,13 @@ export default {
         },
         {
           title: "G02",
-          layers: ["G/G02/G02.png","G/G02/G02_car_1.png","G/G02/G02_car_2.png"]
+          layers: ["G/G02/G02.png","G/G02/G02_car_1.png","G/G02/G02_car_2.png"],
+          audios: ["Audio/carspeedup.wav"]
         },
         {
           title: "G03",
-          layers: ["G/G03/G03.png","G/G03/G03_car.png"]
+          layers: ["G/G03/G03.png","G/G03/G03_car.png"],
+          audios: ["Audio/carspeedup.wav"]
         },
         {
           title: "G04",
@@ -210,33 +292,40 @@ export default {
 
         {
           title: "H01",
-          layers: ["H/H01/H01.png"]
+          layers: ["H/H01/H01.png"],
+          audios: ["Audio/gun.mp3"]
         },
         {
           title: "H02",
-          layers: ["H/H02/H02_bg.png"]
+          layers: ["H/H02/H02_bg.png"],
+          audios: ["Audio/car_stopping.wav"]
         },
         {
-          title: "H03",
-          layers: ["H/H03/H03.jpg","H/H03/H03_dialog_a.png"]
+          title: "H02",
+          layers: ["H/H03/H03.jpg","H/H03/H03_dialog_a.png"],
+          audios: ['Audio/evillaugh.mp3']
         },
         {
           title: "H04",
-          layers: ["H/H04/H04_v3.jpg"]
+          layers: ["H/H04/H04_v3.jpg"],
+          audios: ["Audio/carspeedup.wav"]
         },
         {
           title: "H05",
-          layers: ["H/H05/H05_bg.jpg","H/H05/H05_dialog_a.png","H/H05/H05_dialog_b.png"]
+          layers: ["H/H05/H05_bg.jpg","H/H05/H05_dialog_a.png","H/H05/H05_dialog_b.png"],
+          audios: ["Audio/beep.wav"]
         },
 
 
         {
           title: "I01",
-          layers: ["I/I01/I01.png"]
+          layers: ["I/I01/I01.png"],
+          audios: ["Audio/gun.mp3"]
         },
         {
           title: "I02",
-          layers: ["I/I02/I02.jpg","I/I02/I02_box.png"]
+          layers: ["I/I02/I02.jpg","I/I02/I02_box.png"],
+          audios: ["Audio/gun.mp3","Audio/car_crash.wav"]
         },
         {
           title: "I03",
@@ -244,15 +333,18 @@ export default {
         },
         {
           title: "I04",
-          layers: ["I/I04/I04.png"]
+          layers: ["I/I04/I04.png"],
+          audios: ["Audio/car_stopping.wav"]
         },
         {
           title: "I05",
-          layers: ["I/I05/I05.png"]
+          layers: ["I/I05/I05.png"],
+          audios: ["Audio/carcrash2.wav"]
         },
         {
           title: "I06",
-          layers: ["I/I06/I06_bg.jpg","I/I06/I06_man.png"]
+          layers: ["I/I06/I06_bg.jpg","I/I06/I06_man.png"],
+          audios: ["Audio/car_crash.wav"]
         },
         {
           title: "I07",
@@ -277,18 +369,17 @@ img
 .img-layers
   position: relative
   overflow: hidden
-  img
+  .img-layer
     position: absolute
     left: 0
     top: 0
-  img:first-child
+  .img-layer:first-child
     position: relative
 section
   // border: solid 1px blue
   position: relative
   background-color: #222
   // padding-bottom: calc(1080/1920*100%)
-
   h2
     padding: 5px 20px
     position: relative
@@ -301,4 +392,12 @@ section
     position: absolute
     top: 10px
     left: 20px
+.currentSection
+  position: fixed
+  top: 10px
+  left: 10px
+  background-color: yellow
+  color: black
+  padding: 2px 10px
+  z-index: 1000
 </style>

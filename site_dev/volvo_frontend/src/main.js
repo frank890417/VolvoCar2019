@@ -17,3 +17,10 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+window.addEventListener("keydown",(evt)=>{
+  if (evt.keyCode==68){
+    store.commit("setDebug",!store.state.debug)
+    console.log(store.state.debug)
+  }
+})

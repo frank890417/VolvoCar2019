@@ -16,11 +16,20 @@ export default {
   mounted(){
     this.setLoading(true)
     setTimeout(()=>{
-      this.setLoading(false)
+      
+      let a = new Audio("Audio/guilt.wav")
+      a.volume=0.6
+      a.play()
+    },2000)
+    setTimeout(()=>{
+      this.setLoading(false) 
+      let a = new Audio("Audio/explode.wav")
+      a.play()
     },5000)
+   
 
   },
-  computed:{
+  methods:{
     ...mapMutations(['setLoading'])
   }
 }

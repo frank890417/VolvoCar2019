@@ -1,6 +1,6 @@
 <template lang="pug">
 .page.loading
-  .jumbotron.fadeIn.animated.ani-delay-5
+  .jumbotron.fadeIn.animated.ani-delay-5(:style="{'background-image':'url('+'_loading/loading_首頁.png'+')'}")
     div.part.p1
       div.title-area
         img.title.fadeIn.animated.ani-delay-15(src="_loading/volvo_laoding_v2_safety guardian.png").mt-5
@@ -31,7 +31,6 @@ export default {
   top: 0
   z-index: 5000
   .jumbotron
-    background-image: url("/_loading/loading_首頁.png")
     background-size: cover
     
     height: 100%

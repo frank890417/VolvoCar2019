@@ -1,6 +1,6 @@
 <template lang="pug">
   .page.about
-    section.jumbotron(style="background-image: url(/_loading/loading_首頁.png)")
+    section.jumbotron(:style="{'background-image':'url('+'_loading/loading_首頁.png'+')'}")
 
     section.content
       .container
