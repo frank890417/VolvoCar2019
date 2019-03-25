@@ -18,7 +18,7 @@ export default {
     setTimeout(()=>{
       
       let a = new Audio("Audio/guilt.wav")
-      a.volume=0.4
+      a.volume=0.1
       a.play()
     },2000)
     setTimeout(()=>{
