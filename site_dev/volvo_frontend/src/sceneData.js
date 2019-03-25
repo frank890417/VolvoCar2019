@@ -31,7 +31,7 @@ export default {
     {
       title: "C01",
       layers: ["C/C01/C01_bg.png","C/C01/C01_fire.png","C/C01/C01_man.png","C/C01/C01_speedline.png",],
-      audios: ["Audio/hey.wav"]
+      audios: [ ]
     },{
       title: "C02",
       layers: ["C/C02/C02_bg.png","C/C02/C02_man.png"],
