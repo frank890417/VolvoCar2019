@@ -17,17 +17,36 @@
 <script>
 import Loading from './views/Loading'
 import {mapState,mapMutations} from 'vuex'
+import sceneData from './sceneData.js'
+import preloader from 'monoame-preloader'
 export default {
   data() {
     return {}    
   },
   components: {Loading},
   mounted(){
-    this.setLoading(true)
-    setTimeout(()=>{
-      this.setLoading(false)
-    },5000)
+    let counter = 0
+    setInterval(()=>{
+      counter++
+    },1000)
 
+    this.setLoading(true)
+    let pics = sceneData.scenes.map(item=>item.layers.concat(item.audios || []) ).reduce((all,item)=>[...all,...item],[])
+    console.log(pics)
+    preloader.load(pics).then(()=>{
+      console.log("image all preloaded!")
+      if (counter>5){
+        this.setLoading(false)
+      }else{
+        setTimeout(()=>{
+          this.setLoading(false)
+
+        },1000*(5-counter))
+      }
+    }).catch((t)=>{
+      console.warn(t)
+      console.log("image preload fail.")
+    })
   },
   computed:{
     ...mapState(['loading'])

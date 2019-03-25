@@ -14,7 +14,7 @@ export default {
     StoryIndex
   },
   mounted(){
-    this.setLoading(true)
+    // this.setLoading(true)
     setTimeout(()=>{
       
       let a = new Audio("Audio/guilt.wav")
@@ -22,7 +22,7 @@ export default {
       a.play()
     },2000)
     setTimeout(()=>{
-      this.setLoading(false) 
+      // this.setLoading(false) 
       let a = new Audio("Audio/explode.wav")
       a.play()
     },5000)
