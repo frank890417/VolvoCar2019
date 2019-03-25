@@ -17,9 +17,9 @@ export default {
     // this.setLoading(true)
     setTimeout(()=>{
       
-      let a = new Audio("Audio/guilt.wav")
-      a.volume=0.1
-      a.play()
+      // let a = new Audio("Audio/guilt.wav")
+      // a.volume=0.1
+      // a.play()
     },2000)
     setTimeout(()=>{
       // this.setLoading(false) 
