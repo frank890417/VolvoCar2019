@@ -26,20 +26,31 @@ export default {
   components: {Loading},
   mounted(){
     let counter = 0
-    setInterval(()=>{
+    var startGame = ()=>{
+      this.setLoading(false)
+      let a = new Audio("Audio/explode.wav")
+      a.play()
+      clearInterval(c)
+
+    }
+    var c = setInterval(()=>{
       counter++
+      if (counter>10 ){
+        startGame()
+      }
     },1000)
 
     this.setLoading(true)
     let pics = sceneData.scenes.map(item=>item.layers.concat(item.audios || []) ).reduce((all,item)=>[...all,...item],[])
+    pics = pics.filter((d,i,arr)=>arr.indexOf(d)==i)
     console.log(pics)
     preloader.load(pics).then(()=>{
       console.log("image all preloaded!")
       if (counter>5){
-        this.setLoading(false)
+        startGame()
       }else{
         setTimeout(()=>{
-          this.setLoading(false)
+          startGame()
 
         },1000*(5-counter))
       }
