@@ -29,7 +29,7 @@ export default {
   },
   data(){
     return{
-      currentGame: 3,
+      currentGame: 2,
       refGriup: {}
     }
   },

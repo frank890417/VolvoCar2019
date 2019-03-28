@@ -49,6 +49,8 @@ function loadAllAssets(Vars, callback){
         .add("roadMapG4Img", "images/game4/roadmap_g4.png")
         .add("myCarG4Img", "images/game4/car_me.png")
         .add("armyCarG4Img", "images/game4/car_army.png")
+        .add("speedDownSound", "gameAudio/speedDown.mp3")
+        .add("speedUpSound", "gameAudio/speedUp.mp3")
         
     //G1 bg
     for (let index = 0; index < 119; index++) {

@@ -93,13 +93,10 @@ function game3Setup(Vars){
     
     game3Data.mirrorBgLeft_g3 = new PIXI.extras.AnimatedSprite(bgTexs);
     game3Data.mirrorBgLeft_g3.animationSpeed = -1.2;
-    // game3Data.mirrorBgLeft_g3.anchor.set(0.5);
     game3Data.mirrorBgLeft_g3.play();
 
     game3Data.mirrorBgRight_g3 = new PIXI.extras.AnimatedSprite(bgTexs);
     game3Data.mirrorBgRight_g3.animationSpeed = -1.2;
-    // game3Data.mirrorBgRight_g3.anchor.set(1, 0);
-    // game3Data.mirrorBgRight_g3.scale.set(-1, 1);
     game3Data.mirrorBgRight_g3.play();
     game3Data.mirrorBgRight_g3.position.set(-game3Data.mirrorBgLeft_g3.width/2+50, 0);
 

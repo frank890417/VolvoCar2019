@@ -11,7 +11,7 @@ function game2Init(Vars){
     game2Data = Vars.game2Data;
 
     let tl = new TimelineMax();
-    tl.fromTo(game2Data.hintRect_g2, 0.5, {alpha: 0}, {alpha: 1}).yoyo(1).repeat(-1);
+    tl.fromTo(game2Data.hintRect_g2, 0.25, {alpha: 0}, {alpha: 1}).yoyo(1).repeat(-1);
 
     registerGame2Event();
     setUpSafeAreaAni();

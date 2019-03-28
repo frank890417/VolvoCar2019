@@ -85,6 +85,19 @@ function game2Loop(Vars) {
         }
     }
 
+    //如果在危險區域做對的事，重新讀秒
+    if(game2Data.currentCarPosition>game2Data.safeAreaMax){
+        if(game2Data.carSpeedUp){
+            game2Data.dangerAreaStayTime = 0;
+        }
+    }
+
+    if(game2Data.currentCarPosition<game2Data.safeAreaMin){
+        if(game2Data.carSpeedDown){
+            game2Data.dangerAreaStayTime = 0;
+        }
+    }
+
     //離開安全區域太久
     if(game2Data.dangerAreaStayTime>180){
         game2Data.hintRect_g2.visible = true;
