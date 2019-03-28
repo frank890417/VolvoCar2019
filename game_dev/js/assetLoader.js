@@ -90,18 +90,3 @@ function loadAllAssets(Vars, callback){
 function loadHandler(loader, resource) {
     $(".loading-text").text("載入進度： " + ~~(loader.progress) + " %");
 }
-
-function setup(){
-    if(vars.common.currentStage == 1){
-        game1setup.setupGame1(vars);
-        game1Init.game1Init(vars);
-    }
-
-    
-    // setupGame2();
-    // setupGame3();
-    // setupGame4();
-    // initStage(vars);
-}
-
-

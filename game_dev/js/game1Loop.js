@@ -26,7 +26,7 @@ function game1Loop(Vars){
         s.position.y = s.counterY;
         s.position.x = s.counterX;
         if(s.position.y < 150 && s.position.x > common.app.screen.width/2 - game1Data.roadWidth/4 && s.position.x < common.app.screen.width/2 + game1Data.roadWidth/2){
-            game1Data.isInDangerZone = true;
+            isInDangerZone = true;
         }
         
         if(s.counterY<20000){
@@ -54,7 +54,7 @@ function game1Loop(Vars){
 
 
             if(s.position.x < common.app.screen.width/2 + game1Data.roadWidth/4){
-                game1Data.isInWarningRange = true;
+                isInWarningRange = true;
             }
 
             if(s.counterY < -1000){
@@ -75,8 +75,8 @@ function game1Loop(Vars){
 		}
     }
 
-    game1Data.hintRect.visible = game1Data.isInDangerZone;
-    game1Data.pedalWarning.visible = game1Data.isInWarningRange;
+    game1Data.hintRect.visible = isInDangerZone;
+    game1Data.pedalWarning.visible = isInWarningRange;
 
 
 

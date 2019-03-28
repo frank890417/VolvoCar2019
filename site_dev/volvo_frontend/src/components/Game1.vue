@@ -23,16 +23,6 @@ export default {
   },
   mounted(){
 
-    //父組件可以透過 this.$refs.child.childFn() 來使用子組件的 methods
-
-
-    //如果有載入檔案就直接開始遊戲
-    // if(!PIXI.loader.resources.g1Ui){
-    //   loadAllAssets.loadAllAssets(Vars, this.setupGameData);
-    // }else{
-    //   this.setupGameData();
-    // }
-    
   },
   methods: {
     resizeCanvas(){
@@ -59,7 +49,6 @@ export default {
       }else{
         callback();
       }
-      
     },
     setUp(gameContainerSelector){
       console.log("setup");
@@ -68,10 +57,20 @@ export default {
       this.resizeCanvas();
       game1Setup(Vars);
       game1Init(Vars);
+      resetData();
     }
   },
   computed: {
     ...mapState(['debug']),
+  },
+  beforeDestroy: function() {
+    //移除 vue instance 之前
+    console.log('beforeDestroy');
+  },
+  destroyed: function() {
+    //移除 vue instance 之後
+    delete Vars.common.app;
+    console.log('destroyed');
   },
   watch:{
     
