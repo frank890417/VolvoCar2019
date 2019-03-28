@@ -65,7 +65,7 @@ function registerGame2Event(){
        
     $( "body" ).keydown(function(e) {
         let k = e.keyCode;
-        if(!debug) return;
+        if(1) return;
         switch (k) {
             case 37:
                 game2Data.world3D_g2.position.x -=5;	

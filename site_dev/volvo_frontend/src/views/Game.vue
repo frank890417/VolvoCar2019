@@ -1,11 +1,14 @@
 <template lang="pug">
   .page.game 
-    game1(ref="game1" v-if="currentGame==1")
-    game2(ref="game2" v-if="currentGame==2")
-    game3(ref="game3" v-if="currentGame==3")
-    .nav
+    game1(ref="game1" v-show="currentGame==1")
+    game2(ref="game2" v-show="currentGame==2")
+    game3(ref="game3" v-show="currentGame==3")
+    .nav.active
       li(@click="loadGame") {{"開始 Game" +currentGame}}
       li(@click="resetData") {{"重置 Game" +currentGame}}
+      li 
+        input(v-model="currentGame")
+      li(@click="toggleMenu") 開合
 
 </template>
 
@@ -41,6 +44,9 @@ export default {
     },
     resetData(){
       this.refGriup[this.currentGame].resetData();
+    },
+    toggleMenu(){
+      $(".nav").toggleClass("active");
     }
   }
 }
@@ -49,13 +55,17 @@ export default {
 <style scoped lang="sass">
   .nav
     position: absolute
-    left: 10px
+    left: -450px
     bottom: 200px
+    color: white
     background-color: black
+    transition: 0.5s left
     li
       display: inline-block
       color: white
-      padding: 15px 30px
+      padding: 10px 20px
+    &.active
+      left: 10px
   .game
     overflow: hidden
 </style>
