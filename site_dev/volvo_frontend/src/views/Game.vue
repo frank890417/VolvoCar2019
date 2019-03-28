@@ -3,12 +3,13 @@
     game1(ref="game1" v-show="currentGame==1")
     game2(ref="game2" v-show="currentGame==2")
     game3(ref="game3" v-show="currentGame==3")
-    .nav-bar.active
-      li(@click="loadGame") {{"開始 Game" +currentGame}}
-      li(@click="resetData") {{"重置 Game" +currentGame}}
-      li 
-        input(v-model="currentGame")
-      li(@click="toggleMenu") 開合
+    .nav-bar.active 
+      li(@click="currentGame=1;loadGame();startGame();", :class="{active: currentGame==1}") Game 1
+      li(@click="currentGame=2;loadGame();startGame();", :class="{active: currentGame==2}") Game 2
+      li(@click="currentGame=3;loadGame();startGame();", :class="{active: currentGame==3}") Game 3
+      li(@click="loadGame();startGame();") {{"開始"}}
+      li {{"重置"}}
+      li(@click="toggleMenu") <
 
 </template>
 
@@ -21,9 +22,9 @@ import game3 from "../components/Game3"
 export default {
   name: "Game",
   mounted(){
-    this.refGriup["1"] = this.$refs.game1;
-    this.refGriup["2"] = this.$refs.game2;
-    this.refGriup["3"] = this.$refs.game3;
+    this.refGroup["1"] = this.$refs.game1;
+    this.refGroup["2"] = this.$refs.game2;
+    this.refGroup["3"] = this.$refs.game3;
   },
   components: {
     game1,
@@ -33,21 +34,26 @@ export default {
   data(){
     return{
       currentGame: 1,
-      refGriup: {}
+      refGroup: {}
     }
   },
   methods: {
     loadGame(){
-      this.refGriup[this.currentGame].loadAsset(()=>{
-        this.refGriup[this.currentGame].setUp(`.game${this.currentGame} .game-container`);
+      this.refGroup[this.currentGame].loadAsset(()=>{
+        this.refGroup[this.currentGame].setUp(`.game${this.currentGame} .game-container`);
       });
     },
+    startGame(){
+      this.refGroup[this.currentGame].start();
+    },
     resetData(){
-      this.refGriup[this.currentGame].resetData();
+      this.refGroup[this.currentGame].resetData();
     },
     toggleMenu(){
       $(".nav-bar").toggleClass("active");
     }
+  },
+  computed: {
   }
 }
 </script>
@@ -64,8 +70,18 @@ export default {
       display: inline-block
       color: white
       padding: 10px 20px
+      background-color: rgba(white,0)
+      cursor: pointer
+      &:hover
+        background-color: rgba(white,0.1)
+      &:active
+        background-color: rgba(white,0.3)
+
     &.active
       left: 10px
+    .btn-default
+      background-color: #eee
   .game
     overflow: hidden
+
 </style>

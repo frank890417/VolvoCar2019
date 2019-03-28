@@ -29,7 +29,7 @@ function game1Loop(Vars){
             isInDangerZone = true;
         }
         
-        if(s.counterY<20000){
+        if(s.counterY<500){
             if(s.visible==false){
                 s.visible = true;
                 TweenMax.fromTo(s, 1,{alpha:0}, {alpha:1});
@@ -42,14 +42,14 @@ function game1Loop(Vars){
     
         let sideVal = s.side == "left" ? 1: -1;
 
-		if(s.counterY < 8000){
+		if(s.counterY < 6000){
             
             if(s.type == "car"){
-                s.counterX += 30*sideVal;
+                s.counterX += 50*sideVal;
             }else if(s.type == "walk"){
-                s.counterX += 8*sideVal;
+                s.counterX += 18*sideVal;
             }else if(s.type == "bike"){
-                s.counterX += 15*sideVal;
+                s.counterX += 28*sideVal;
             }
 
 

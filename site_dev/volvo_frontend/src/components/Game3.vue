@@ -14,7 +14,7 @@ import Vars from "../gamejs/globalVariables.js"
 import envSetting from "../gamejs/envSetting.js"
 import loadAllAssets from "../gamejs/assetLoader.js"
 import {game3Setup} from "../gamejs/game3Setup.js"
-import {game3Init, resetData} from "../gamejs/game3Init.js"
+import {game3Init, resetData, game3Start,game3Pause} from "../gamejs/game3Init.js"
 
 export default {
   name: 'Game3',
@@ -51,6 +51,15 @@ export default {
       game3Setup(Vars);
       game3Init(Vars);
       resetData();
+    
+    },
+    start(){
+      game3Start();
+
+    
+    },
+    pause(){
+      game3Pause();
     }
   },
   computed: {
@@ -82,4 +91,9 @@ export default {
     height: 100vh
     canvas
       transform-origin: 0 0
+  position: relative
+  .loading-text 
+    position: absolute
+    left: 10px
+    top: 10px
 </style>

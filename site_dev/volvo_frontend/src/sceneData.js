@@ -15,7 +15,10 @@ export default {
       audios: ["Audio/evillaugh.mp3"]
     },{
       title: "A03",
-      layers: ["A/A03/A03_bg.png","A/A03/A03_villain.png","A/A03/A03_front.png"],
+      layers: ["A/A03/A03_bg.png","A/A03/A03_villain.png",{
+        src: "A/A03/A03_front.png",
+        getPanY: d=>d*-0.1
+      }],
       audios: ["Audio/cardoor.wav"]
     },
     {
@@ -92,7 +95,15 @@ export default {
       audios: ["Audio/car_stopping.wav"]
     },{
       title: "D03",
-      layers: ["D/D03/D03_bg.png","D/D03/D03_car_back.png","D/D03/D03_anderson.png","D/D03/D03_car_front.png","D/D03/D03_dialog.png"],
+      layers: ["D/D03/D03_bg.png","D/D03/D03_car_back.png",{
+        src: "D/D03/D03_anderson.png",
+        getPanX: (d,dp)=>d*0.5,
+        getPanY: (d,dp)=>d*0.35
+      },{
+        src: "D/D03/D03_car_front.png",
+        getPanX: (d,dp)=>d*-0.1,
+        getPanY: (d,dp)=>d*0.1
+      },"D/D03/D03_dialog.png"],
       audios: ["Audio/car_crash.wav"]
     },{
       title: "D04",
@@ -102,6 +113,11 @@ export default {
         getPanY: delta => delta*-0.1,
         getScale: (d,dp)=> dp*0.6+1
       },"D/D04/D04_speedlines.png"]
+    },
+    {
+      title: 'Game1',
+      type: 'game',
+
     },
 
     {
@@ -113,6 +129,12 @@ export default {
       title: "E02",
       layers: ["E/E02/E02_bg.png","E/E02/E02_dialog_1.png","E/E02/E02_dialog_2.png"]
     },
+    {
+      title: 'Game2',
+      type: 'game',
+
+    },
+
 
     {
       title: "F01",
@@ -173,6 +195,12 @@ export default {
       title: "G04",
       layers: ["G/G04/G04_bg.png","G/G04/G04_dialog.png"]
     },
+    {
+      title: 'Game3',
+      type: 'game',
+
+    },
+
 
 
     {
@@ -205,6 +233,12 @@ export default {
       layers: ["H/H05/H05_bg.png","H/H05/H05_dialog_1.png","H/H05/H05_dialog_2.png"],
       audios: ["Audio/beep.wav"]
     },
+    {
+      title: 'Game4',
+      type: 'game',
+
+    },
+
 
 
     {
