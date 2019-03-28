@@ -10,6 +10,7 @@
     "animate.css": "^3.7.0",
     "bootstrap": "^4.3.1",
     "gsap": "^2.1.2",
+    "jquery": "^3.3.1",
     "monoame-preloader": "^1.0.4",
     "monoame-softscroll": "^1.0.114",
     "pug": "^2.0.3",

@@ -8,6 +8,7 @@
       <router-link to="/">首頁</router-link>
       <router-link to="/about">活動辦法</router-link>
       <router-link to="/award">得獎公告</router-link>
+      <router-link to="/game">遊戲測試</router-link>
     </div>
     <transition name="fade" mode="out-in">
       <router-view :key= "$route.path" />
