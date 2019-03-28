@@ -14,11 +14,14 @@
       .img-layers
         .img-layer(
           v-for="(layer,layerId) in scene.layers",
-          :style="{'z-index': layerId,'transform': 'translateY('+getPan(layer,sceneId,layerId)+'px) scale('+(layerId==0?1:1.05)+')', 'filter': 'brightness('+(1-0.1/layerId)+')' }")
+          :style="getLayerStyle(getLayerObject(layer),layerId,scene,sceneId)",
+          )
           img.wow(
-              :src="layer", 
-              :style="{ 'animation-delay': layerId+'s' }",
-              :class="getLayerClass(layer,layerId)")
+              :src="getLayerObject(layer).src", 
+              :style="{ 'animation-delay': layerId/3+'s' }",
+              :class="getLayerClass(getLayerObject(layer),layerId)",
+              :title="getLayerObject(layer).src")
+          
       //- div(v-if="scene && scene.audios")
       //-   audio( v-for="audioSrc in scene.audios" :volume="0.1" :autoplay="currentPreSection===scene?true:false" preload)
       //-       source( :src="audioSrc")
@@ -58,6 +61,9 @@ import WOW from 'wow.js'
 import {mapState} from 'vuex'
 import {TweenMax} from 'gsap'
 import sceneData from '../sceneData.js'
+import Game1 from './Game1'
+import Game2 from './Game2'
+import Game3 from './Game3'
 
 export default {
   name: 'HelloWorld',
@@ -77,25 +83,53 @@ export default {
     // document.getElementById("bgsound").volume=0.6
     // document.getElementById("bgsound").play()
     },500)
+    window.addEventListener('keypress',(evt)=>{
+    })
     // console.log(this.$refs.sceneObj2)
   },
   methods: {
-    getPan(layer, sceneId, layerId){
+
+    //根據塗層跟資料算出應該要的偏移量
+    getTransform(layer, sceneId, layerId){
       if (layerId==0) return 0
-      // if (layer.indexOf('對白')!=-1 || layer.indexOf('dialog')!=-1 ) return 0
-      let layerPan = -(this.scrollY- (this.sectionPositionList[sceneId] + window.outerHeight*0.6) ) /(-layerId+5) 
-      return layerPan
+      if (layer.src.indexOf('speedline')!=-1 || layer.src.indexOf('dialog')!=-1 ) return 0
+      
+      //滾動位置跟這個區塊的相對差距
+      let delta = (this.scrollY- (this.sectionPositionList[sceneId] + window.outerHeight*0.6) ) * 0.95
+
+      //滾動位置佔區塊的百分比
+      let deltaPercent = ((this.scrollY- this.sectionPositionList[sceneId]) / (this.sectionHeightList[sceneId] || 0) )
+
+      let layerPanX = layer.getPanX ? layer.getPanX(delta,deltaPercent): 0
+      let layerPanY = layer.getPanY ? layer.getPanY(delta,deltaPercent): (-delta/(-layerId*0.6+5) )
+      let layerScale = layer.getScale? layer.getScale(delta,deltaPercent):  (layerId==0?1:1.03)
+      
+      return {x: layerPanX,y: layerPanY, scale: layerScale}
     },
-    getLayerClass(layer,layerId){
+    getLayerStyle(layer,layerId,scene,sceneId){
+      let trans = this.getTransform(layer,sceneId,layerId)
       return {
-        wow: true, 
-        zoomIn: layer.indexOf('對白')!=-1 || layer.indexOf('dialog')!=-1,
-        tada: layer.indexOf('C01_speedline')!=-1,
-        slideInRight: layer.indexOf('A02_man')!=-1 || layer.indexOf('I02_box')!=-1 || layer.indexOf('I06_man')!=-1,
-        slideInBottom: layer.indexOf('D04_car')!=-1,
-        pulse: layer.indexOf('D04_car')!=-1,
-        frontItem: layerId!=0
+        'z-index': layerId,
+        'transform': 'scale('+trans.scale+') translate('+trans.x+'px,'+trans.y+'px)',
+        
       }
+    },
+
+    //根據資料算出應該要加的class
+    getLayerClass(layer,layerId){
+      let addClasses = layer.class?layer.classes:[]
+      let result = {
+        wow: true, 
+        zoomIn: layer.src.indexOf('dialog')!=-1,
+        tada: layer.src.indexOf('C01_speedline')!=-1,
+        slideInRight: layer.src.indexOf('A02_man')!=-1 || layer.src.indexOf('I02_box')!=-1 || layer.src.indexOf('I06_man')!=-1,
+        slideInBottom: layer.src.indexOf('D04_car')!=-1,
+        pulse: layer.src.indexOf('D04_car')!=-1,
+        frontItem: layerId!=0,
+       
+      }
+      addClasses.forEach(cls=>result[cls]=true)
+      return result
     },
     getSectionHeightList(){
       this.sectionHeightList= this.scenes.map((d,i)=>{
@@ -107,6 +141,15 @@ export default {
         return offsetTop
       })
     },
+    getLayerObject(obj){
+      if (typeof obj == "string"){
+        return {
+          src: obj
+        }
+      }
+      return obj
+      
+    }
   },
   computed: {
     ...mapState(['debug']),
@@ -195,12 +238,13 @@ img
     position: absolute
     left: 0
     top: 0
+    transform-origin: center center
   .img-layer:first-child
     position: relative
 section
   // border: solid 1px blue
   position: relative
-  background-color: #222
+  // background-color: #fff
   // padding-bottom: calc(1080/1920*100%)
   h2
     padding: 5px 20px
