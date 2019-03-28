@@ -1,5 +1,5 @@
 <template lang="pug">
-  .game1 
+  .game3 
     .loading-text 載入中
     .game-container
     
@@ -11,13 +11,13 @@ import {mapState} from 'vuex'
 import {TweenMax} from 'gsap'
 import sceneData from '../sceneData.js'
 import Vars from "../gamejs/globalVariables.js"
-import envSetting from "../gamejs/envSetting.js"
-import loadAllAssets from "../gamejs/assetLoader.js"
-import {game1Setup} from "../gamejs/game1Setup.js"
-import {game1Init, resetData} from "../gamejs/game1Init.js"
+// import envSetting from "../gamejs/envSetting.js"
+// import loadAllAssets from "../gamejs/assetLoader.js"
+// import {game3Setup} from "../gamejs/game3Setup.js"
+// import {game3Init, resetData} from "../gamejs/game3Init.js"
 
 export default {
-  name: 'Game1',
+  name: 'Game3',
   props: {
     msg: String
   },
@@ -31,11 +31,11 @@ export default {
       $("canvas").css("transform-origin", "0 0");
     },
     setupGameData(){
-      Vars.common.currentStage = 1;
+      Vars.common.currentStage = 3;
       envSetting.setupEnv(this.gameContainer, Vars);
       this.resizeCanvas();
-      game1Setup(Vars);
-      game1Init(Vars);
+      game3Setup(Vars);
+      game3Init(Vars);
       
     },
     resetData(){
@@ -52,11 +52,11 @@ export default {
     },
     setUp(gameContainerSelector){
       console.log("setup");
-      Vars.common.currentStage = 1;
+      Vars.common.currentStage = 3;
       envSetting.setupEnv(gameContainerSelector, Vars);
       this.resizeCanvas();
-      game1Setup(Vars);
-      game1Init(Vars);
+      game3Setup(Vars);
+      game3Init(Vars);
       resetData();
     }
   },
@@ -77,7 +77,7 @@ export default {
   },
   data(){
     return {
-      gameContainer: ".game1 .game-container"
+      gameContainer: ".game3 .game-container"
     }
   }
 }

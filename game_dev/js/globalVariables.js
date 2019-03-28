@@ -39,6 +39,76 @@ var stages = {
 var stageLoops;
 
 
+//資料部分沒有特別包起來 所以namespace就先用命名來分辨吧QQ
+//第一關
+var crossingGroups = [];
+var crossingGroup;
+var crossLine;
+var crossSequence = ['person', 'car', 'person', 'car', 'person', 'car', 'bike', 'person', 'car', 'person', 'bike'];
+
+
+var crossObjects = [
+    {type: "walk", posX: -1500, posY: 1000, side: "left"},
+    {type: "car", posX: 1500, posY: 8000, side: "right"},
+    {type: "walk", posX: -1500, posY: 18000, side: "left"},
+    {type: "walk", posX: 8000, posY: 26000, side: "right"},
+    {type: "car", posX: -1500, posY: 33000, side: "left"},
+    {type: "car", posX: 5000, posY: 41000, side: "right"},
+    {type: "bike", posX: 8000, posY: 50000, side: "right"},
+    {type: "walk", posX: -1500, posY:57000, side: "left"},
+    {type: "car", posX: 8000, posY: 66000, side: "right"},
+    {type: "walk", posX: 6000, posY: 75000, side: "right"},
+    {type: "bike", posX: -3500, posY: 88000, side: "left"}
+]
+
+var g1Ui;
+var countImg;
+
+var carCounter = 4;
+var bikeCounter = 2;
+var walkCounter = 5;
+
+var hintRect;
+var timerGame1;
+var timeText;
+var timeRemainingText;
+var remainingTime = 30;
+var groupSpeedMax = 2;
+var groupSpeedMin = 0.05;
+var groupSpeed = 2;
+var pressStop = false;
+var bgAnimationSpeed = 0.2;
+
+var cityRoad;
+var cityRoadAniBg;
+var bike;
+var bikeSpeed = 5;
+var walkImg;
+var carImg;
+
+var groundMoveSpeedG1 = 50;
+
+var currentMovingIndex = 0;
+var currentMovingObject;
+var bikeScurrentMovingObjectSpeed = 5;
+
+var dash;
+var pedal;
+var pedalWarning;
+
+var missImg;
+var mrImg;
+var sysImg;
+
+var world3D;
+var vanishingPoint;
+var vanishingPointStyle;
+var lineLeft;
+var lineRight;
+var roadWidth = 2600;
+var lineGroup;
+var hintTextG1;
+
 //第二關
 var g2Ui;
 var hintRect_g2;
@@ -180,113 +250,5 @@ var timeRemainingText_g4;
 var remainingTime_g4 = 30;
 var hintRect_g4;
 
-
-
-
-let common = {
-    bigWhiteTexture: null,
-    isPrePlaying : false,
-    prePlayTimelineG1: null,
-    prePlayTimelineG2: null,
-    prePlayTimelineG3: null,
-    prePlayTimelineG4: null,
-    prePlayG1Cover: null,
-    prePlayG2Cover: null,
-    prePlayG3Cover: null,
-    prePlayG4Cover: null,
-    prePlayStartTextG1: null,
-    prePlayStartTextG2: null,
-    prePlayStartTextG3: null,
-    prePlayStartTextG4: null,
-    //給預覽動畫使用
-    isGameRunning : false,
-
-    //調整畫面的解析度
-    DEFAULT_STAGE_WIDTH : 1920,
-    DEFAULT_STAGE_HEIGHT : 1080,
-
-    //stage manage
-    app,
-    currentStage : 0,
-    stage1 : 0,
-    stage2 : 0,
-    stage3 : 0,
-    stage4 : 0,
-    stages : {},
-    stageLoops: null
-};
-
-let game1Data = {
-    crossingGroups : [],
-    crossingGroup: null,
-    crossLine: null,
-    crossSequence : ['person', 'car', 'person', 'car', 'person', 'car', 'bike', 'person', 'car', 'person', 'bike'],
-    
-    
-    crossObjects : [
-        {type: "walk", posX: -1500, posY: 1000, side: "left"},
-        {type: "car", posX: 1500, posY: 8000, side: "right"},
-        {type: "walk", posX: -1500, posY: 18000, side: "left"},
-        {type: "walk", posX: 8000, posY: 26000, side: "right"},
-        {type: "car", posX: -1500, posY: 33000, side: "left"},
-        {type: "car", posX: 5000, posY: 41000, side: "right"},
-        {type: "bike", posX: 8000, posY: 50000, side: "right"},
-        {type: "walk", posX: -1500, posY:57000, side: "left"},
-        {type: "car", posX: 8000, posY: 66000, side: "right"},
-        {type: "walk", posX: 6000, posY: 75000, side: "right"},
-        {type: "bike", posX: -3500, posY: 88000, side: "left"}
-    ],
-    
-    g1Ui: null,
-    countImg: null,
-    
-    carCounter : 4,
-    bikeCounter : 2,
-    walkCounter : 5,
-    
-    hintRect: null,
-    timerGame1: null,
-    timeText: null,
-    timeRemainingText: null,
-    remainingTime : 30,
-    groupSpeedMax : 2,
-    groupSpeedMin : 0.05,
-    groupSpeed : 2,
-    pressStop : false,
-    bgAnimationSpeed : 0.2,
-    
-    cityRoad : null,
-    cityRoadAniBg : null,
-    bike : null,
-    bikeSpeed : 5,
-    walkImg : null,
-    carImg : null,
-    
-    groundMoveSpeedG1 : 50,
-    
-    currentMovingIndex : 0,
-    currentMovingObject : null,
-    bikeScurrentMovingObjectSpeed : 5,
-    
-    dash : null,
-    pedal : null,
-    pedalWarning : null,
-    
-    missImg : null,
-    mrImg : null,
-    sysImg : null,
-    
-    world3D : null,
-    vanishingPoint : null,
-    vanishingPointStyle : null,
-    lineLeft : null,
-    lineRight : null,
-    roadWidth : 2600,
-    lineGroup : null,
-    hintTextG1 : null,
-}
-
-
-export default { common, game1Data };
 
 

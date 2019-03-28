@@ -39,7 +39,7 @@ export default {
       if (counter>10 ){
         startGame()
       }
-    },1000)
+    },10)
 
     this.setLoading(true)
     let pics = sceneData.scenes.map(item=>item.layers.concat(item.audios || []) ).reduce((all,item)=>[...all,...item],[])

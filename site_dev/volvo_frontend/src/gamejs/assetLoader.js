@@ -1,5 +1,11 @@
+export default { loadAllAssets }
 
-function loadAllAssets(){
+let common;
+let vars;
+
+function loadAllAssets(Vars, callback){
+    vars = Vars;
+    common = Vars.common;
     let _loader = PIXI.loader
         .add("g1Ui", "images/game1/Game1_ui_v1.png")
         .add("g2Ui", "images/game2/Game2_ui_v1.png")
@@ -67,46 +73,20 @@ function loadAllAssets(){
         });
     }
 
-    // _loader.add('roadBgVideoG1').onComplete.once(() => {
-    //     const res = _loader.resources['roadBgVideoG1'];
-    //     res.texture = PIXI.Texture.fromVideo("./images/game1/roadBgVideoG1.mp4");
-    // });
+    _loader.add('roadBgVideoG1').onComplete.once(() => {
+        const res = _loader.resources['roadBgVideoG1'];
+        res.texture = PIXI.Texture.fromVideo("./images/game1/roadBgVideoG1.mp4");
+    });
 
     _loader
+        .on("error", function(eData){
+            console.log(eData);
+        })
         .on("progress", loadHandler)
-        .load(setup);
+        .load(callback);
 }
+
 
 function loadHandler(loader, resource) {
-    $(".loading").text("載入進度： " + ~~(loader.progress) + " %");
-}
-
-function setup(){
-    $(".loading").fadeOut(600);
-    $(".init-text").css("opacity", 1);
-    setupCommonData();
-    //先將小遊戲都隱藏
-    for(let key in stages){
-        stages[key].visible = false;
-    }
-    
-    setupGame1();
-    setupGame2();
-    setupGame3();
-    setupGame4();
-    initStage();
-}
-
-function setupCommonData(){
-    stage1 = new PIXI.Container();
-    stage2 = new PIXI.Container();
-    stage3 = new PIXI.Container();
-    stage4 = new PIXI.Container();
-
-    stages = {
-        1: stage1,
-        2: stage2,
-        3: stage3,
-        4: stage4
-    }
+    $(".loading-text").text("載入進度： " + ~~(loader.progress) + " %");
 }

@@ -1,5 +1,5 @@
 <template lang="pug">
-  .game1 
+  .game2
     .loading-text 載入中
     .game-container
     
@@ -13,16 +13,15 @@ import sceneData from '../sceneData.js'
 import Vars from "../gamejs/globalVariables.js"
 import envSetting from "../gamejs/envSetting.js"
 import loadAllAssets from "../gamejs/assetLoader.js"
-import {game1Setup} from "../gamejs/game1Setup.js"
-import {game1Init, resetData} from "../gamejs/game1Init.js"
+import {game2Setup} from "../gamejs/game2Setup.js"
+import {game2Init, resetData} from "../gamejs/game2Init.js"
 
 export default {
-  name: 'Game1',
+  name: 'Game2',
   props: {
     msg: String
   },
   mounted(){
-
   },
   methods: {
     resizeCanvas(){
@@ -31,12 +30,10 @@ export default {
       $("canvas").css("transform-origin", "0 0");
     },
     setupGameData(){
-      Vars.common.currentStage = 1;
+      Vars.common.currentStage = 2;
       envSetting.setupEnv(this.gameContainer, Vars);
       this.resizeCanvas();
-      game1Setup(Vars);
-      game1Init(Vars);
-      
+      game2Setup(Vars);
     },
     resetData(){
       console.log("resetData");
@@ -52,11 +49,11 @@ export default {
     },
     setUp(gameContainerSelector){
       console.log("setup");
-      Vars.common.currentStage = 1;
+      Vars.common.currentStage = 2;
       envSetting.setupEnv(gameContainerSelector, Vars);
       this.resizeCanvas();
-      game1Setup(Vars);
-      game1Init(Vars);
+      game2Setup(Vars);
+      game2Init(Vars);
       resetData();
     }
   },
@@ -64,20 +61,19 @@ export default {
     ...mapState(['debug']),
   },
   beforeDestroy: function() {
-    //移除 vue instance 之前
-    console.log('beforeDestroy');
+    
   },
   destroyed: function() {
     //移除 vue instance 之後
     delete Vars.common.app;
-    console.log('destroyed');
+
   },
   watch:{
     
   },
   data(){
     return {
-      gameContainer: ".game1 .game-container"
+      gameContainer: ".game2 .game-container"
     }
   }
 }
@@ -85,7 +81,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="sass">
-.game1
+.game2
   .game-container
     overflow: hidden
     width: 100%
