@@ -1,70 +1,3 @@
-
-
-//第三關
-var carSideSequenceIndex = 0;
-var carSideSequence = ['left', 'left', 'right', 'right', 'left'];
-
-var timerGame3;
-var hintRect_g3;
-var hintTextG3;
-var hintRectGood_g3
-var timeText_g3;
-var timeRemainingText_g3;
-var remainingTime_g3 = 30;
-var cityRoad_g3;
-var dash_g3;
-var missImg_g3;
-var mrImg_g3;
-var sysImg_g3;
-var leftBtn_g3;
-var rightBtn_g3;
-var hint_g3;
-
-var car_g3;
-var carMoveLeftAni;
-var carPosY_g3 = 600;
-var carComingLeft_g3;
-var carComingRight_g3;
-var isLeftCarComes = false;
-var isRightCarComes = false;
-
-var world3D_g3;
-var vanishingPoint_g3;
-var vanishingPointStyle_g3;
-var lineLeft_g3;
-var lineRight_g3;
-var roadWidth_g3 = 1920*1.5;
-var lineGroup_g3;
-var leftWifi = [];
-var rightWifi = [];
-var leftWifiIndex = 0;
-var rightWifiIndex = 0;
-var leftWifiTimeline;
-var rightWifiTimeline;
-
-//後照鏡
-var mirrorLeft_g3;
-var mirrorRight_g3;
-var carInMirrorLeft_g3;
-var carInMirrorRight_g3;
-
-var mirrorHintLeft_g3;
-var mirrorHintRight_g3;
-
-var mirrorMaskLeft_g3;
-var mirrorMaskRight_g3;
-var mirrorBgLeft_g3;
-var mirrorBgRight_g3;
-var mirrorBorderLeft_g3;
-var mirrorBorderRight_g3;
-
-var carLeftTimeline_g3;
-var carRightTimeline_g3;
-
-var carEmitterTimer;
-var currentCarSide;
-
-
 //第四關
 var missImg_g4;
 var mrImg_g4;
@@ -252,6 +185,74 @@ let game2Data = {
 
 let game3Data = {
 
+
+    //第三關
+    carSideSequenceIndex : 0,
+    carSideSequence : ['left', 'left', 'right', 'right', 'left'],
+
+    timerGame3:null,
+    hintRect_g3:null,
+    hintTextG3:null,
+    hintRectGood_g:null,
+    timeText_g3:null,
+    timeRemainingText_g3:null,
+    remainingTime_g3 : 30,
+    cityRoad_g3:null,
+    dash_g3:null,
+    missImg_g3:null,
+    mrImg_g3:null,
+    sysImg_g3:null,
+    leftBtn_g3:null,
+    rightBtn_g3:null,
+    hint_g3:null,
+
+    car_g3:null,
+    carMoveLeftAni:null,
+    carPosY_g3 : 600,
+    carComingLeft_g3:null,
+    carComingRight_g3:null,
+    isLeftCarComes : false,
+    isRightCarComes : false,
+
+    world3D_g3:null,
+    vanishingPoint_g3:null,
+    vanishingPointStyle_g3:null,
+    lineLeft_g3:null,
+    lineRight_g3:null,
+    roadWidth_g3 : 1920*1.5,
+    lineGroup_g3:null,
+    leftWifi : [],
+    rightWifi : [],
+    leftWifiIndex : 0,
+    rightWifiIndex : 0,
+    leftWifiTimeline:null,
+    rightWifiTimeline:null,
+
+    //後照鏡
+    mirrorLeft_g3:null,
+    mirrorRight_g3:null,
+    carInMirrorLeft_g3:null,
+    carInMirrorRight_g3:null,
+    carLeftMirrorTimeline_g3: null,
+    carRightMirrorTimeline_g3: null,
+
+    mirrorHintLeft_g3:null,
+    mirrorHintRight_g3:null,
+
+    mirrorMaskLeft_g3:null,
+    mirrorMaskRight_g3:null,
+    mirrorBgLeft_g3:null,
+    mirrorBgRight_g3:null,
+    mirrorBorderLeft_g3:null,
+    mirrorBorderRight_g3:null,
+
+    carLeftTimeline_g3:null,
+    carRightTimeline_g3:null,
+
+    carEmitterTimer:null,
+    currentCarSide:null,
+
+    pressStop : false
 
 }
 

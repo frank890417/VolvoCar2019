@@ -29,7 +29,7 @@ export default {
   },
   data(){
     return{
-      currentGame: 1,
+      currentGame: 3,
       refGriup: {}
     }
   },
@@ -50,10 +50,12 @@ export default {
   .nav
     position: absolute
     left: 10px
-    bottom: 100px
+    bottom: 200px
     background-color: black
     li
       display: inline-block
       color: white
       padding: 15px 30px
+  .game
+    overflow: hidden
 </style>

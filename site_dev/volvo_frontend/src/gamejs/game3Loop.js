@@ -1,12 +1,18 @@
+export default {game3Loop};
 
-var timeCounter3 = 0;
-function game3Loop() {
+let vars;
+let common;
+let game3Data;
+
+let timeCounter3 = 0;
+function game3Loop(Vars) {
+    if(!vars) initLoopData(Vars);
 
     //更新橫線
-    for(let i=0; i< lineGroup_g3.length; i++){
-        let s = lineGroup_g3[i];
-        if(!pressStop){
-            s.counterY -= (carSpeed+1)*5+100;
+    for(let i=0; i< game3Data.lineGroup_g3.length; i++){
+        let s = game3Data.lineGroup_g3[i];
+        if(!game3Data.pressStop){
+            s.counterY -= (game3Data.carSpeed+1)*5+100;
         }
         s.position.y = s.counterY;
         if(s.counterY< -500){
@@ -15,31 +21,31 @@ function game3Loop() {
     }
 
     
-    if(leftBtnClick_g3){
-        if(isLeftCarComes){
+    if(game3Data.leftBtnClick_g3){
+        if(game3Data.isLeftCarComes){
             let tl = new TimelineMax();
-            tl.fromTo(hintRectGood_g3, 0.2, {alpha: 1}, {alpha: 0}).yoyo(1).repeat(6);  
-            if(carMoveLeftAni){
-                carMoveLeftAni.kill();
-                carMoveLeftAni = null;
+            tl.fromTo(game3Data.hintRectGood_g3, 0.2, {alpha: 1}, {alpha: 0}).yoyo(1).repeat(6);  
+            if(game3Data.carMoveLeftAni){
+                game3Data.carMoveLeftAni.kill();
+                game3Data.carMoveLeftAni = null;
             }
-            TweenMax.to(car_g3.position, 1,{
-                x: app.screen.width/2,
+            TweenMax.to(game3Data.car_g3.position, 1,{
+                x: common.app.screen.width/2,
                 ease: Power0.easeNone
             });
         }
     }
 
-    if(rightBtnClick_g3){
-        if(isRightCarComes){
+    if(game3Data.rightBtnClick_g3){
+        if(game3Data.isRightCarComes){
             let tl = new TimelineMax();
-            tl.fromTo(hintRectGood_g3, 0.2, {alpha: 1}, {alpha: 0}).yoyo(1).repeat(6);  
-            if(carMoveRightAni){
-                carMoveRightAni.kill();
-                carMoveRightAni = null;
+            tl.fromTo(game3Data.hintRectGood_g3, 0.2, {alpha: 1}, {alpha: 0}).yoyo(1).repeat(6);  
+            if(game3Data.carMoveRightAni){
+                game3Data.carMoveRightAni.kill();
+                game3Data.carMoveRightAni = null;
             }
-            TweenMax.to(car_g3.position, 1,{
-                x: app.screen.width/2,
+            TweenMax.to(game3Data.car_g3.position, 1,{
+                x: common.app.screen.width/2,
                 ease: Power0.easeNone
             });
         }
@@ -47,17 +53,24 @@ function game3Loop() {
 
     //update wifi
     for(let i=0; i<5; i++){
-        let tempWifiL = leftWifi[i];
-        let tempWifiR = rightWifi[i];
-        tempWifiL.position.set(car_g3.position.x - 250, car_g3.position.y - 500);
-        tempWifiR.position.set(car_g3.position.x + 50, car_g3.position.y - 500);
+        let tempWifiL = game3Data.leftWifi[i];
+        let tempWifiR = game3Data.rightWifi[i];
+        tempWifiL.position.set(game3Data.car_g3.position.x - 200, game3Data.car_g3.position.y - 500);
+        tempWifiR.position.set(game3Data.car_g3.position.x + 200, game3Data.car_g3.position.y - 500);
     }
 
     
-    // car_g3.position.x = Math.sin(timeCounter3/100)*50 + app.screen.width/2;
-    // car_g3.position.y = Math.sin(timeCounter3/300)*10 + carPosY_g3;
+    // game3Data.car_g3.position.x = Math.sin(timeCounter3/100)*50 + app.screen.width/2;
+    // game3Data.car_g3.position.y = Math.sin(timeCounter3/300)*10 + carPosY_g3;
     
     // carComingLeft_g3.position.y = (carComingLeft_g3.position.y + 10 )% 10000;
     //world3D_g3.position.x = Math.sin(timeCounter3/140)*300;
     timeCounter3++;
+}
+
+
+function initLoopData(Vars){
+    vars = Vars;
+    common = Vars.common;
+    game3Data = Vars.game3Data;
 }

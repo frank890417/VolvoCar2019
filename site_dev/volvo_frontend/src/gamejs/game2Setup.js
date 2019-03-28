@@ -1,6 +1,6 @@
 let common;
 let game2Data;
-export {game2Setup, generateCrossingGroup};
+export {game2Setup};
 
 function game2Setup(Vars){
     common = Vars.common;
@@ -119,7 +119,7 @@ function game2Setup(Vars){
 
     game2Data.world3D_g2 = new PIXI.projection.Container2d();
     game2Data.world3D_g2.position.set(0, 700);
-    generateCrossingGroup();
+    addVanishingAssetG3();
     
 
     common.stage2.addChild(game2Data.cityRoadAniBg_g2)
@@ -144,7 +144,7 @@ function game2Setup(Vars){
 }
 
 
-function generateCrossingGroup(){
+function addVanishingAssetG3(){
     game2Data.bigWhiteTexture = new PIXI.Texture(PIXI.Texture.WHITE.baseTexture);
     game2Data.bigWhiteTexture.orig.width = 30;
     game2Data.bigWhiteTexture.orig.height = 30;

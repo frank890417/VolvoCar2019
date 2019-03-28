@@ -8,13 +8,13 @@
 <script>
 import WOW from 'wow.js'
 import {mapState} from 'vuex'
-import {TweenMax} from 'gsap'
+import {TweenMax, TimelineMax} from 'gsap'
 import sceneData from '../sceneData.js'
 import Vars from "../gamejs/globalVariables.js"
-// import envSetting from "../gamejs/envSetting.js"
-// import loadAllAssets from "../gamejs/assetLoader.js"
-// import {game3Setup} from "../gamejs/game3Setup.js"
-// import {game3Init, resetData} from "../gamejs/game3Init.js"
+import envSetting from "../gamejs/envSetting.js"
+import loadAllAssets from "../gamejs/assetLoader.js"
+import {game3Setup} from "../gamejs/game3Setup.js"
+import {game3Init, resetData} from "../gamejs/game3Init.js"
 
 export default {
   name: 'Game3',
@@ -22,6 +22,17 @@ export default {
     msg: String
   },
   mounted(){
+    window.tempVar = Vars;
+
+    loadAllAssets.loadAllAssets(Vars, ()=>{
+      Vars.common.currentStage = 3;
+      envSetting.setupEnv(this.gameContainer, Vars);
+      this.resizeCanvas();
+      game3Setup(Vars);
+      console.log("這邊這邊");
+      game3Init(Vars);
+      // resetData();
+    });
 
   },
   methods: {
@@ -29,14 +40,6 @@ export default {
       let ratio = $(window).innerWidth()/1920;
       $("canvas").css("transform", `scale(${ratio})`);
       $("canvas").css("transform-origin", "0 0");
-    },
-    setupGameData(){
-      Vars.common.currentStage = 3;
-      envSetting.setupEnv(this.gameContainer, Vars);
-      this.resizeCanvas();
-      game3Setup(Vars);
-      game3Init(Vars);
-      
     },
     resetData(){
       console.log("resetData");
@@ -64,13 +67,10 @@ export default {
     ...mapState(['debug']),
   },
   beforeDestroy: function() {
-    //移除 vue instance 之前
-    console.log('beforeDestroy');
+    
   },
   destroyed: function() {
-    //移除 vue instance 之後
     delete Vars.common.app;
-    console.log('destroyed');
   },
   watch:{
     
@@ -89,6 +89,7 @@ export default {
   .game-container
     overflow: hidden
     width: 100%
+    height: 100vh
     canvas
       transform-origin: 0 0
 </style>

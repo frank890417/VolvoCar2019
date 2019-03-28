@@ -29,12 +29,6 @@ export default {
       $("canvas").css("transform", `scale(${ratio})`);
       $("canvas").css("transform-origin", "0 0");
     },
-    setupGameData(){
-      Vars.common.currentStage = 2;
-      envSetting.setupEnv(this.gameContainer, Vars);
-      this.resizeCanvas();
-      game2Setup(Vars);
-    },
     resetData(){
       console.log("resetData");
       resetData();
@@ -85,6 +79,7 @@ export default {
   .game-container
     overflow: hidden
     width: 100%
+    height: 100vh
     canvas
       transform-origin: 0 0
 </style>
