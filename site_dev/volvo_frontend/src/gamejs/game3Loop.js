@@ -11,7 +11,9 @@ function game3Loop(Vars) {
     //更新橫線
     for(let i=0; i< game3Data.lineGroup_g3.length; i++){
         let s = game3Data.lineGroup_g3[i];
-        s.counterY -= (game3Data.carSpeed+1)*5+100;
+        s.counterY -= game3Data.carSpeed;
+        console.log(s.counterY);
+
         s.position.y = s.counterY;
         if(s.counterY< -500){
             s.counterY = 3000*11;
@@ -25,11 +27,10 @@ function game3Loop(Vars) {
             if(game3Data.carMoveLeftAni){
                 game3Data.carMoveLeftAni.kill();
                 game3Data.carMoveLeftAni = null;
+                game3Data.carMoveLeftAniMirror.kill();
             }
-            TweenMax.to(game3Data.car_g3.position, 1,{
-                x: common.app.screen.width/2,
-                ease: Power0.easeNone
-            });
+            setToCenter();
+            
         }
     }
 
@@ -40,11 +41,9 @@ function game3Loop(Vars) {
             if(game3Data.carMoveRightAni){
                 game3Data.carMoveRightAni.kill();
                 game3Data.carMoveRightAni = null;
+                game3Data.carMoveRightAniMirror.kill();
             }
-            TweenMax.to(game3Data.car_g3.position, 1,{
-                x: common.app.screen.width/2,
-                ease: Power0.easeNone
-            });
+            setToCenter();
         }
     }
 
@@ -70,4 +69,20 @@ function initLoopData(Vars){
     vars = Vars;
     common = Vars.common;
     game3Data = Vars.game3Data;
+}
+
+
+function setToCenter(){
+    TweenMax.to(game3Data.car_g3.position, 1,{
+        x: common.app.screen.width/2,
+        ease: Power0.easeNone
+    });
+    TweenMax.to(game3Data.mirrorBgRight_g3.position, 1,{
+        x: -300,
+        ease: Power0.easeNone
+    });
+    TweenMax.to(game3Data.mirrorBgLeft_g3.position, 1,{
+        x: 0,
+        ease: Power0.easeNone
+    });
 }

@@ -156,8 +156,7 @@ function nextCarSideSequence(){
 function setUpCarMovingAnimation(){
     //下方來車動畫設定
     let carComingLeftMove = TweenMax.fromTo(game3Data.carComingLeft_g3.position, 10, {
-        y: -1000,
-        ease: Power0.easeNone
+        y: -1000, ease: Power0.easeNone
     },{
         y: 10000
     });
@@ -169,10 +168,16 @@ function setUpCarMovingAnimation(){
 
             //車子往左靠的動畫
             game3Data.carMoveLeftAni = TweenMax.to(game3Data.car_g3.position, 3,{
-                x: common.app.screen.width/2 - 300,
-                ease: Power0.easeNone
+                x: common.app.screen.width/2 - 300, ease: Power0.easeNone
             }).delay(3);
-            
+            //鏡子中的也要移動
+            game3Data.carMoveRightAniMirror = TweenMax.to(game3Data.mirrorBgRight_g3.position, 3,{
+                x: -200, ease: Power0.easeNone
+            }).delay(3);
+
+            game3Data.carMoveLeftAniMirror = TweenMax.to(game3Data.mirrorBgLeft_g3.position, 3,{
+                x: 100, ease: Power0.easeNone
+            }).delay(3);
         },
         onComplete: ()=>{
             game3Data.carLeftTimeline_g3.seek(0);
@@ -182,8 +187,6 @@ function setUpCarMovingAnimation(){
         },
         paused:true
     });
-
-    
 
     game3Data.carLeftTimeline_g3
     .add(()=>{
@@ -201,16 +204,11 @@ function setUpCarMovingAnimation(){
                 x: common.app.screen.width/2 - 150,
                 ease: Elastic.easeOut.config(1, 0.3)
             });
-
+            //回到中間
             let tl = new TimelineMax({
                 onComplete: ()=>{
                     game3Data.carComingLeft_g3.position.y = -1000;
-
-                    TweenMax.to(game3Data.car_g3.position, 1,{
-                        x: common.app.screen.width/2,
-                        ease: Power0.easeNone
-                    });
-
+                    setToCenter();
                 }
             });
             tl.fromTo(game3Data.hintRect_g3, 0.2, {alpha: 0.3}, {alpha: 0}).yoyo(1).repeat(6);
@@ -219,8 +217,7 @@ function setUpCarMovingAnimation(){
 
 
     let carComingRightMove = TweenMax.fromTo(game3Data.carComingRight_g3.position, 10, {
-        y: -1000,
-        ease: Power0.easeNone
+        y: -1000, ease: Power0.easeNone
     },{
         y: 10000
     });
@@ -229,11 +226,19 @@ function setUpCarMovingAnimation(){
         onStart: ()=>{
             game3Data.isRightCarComes = true;
             showMirrorCar("right");
+            
             //這邊會建立 車子往右靠的動畫
             game3Data.carMoveRightAni = TweenMax.to(game3Data.car_g3.position, 3,{
-                x: common.app.screen.width/2 + 300,
-                ease: Power0.easeNone
+                x: common.app.screen.width/2 + 300, ease: Power0.easeNone
             }).delay(3);
+            game3Data.carMoveRightAniMirror = TweenMax.to(game3Data.mirrorBgRight_g3.position, 3,{
+                x: -400, ease: Power0.easeNone
+            }).delay(3);
+
+            game3Data.carMoveLeftAniMirror = TweenMax.to(game3Data.mirrorBgLeft_g3.position, 3,{
+                x: -100, ease: Power0.easeNone
+            }).delay(3);
+
         },
         onComplete: ()=>{
             game3Data.carRightTimeline_g3.seek(0);
@@ -263,10 +268,7 @@ function setUpCarMovingAnimation(){
             let tl = new TimelineMax({
                 onComplete: ()=>{
                     game3Data.carComingRight_g3.position.y = -1000;
-                    TweenMax.to(game3Data.car_g3.position, 1,{
-                        x: common.app.screen.width/2,
-                        ease: Power0.easeNone
-                    });
+                    setToCenter();
                 }
             });
             tl.fromTo(game3Data.hintRect_g3, 0.2, {alpha: 0.3}, {alpha: 0}).yoyo(1).repeat(6);
@@ -274,6 +276,21 @@ function setUpCarMovingAnimation(){
     }, 4.7);
 }
 
+
+function setToCenter(){
+    TweenMax.to(game3Data.car_g3.position, 1,{
+        x: common.app.screen.width/2,
+        ease: Power0.easeNone
+    });
+    TweenMax.to(game3Data.mirrorBgRight_g3.position, 1,{
+        x: -300,
+        ease: Power0.easeNone
+    });
+    TweenMax.to(game3Data.mirrorBgLeft_g3.position, 1,{
+        x: 0,
+        ease: Power0.easeNone
+    });
+}
 
 function showMirrorCar(side){
     if(side == 'left'){
@@ -287,30 +304,21 @@ function addMirrorCarAni(){
     game3Data.carLeftMirrorTimeline_g3 = new TimelineMax({pause: true});
 
     let leftMirrowPosStayAni = TweenMax.fromTo(game3Data.carInMirrorLeft_g3.position, 3, {
-        x: 300,
-        y: 105,
-        ease: Power0.easeNone
+        x: 300, y: 105, ease: Power0.easeNone
     },{
-        x: 295,
-        y: 100
+        x: 295, y: 100
     });
 
     let leftMirrowPosAni = TweenMax.fromTo(game3Data.carInMirrorLeft_g3.position, 3, {
-        x: 295,
-        y: 100,
-        ease: Power0.easeNone
+        x: 295, y: 100, ease: Power0.easeNone
     },{
-        x: -50,
-        y: 300
+        x: -50, y: 300
     });
 
     let leftMirrowScaleAni = TweenMax.fromTo(game3Data.carInMirrorLeft_g3.scale, 2, {
-        x: 0.03,
-        y: 0.03,
-        ease: Power0.easeNone
+        x: 0.03, y: 0.03, ease: Power0.easeNone
     },{
-        x: 0.15,
-        y: 0.15
+        x: 0.15, y: 0.15
     });
 
     game3Data.carLeftMirrorTimeline_g3.add(leftMirrowPosStayAni, 0);
@@ -320,30 +328,21 @@ function addMirrorCarAni(){
     game3Data.carRightMirrorTimeline_g3 = new TimelineMax({pause: true});
 
     let rightMirrowPosStayAni = TweenMax.fromTo(game3Data.carInMirrorRight_g3.position, 3, {
-        x: 105,
-        y: 105,
-        ease: Power0.easeNone
+        x: 105, y: 105, ease: Power0.easeNone
     },{
-        x: 100,
-        y: 100
+        x: 100, y: 100
     });
 
     let rightMirrowPosAni = TweenMax.fromTo(game3Data.carInMirrorRight_g3.position, 3, {
-        x: 100,
-        y: 100,
-        ease: Power0.easeNone
+        x: 100, y: 100, ease: Power0.easeNone
     },{
-        x: 420,
-        y: 320
+        x: 420, y: 320
     });
 
     let rightMirrowScaleAni = TweenMax.fromTo(game3Data.carInMirrorRight_g3.scale, 2, {
-        x: 0.03,
-        y: 0.03,
-        ease: Power0.easeNone
+        x: 0.03, y: 0.03, ease: Power0.easeNone
     },{
-        x: 0.15,
-        y: 0.15
+        x: 0.15, y: 0.15
     });
 
     game3Data.carRightMirrorTimeline_g3.add(rightMirrowPosStayAni, 0);
@@ -391,9 +390,17 @@ function addG3PrePlay(){
         game3Data.carLeftMirrorTimeline_g3.seek(4);
         game3Data.carLeftTimeline_g3.play();
         game3Data.carLeftTimeline_g3.seek(4);
+        //車子向左靠
         game3Data.carMoveLeftAni = TweenMax.to(game3Data.car_g3.position, 3,{
             x: common.app.screen.width/2 - 300,
             ease: Power0.easeNone
+        });
+        game3Data.carMoveRightAniMirror = TweenMax.to(game3Data.mirrorBgRight_g3.position, 3,{
+            x: -200, ease: Power0.easeNone
+        });
+
+        game3Data.carMoveLeftAniMirror = TweenMax.to(game3Data.mirrorBgLeft_g3.position, 3,{
+            x: 100, ease: Power0.easeNone
         });
 
         game3Data.timeText_g3.visible = false;
@@ -420,10 +427,19 @@ function addG3PrePlay(){
         
     }, 2)
     .add(()=>{
+        //車子向右靠
         game3Data.carMoveRightAni = TweenMax.to(game3Data.car_g3.position, 2, {
             x: common.app.screen.width/2 + 300,
             ease: Power0.easeNone
         });
+        game3Data.carMoveRightAniMirror = TweenMax.to(game3Data.mirrorBgRight_g3.position, 2,{
+            x: -400, ease: Power0.easeNone
+        });
+
+        game3Data.carMoveLeftAniMirror = TweenMax.to(game3Data.mirrorBgLeft_g3.position, 2,{
+            x: -100, ease: Power0.easeNone
+        });
+
         common.prePlayStartTextG3.text = "2";
     }, 3)
     .add(()=>{
@@ -446,7 +462,7 @@ function addG3PrePlay(){
 
         //留下右邊的 timeline 去觸發下一台車
         game3Data.carLeftMirrorTimeline_g3.pause();
-        game3Data.carLeftMirrorTimeline_g3.seek(0);
+        game3Data.carLeftMirrorTimeline_g3.seek(10);
         game3Data.carLeftTimeline_g3.pause();
         game3Data.carLeftTimeline_g3.seek(10)
 

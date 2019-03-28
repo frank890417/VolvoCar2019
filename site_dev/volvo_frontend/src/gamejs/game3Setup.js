@@ -92,12 +92,12 @@ function game3Setup(Vars){
     }
     
     game3Data.mirrorBgLeft_g3 = new PIXI.extras.AnimatedSprite(bgTexs);
-    game3Data.mirrorBgLeft_g3.animationSpeed = -2;
+    game3Data.mirrorBgLeft_g3.animationSpeed = -1.2;
     // game3Data.mirrorBgLeft_g3.anchor.set(0.5);
     game3Data.mirrorBgLeft_g3.play();
 
     game3Data.mirrorBgRight_g3 = new PIXI.extras.AnimatedSprite(bgTexs);
-    game3Data.mirrorBgRight_g3.animationSpeed = -2;
+    game3Data.mirrorBgRight_g3.animationSpeed = -1.2;
     // game3Data.mirrorBgRight_g3.anchor.set(1, 0);
     // game3Data.mirrorBgRight_g3.scale.set(-1, 1);
     game3Data.mirrorBgRight_g3.play();
@@ -158,7 +158,7 @@ function game3Setup(Vars){
         fontWeight: 500
     }));
 
-    game3Data.hintTextG3.position.set(common.app.screen.width/2, common.app.screen.height/2 + 200);
+    game3Data.hintTextG3.position.set(common.app.screen.width/2, common.app.screen.height/2 );
     game3Data.hintTextG3.anchor.set(0.5, 0.5);
 
 
@@ -243,7 +243,6 @@ function addVanishingAssetG3(){
         //紀錄物件參考
         game3Data.lineGroup_g3.push(s);
         game3Data.world3D_g3.addChild(s);
-        console.log(s);
     }
 
 

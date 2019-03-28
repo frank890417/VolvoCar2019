@@ -206,8 +206,13 @@ let game3Data = {
     rightBtn_g3:null,
     hint_g3:null,
 
+
     car_g3:null,
+    carSpeed: 200,
     carMoveLeftAni:null,
+    carMoveLeftAniMirror:null,
+    carMoveRightAni:null,
+    carMoveRightAniMirror:null,
     carPosY_g3 : 600,
     carComingLeft_g3:null,
     carComingRight_g3:null,
