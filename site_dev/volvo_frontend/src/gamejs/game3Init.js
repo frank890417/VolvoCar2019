@@ -35,7 +35,6 @@ function game3Init(Vars){
     common.isPrePlaying = true;
     common.app.ticker.start();
 
-    resetData();
 }
 
 function registerGame3Event(){
@@ -306,8 +305,8 @@ function addMirrorCarAni(){
     });
 
     let leftMirrowScaleAni = TweenMax.fromTo(game3Data.carInMirrorLeft_g3.scale, 2, {
-        x: 0.01,
-        y: 0.01,
+        x: 0.03,
+        y: 0.03,
         ease: Power0.easeNone
     },{
         x: 0.15,
@@ -334,13 +333,13 @@ function addMirrorCarAni(){
         y: 100,
         ease: Power0.easeNone
     },{
-        x: 400,
-        y: 300
+        x: 420,
+        y: 320
     });
 
     let rightMirrowScaleAni = TweenMax.fromTo(game3Data.carInMirrorRight_g3.scale, 2, {
-        x: 0.01,
-        y: 0.01,
+        x: 0.03,
+        y: 0.03,
         ease: Power0.easeNone
     },{
         x: 0.15,
@@ -388,9 +387,9 @@ function addG3PrePlay(){
     common.prePlayTimelineG3
     .add(()=>{
         //左邊車子衝出來，失敗的
-        game3Data.carLeftMirrorTimeline_g3.restart();
+        game3Data.carLeftMirrorTimeline_g3.play();
         game3Data.carLeftMirrorTimeline_g3.seek(4);
-        game3Data.carLeftTimeline_g3.restart();
+        game3Data.carLeftTimeline_g3.play();
         game3Data.carLeftTimeline_g3.seek(4);
         game3Data.carMoveLeftAni = TweenMax.to(game3Data.car_g3.position, 3,{
             x: common.app.screen.width/2 - 300,
@@ -444,12 +443,16 @@ function addG3PrePlay(){
         game3Data.hintTextG3.visible = false;
         common.isPrePlaying = false;
         game3Data.rightBtnClick_g3 = false;
+
+        //留下右邊的 timeline 去觸發下一台車
+        game3Data.carLeftMirrorTimeline_g3.pause();
+        game3Data.carLeftMirrorTimeline_g3.seek(0);
+        game3Data.carLeftTimeline_g3.pause();
+        game3Data.carLeftTimeline_g3.seek(10)
+
         resetAllTimers();
     }, 6)
 }
-
-
-
 
 function resetAllTimers(){
     game3Data.remainingTime = 30;

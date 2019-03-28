@@ -81,11 +81,31 @@ function game3Setup(Vars){
     game3Data.hint_g3.scale.set(0.6, 0.6);
 
     //後照鏡
-    game3Data.mirrorBgLeft_g3 =  new PIXI.Sprite(PIXI.loader.resources.mirrorBgLeftImg.texture);
-    game3Data.mirrorBgRight_g3 =  new PIXI.Sprite(PIXI.loader.resources.mirrorBgRightImg.texture);
+    // game3Data.mirrorBgLeft_g3 =  new PIXI.Sprite(PIXI.loader.resources.mirrorBgLeftImg.texture);
+    // game3Data.mirrorBgRight_g3 =  new PIXI.Sprite(PIXI.loader.resources.mirrorBgRightImg.texture);
+
+    let bgTexs = [];
+
+    for (let i = 0; i < 60; i++) {
+         let tempTex = PIXI.Texture.fromFrame('mirror' + i);
+         bgTexs.push(tempTex);
+    }
+    
+    game3Data.mirrorBgLeft_g3 = new PIXI.extras.AnimatedSprite(bgTexs);
+    game3Data.mirrorBgLeft_g3.animationSpeed = -2;
+    // game3Data.mirrorBgLeft_g3.anchor.set(0.5);
+    game3Data.mirrorBgLeft_g3.play();
+
+    game3Data.mirrorBgRight_g3 = new PIXI.extras.AnimatedSprite(bgTexs);
+    game3Data.mirrorBgRight_g3.animationSpeed = -2;
+    // game3Data.mirrorBgRight_g3.anchor.set(1, 0);
+    // game3Data.mirrorBgRight_g3.scale.set(-1, 1);
+    game3Data.mirrorBgRight_g3.play();
+    game3Data.mirrorBgRight_g3.position.set(-game3Data.mirrorBgLeft_g3.width/2+50, 0);
+
 
     let mirrorLeftPosition = {
-        x: common.app.screen.width/2 - game3Data.mirrorBgLeft_g3.width-100,
+        x: common.app.screen.width/2 - game3Data.mirrorBgLeft_g3.width + 190,
         y: 80
     }
     let mirrorRightPosition = {
@@ -223,6 +243,7 @@ function addVanishingAssetG3(){
         //紀錄物件參考
         game3Data.lineGroup_g3.push(s);
         game3Data.world3D_g3.addChild(s);
+        console.log(s);
     }
 
 

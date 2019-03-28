@@ -22,17 +22,7 @@ export default {
     msg: String
   },
   mounted(){
-    window.tempVar = Vars;
-
-    loadAllAssets.loadAllAssets(Vars, ()=>{
-      Vars.common.currentStage = 3;
-      envSetting.setupEnv(this.gameContainer, Vars);
-      this.resizeCanvas();
-      game3Setup(Vars);
-      console.log("這邊這邊");
-      game3Init(Vars);
-      // resetData();
-    });
+    window.tempVars = Vars;
 
   },
   methods: {

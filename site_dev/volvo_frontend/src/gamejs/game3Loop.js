@@ -11,15 +11,12 @@ function game3Loop(Vars) {
     //更新橫線
     for(let i=0; i< game3Data.lineGroup_g3.length; i++){
         let s = game3Data.lineGroup_g3[i];
-        if(!game3Data.pressStop){
-            s.counterY -= (game3Data.carSpeed+1)*5+100;
-        }
+        s.counterY -= (game3Data.carSpeed+1)*5+100;
         s.position.y = s.counterY;
         if(s.counterY< -500){
             s.counterY = 3000*11;
         }
     }
-
     
     if(game3Data.leftBtnClick_g3){
         if(game3Data.isLeftCarComes){

@@ -50,15 +50,16 @@ function loadAllAssets(Vars, callback){
         .add("myCarG4Img", "images/game4/car_me.png")
         .add("armyCarG4Img", "images/game4/car_army.png")
         
+    //G1 bg
     for (let index = 0; index < 119; index++) {
         let tempIndex =  (100000+index).toString().substring(1);
-        // console.log(tempIndex);
         _loader.add({
             name: "roadBgG1" + index,
             url: "images/game1/roadBgG1/bg1_" + tempIndex + ".jpg"
         });
     }
 
+    //G3 wifi symbol
     for (let index = 1; index < 6; index++) {
         _loader.add({
             name: "wifiImg" + index,
@@ -66,6 +67,7 @@ function loadAllAssets(Vars, callback){
         });
     }
 
+    //G2 bg
     for (let index = 0; index < 7; index++) {
         let tempIndex =  (100000+index).toString().substring(1);
         _loader.add({name: "roadBgG2" + index,
@@ -73,10 +75,14 @@ function loadAllAssets(Vars, callback){
         });
     }
 
-    _loader.add('roadBgVideoG1').onComplete.once(() => {
-        const res = _loader.resources['roadBgVideoG1'];
-        res.texture = PIXI.Texture.fromVideo("./images/game1/roadBgVideoG1.mp4");
-    });
+    //G3 mirror
+    for (let index = 0; index < 60; index++) {
+        let tempIndex =  (100000+index).toString().substring(1);
+        _loader.add({name: "mirror" + index,
+            url: "images/game3/mirror/Mirror_" + tempIndex + ".jpg"
+        });
+    }
+    
 
     _loader
         .on("error", function(eData){
