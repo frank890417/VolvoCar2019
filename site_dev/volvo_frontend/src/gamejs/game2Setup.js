@@ -141,6 +141,16 @@ function game2Setup(Vars){
     common.stage2.addChild(game2Data.hintRect_g2);
     common.stage2.addChild(game2Data.g2Ui);
 
+
+    game2Data.speedDownSound = PIXI.loader.resources.speedDownSound.data;
+    game2Data.speedDownSound.volume = 1;
+    game2Data.speedUpSound = PIXI.loader.resources.speedUpSound.data;
+    game2Data.speedUpSound.volume = 1;
+    
+
+    
+
+
 }
 
 

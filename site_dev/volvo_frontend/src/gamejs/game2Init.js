@@ -41,6 +41,8 @@ function registerGame2Event(){
     
     game2Data.rightBtn_g2.on("pointerdown", function(){
         if(common.isPrePlaying) return;
+        game2Data.speedUpSound.time = 0;
+        game2Data.speedUpSound.play();
         game2Data.rightBtn_g2.tint = 0X555555;
         game2Data.carSpeedUp = true;
     });
@@ -53,6 +55,8 @@ function registerGame2Event(){
 
     game2Data.leftBtn_g2.on("pointerdown", function(){
         if(common.isPrePlaying) return;
+        game2Data.speedDownSound.time = 0;
+        game2Data.speedDownSound.play();
         game2Data.leftBtn_g2.tint = 0X555555;
         game2Data.carSpeedDown = true;
     });
@@ -136,6 +140,7 @@ function addG2PrePlay(){
         common.prePlayStartTextG2.visible = true;
         game2Data.rightBtn_g2.tint = 0Xffffff;
         game2Data.carSpeedUp = true;
+        game2Data.speedUpSound.play();
     }, 1)
     .add(()=>{
         common.prePlayStartTextG2.text = "4";
@@ -152,6 +157,7 @@ function addG2PrePlay(){
     .add(()=>{
         game2Data.leftBtn_g2.tint = 0XFFFFFF;
         game2Data.carSpeedDown = true;
+        game2Data.speedDownSound.play();
         common.prePlayStartTextG2.text = "1";
     }, 5)
     .add(()=>{

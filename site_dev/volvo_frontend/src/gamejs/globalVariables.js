@@ -180,7 +180,8 @@ let game2Data = {
     roadWidth_g2 : 5000,
     lineGroup_g2:null,
     streetLightGroup_g2:null,
-
+    speedUpSound: null,
+    speedDownSound: null
 }
 
 let game3Data = {

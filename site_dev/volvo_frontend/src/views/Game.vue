@@ -32,7 +32,7 @@ export default {
   },
   data(){
     return{
-      currentGame: 2,
+      currentGame: 1,
       refGriup: {}
     }
   },
