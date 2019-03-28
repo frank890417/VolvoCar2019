@@ -3,7 +3,7 @@
     game1(ref="game1" v-show="currentGame==1")
     game2(ref="game2" v-show="currentGame==2")
     game3(ref="game3" v-show="currentGame==3")
-    .nav.active
+    .nav-bar.active
       li(@click="loadGame") {{"開始 Game" +currentGame}}
       li(@click="resetData") {{"重置 Game" +currentGame}}
       li 
@@ -46,14 +46,14 @@ export default {
       this.refGriup[this.currentGame].resetData();
     },
     toggleMenu(){
-      $(".nav").toggleClass("active");
+      $(".nav-bar").toggleClass("active");
     }
   }
 }
 </script>
 
 <style scoped lang="sass">
-  .nav
+  .nav-bar
     position: absolute
     left: -450px
     bottom: 200px
