@@ -110,7 +110,14 @@ export default {
 
     },500)
 
-
+    $( "body" ).keydown(function(e) {
+        let k = e.keyCode;
+        if(k==65){
+          for(let i=1;i<=3;i++){
+            this.refGroup[i].resetData();
+          }
+        }
+    });
     // console.log(this.$refs.sceneObj2)
   },
   components: {
@@ -180,12 +187,12 @@ export default {
       
     },
     loadGame(){
-      for(var i=1;i<=3;i++){
-        console.log(this.refGroup[i])
-        this.refGroup[i].loadAsset(()=>{
-        this.refGroup[i].setUp(`.game${i} .game-container`);
+      this.refGroup[1].loadAsset(()=>{
+        for(var i=1;i<=3;i++){
+          this.refGroup[i].setUp(`.game${i} .game-container`);
+          this.refGroup[i].start();
+        }
       });
-      }
       
     },
   },
@@ -240,33 +247,8 @@ export default {
             paused: false
           })
         })
-
-
       }
 
-      // if ( pre.title != post.title ){
-      //   if (post.type=="game") {
-      //     if (post.title=="Game1"){
-      //       this.refGroup['1'].loadAsset(()=>{
-      //         this.refGroup['1'].setUp(`.game${'1'} .game-container`);
-      //         this.refGroup['1'].start()
-      //       });
-      //     }
-      //     if (post.title=="Game2"){
-      //       this.refGroup['2'].loadAsset(()=>{
-      //         this.refGroup['2'].setUp(`.game${'2'} .game-container`);
-      //         this.refGroup['2'].start()
-      //       });
-      //     }
-      //     if (post.title=="Game3"){
-      //       this.refGroup['3'].loadAsset(()=>{
-      //         this.refGroup['3'].setUp(`.game${'3'} .game-container`);
-      //         this.refGroup['3'].start()
-      //       });
-      //     }
-      //   }
-
-      // }
       this.audioElList.forEach(audioItem=>{
         if (audioItem.scene!==this.currentPreSection && audioItem.scene!==this.currentSection && !audioItem.paused){
           audioItem.paused=true
@@ -281,56 +263,80 @@ export default {
       if ( pre.title != post.title ){
         if (post.type=="game") {
           if (post.title=="Game1" && !this.gameStatus['1'] ){
-            this.gameStatus['1']=true
+            // this.gameStatus['1']=true
             
-            this.refGroup['1'].loadAsset(()=>{
-              this.refGroup['1'].setUp(`.game${'1'} .game-container`);
-              this.refGroup['1'].start()
-            });
+            // this.refGroup['1'].loadAsset(()=>{
+            //   this.refGroup['1'].setUp(`.game${'1'} .game-container`);
+            //   this.refGroup['1'].start()
+            // });
+
           }
           if (post.title=="Game2" && !this.gameStatus['2'] ){
-            this.gameStatus['2']=true
-            this.refGroup['2'].loadAsset(()=>{
-              this.refGroup['2'].setUp(`.game${'2'} .game-container`);
-              this.refGroup['2'].start()
-            });
+            // this.gameStatus['2']=true
+            
+            // this.refGroup['2'].loadAsset(()=>{
+            //   this.refGroup['2'].setUp(`.game${'2'} .game-container`);
+            //   this.refGroup['2'].start()
+            // });
           }
           if (post.title=="Game3" && !this.gameStatus['3'] ){
-            this.gameStatus['3']=true
-            this.refGroup['3'].loadAsset(()=>{
-              this.refGroup['3'].setUp(`.game${'3'} .game-container`);
-              this.refGroup['3'].start()
-            });
+            // this.gameStatus['3']=true
+            
+            // this.refGroup['3'].loadAsset(()=>{
+            //   this.refGroup['3'].setUp(`.game${'3'} .game-container`);
+            //   this.refGroup['3'].start()
+            // });
           }
         }
 
       }
       
     },
-    currentSection(pre,post){
+    currentSection(pre, post){
       if ( pre.title != post.title ){
         if (post.type=="game") {
+          return;
           if (post.title=="Game1" && !this.gameStatus['1'] ){
+            console.log("遊戲一開始");
             this.gameStatus['1']=true
-            
-            this.refGroup['1'].loadAsset(()=>{
-              this.refGroup['1'].setUp(`.game${'1'} .game-container`);
-              this.refGroup['1'].start()
-            });
+            this.gameStatus['2']=false
+            this.gameStatus['3']=false
+            this.refGroup['1'].resetData();
+            this.refGroup['1'].start();
+            this.refGroup['2'].pause();
+            this.refGroup['3'].pause();
+            // this.refGroup['1'].loadAsset(()=>{
+            //   this.refGroup['1'].setUp(`.game${'1'} .game-container`);
+            //   this.refGroup['1'].start()
+            // });
           }
           if (post.title=="Game2" && !this.gameStatus['2'] ){
+            console.log("遊戲二開始");
             this.gameStatus['2']=true
-            this.refGroup['2'].loadAsset(()=>{
-              this.refGroup['2'].setUp(`.game${'2'} .game-container`);
-              this.refGroup['2'].start()
-            });
+            this.gameStatus['1']=false
+            this.gameStatus['3']=false
+            this.refGroup['2'].resetData();
+            this.refGroup['2'].start();
+            this.refGroup['1'].pause();
+            this.refGroup['3'].pause();
+            // this.refGroup['2'].loadAsset(()=>{
+            //   this.refGroup['2'].setUp(`.game${'2'} .game-container`);
+            //   this.refGroup['2'].start()
+            // });
           }
           if (post.title=="Game3" && !this.gameStatus['3'] ){
+            console.log("遊戲三開始");
             this.gameStatus['3']=true
-            this.refGroup['3'].loadAsset(()=>{
-              this.refGroup['3'].setUp(`.game${'3'} .game-container`);
-              this.refGroup['3'].start()
-            });
+            this.gameStatus['2']=false
+            this.gameStatus['1']=false
+            this.refGroup['3'].resetData();
+            this.refGroup['3'].start();
+            this.refGroup['2'].pause();
+            this.refGroup['1'].pause();
+            // this.refGroup['3'].loadAsset(()=>{
+            //   this.refGroup['3'].setUp(`.game${'3'} .game-container`);
+            //   this.refGroup['3'].start()
+            // });
           }
         }
 

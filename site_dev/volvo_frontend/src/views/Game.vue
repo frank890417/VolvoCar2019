@@ -7,7 +7,7 @@
       li(@click="handleStageChange(1)", :class="{active: currentGame==1}") Game 1
       li(@click="handleStageChange(2)", :class="{active: currentGame==2}") Game 2
       li(@click="handleStageChange(3)", :class="{active: currentGame==3}") Game 3
-      li(@click="startGame") {{"開始"}}
+      //- li(@click="startGame") {{"開始"}}
       li(@click="resetData") {{"重置"}}
       li(@click="toggleMenu") <
 
@@ -44,10 +44,13 @@ export default {
         this.isLoaded = true;
         this.refGroup[this.currentGame].loadAsset(()=>{
           this.refGroup[this.currentGame].setUp(`.game${this.currentGame} .game-container`);
+          this.refGroup[this.currentGame].start();
         });
       }else{
         this.refGroup[this.currentGame].setUp(`.game${this.currentGame} .game-container`);
+        this.refGroup[this.currentGame].start();  
       }
+
     },
     startGame(){
       this.refGroup[this.currentGame].start();
@@ -60,6 +63,9 @@ export default {
     },
     handleStageChange(stage){
       if(this.currentGame==stage) return; 
+      if(this.currentGame != 0){
+        this.refGroup[this.currentGame].pause();
+      }
       this.currentGame = stage;
       this.loadGame();
     }
@@ -72,8 +78,8 @@ export default {
 <style scoped lang="sass">
   .nav-bar
     position: absolute
-    left: -450px
-    bottom: 200px
+    left: -350px
+    bottom: 10px
     color: white
     background-color: black
     transition: 0.5s left
