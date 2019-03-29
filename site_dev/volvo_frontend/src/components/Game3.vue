@@ -44,14 +44,16 @@ export default {
       }
     },
     setUp(gameContainerSelector){
-      console.log("setup");
-      Vars.common.currentStage = 3;
-      envSetting.setupEnv(gameContainerSelector, Vars);
-      this.resizeCanvas();
-      game3Setup(Vars);
-      game3Init(Vars);
-      resetData();
-    
+      if(!this.isInit){
+        this.isInit = true;
+        console.log("setup");
+        Vars.common.currentStage = 3;
+        envSetting.setupEnv(gameContainerSelector, Vars);
+        this.resizeCanvas();
+        game3Setup(Vars);
+        game3Init(Vars);
+        resetData();
+      }
     },
     start(){
       Vars.common.app.ticker.start();
@@ -74,7 +76,8 @@ export default {
   },
   data(){
     return {
-      gameContainer: ".game3 .game-container"
+      gameContainer: ".game3 .game-container",
+      isInit: false
     }
   }
 }
