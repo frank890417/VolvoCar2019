@@ -235,7 +235,7 @@ function generateCrossingGroup(){
         }else if(game1Data.crossObjects[i].type == "walk"){
             t = PIXI.loader.resources.walkImg.texture;
             s = new PIXI.projection.Sprite2d(t);
-            s.scale.set(1.4 );
+            s.scale.set(1.4);
         }else if(game1Data.crossObjects[i].type == "bike"){
             t = PIXI.loader.resources.bikeImg.texture;
             s = new PIXI.projection.Sprite2d(t);
@@ -254,7 +254,7 @@ function generateCrossingGroup(){
             }
         }else{
             s.counterX = common.app.screen.width + 1500;
-            s.scale.x = -1;
+            s.scale.x = -1*s.scale.x;
             if(s.type == "car"){
                 s.counterX = common.app.screen.width + 5000;
                 s.scale.set(-2.5, 2.5);

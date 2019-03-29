@@ -66,7 +66,7 @@ let game1Data = {
     crossingGroups : [],
     crossingGroup: null,
     crossLine: null,
-    crossSequence : ['person', 'car', 'person', 'car', 'person', 'car', 'bike', 'person', 'car', 'person', 'bike'],
+    crossSequence : ['person', 'car', 'person', 'person', 'car', 'car', 'bike', 'person', 'car', 'person', 'bike'],
     
     
     crossObjects : [
