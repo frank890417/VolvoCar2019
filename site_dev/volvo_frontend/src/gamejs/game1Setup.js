@@ -11,19 +11,19 @@ function game1Setup(Vars){
 
     game1Data.timeText = new PIXI.Text("Time", new PIXI.TextStyle({
         fontSize: 52,
-        fill: '#FFD25D',
+        fill: '#FFD3BE',
         fontWeight: 500
     }));
     game1Data.timeText.position.set(common.app.screen.width/2, 60);
     game1Data.timeText.anchor.set(0.5, 0);
     
     game1Data.timeRemainingText = new PIXI.Text("30", new PIXI.TextStyle({
-        fontSize: 52,
-        fill: '#FFD25D',
+        fontSize: 150,
+        fill: '#FFD3BE',
         fontWeight: 500
     }));
 
-    game1Data.timeRemainingText.position.set(common.app.screen.width/2, 120);
+    game1Data.timeRemainingText.position.set(common.app.screen.width/2 - 30, 100);
     game1Data.timeRemainingText.anchor.set(0.5, 0);
     
     game1Data.hintRect =  new PIXI.Graphics();
@@ -87,23 +87,23 @@ function game1Setup(Vars){
 
     game1Data.carCounterText = new PIXI.Text("30", new PIXI.TextStyle({
         fontSize: 52,
-        fill: '#FFD25D',
+        fill: '#FFD3BE',
         fontWeight: 500
     }));
-    game1Data.carCounterText.position.set(190, 80+game1Data.mrImg.height+180);
+    game1Data.carCounterText.position.set(190, 80+game1Data.mrImg.height+100);
     game1Data.carCounterText.anchor.set(0, 0);
 
     game1Data.bikeCounterText = new PIXI.Text("30", new PIXI.TextStyle({
         fontSize: 52,
-        fill: '#FFD25D',
+        fill: '#FFD3BE',
         fontWeight: 500
     }));
-    game1Data.bikeCounterText.position.set(190, 80+game1Data.mrImg.height+240);
+    game1Data.bikeCounterText.position.set(190, 80+game1Data.mrImg.height+200);
     game1Data.bikeCounterText.anchor.set(0, 0);
 
     game1Data.walkCounterText = new PIXI.Text("30", new PIXI.TextStyle({
         fontSize: 52,
-        fill: '#FFD25D',
+        fill: '#FFD3BE',
         fontWeight: 500
     }));
     game1Data.walkCounterText.position.set(190, 80+game1Data.mrImg.height+300);
@@ -152,17 +152,20 @@ function game1Setup(Vars){
     // stage1.addChild(mrImg);
     // stage1.addChild(sysImg);
     // stage1.addChild(countImg);
-    // stage1.addChild(carCounterText);
-    // stage1.addChild(bikeCounterText);
-    // stage1.addChild(walkCounterText);
+    common.stage1.addChild(game1Data.carCounterText);
+    common.stage1.addChild(game1Data.bikeCounterText);
+    common.stage1.addChild(game1Data.walkCounterText);
     common.stage1.addChild(game1Data.pedalWarning);
     common.stage1.addChild(game1Data.pedal);
     // stage1.addChild(timeText);
-    // stage1.addChild(timeRemainingText);
+    common.stage1.addChild(game1Data.timeRemainingText);
     common.stage1.addChild(common.prePlayStartTextG1);
     common.stage1.addChild(game1Data.hintRect);
     common.stage1.addChild(game1Data.hintTextG1);
     common.stage1.addChild(game1Data.g1Ui);
+
+    game1Data.speedDownSound = PIXI.loader.resources.speedDownSound.data;
+    game1Data.speedDownSound.volume = 1;
     
 }
 
@@ -232,9 +235,11 @@ function generateCrossingGroup(){
         }else if(game1Data.crossObjects[i].type == "walk"){
             t = PIXI.loader.resources.walkImg.texture;
             s = new PIXI.projection.Sprite2d(t);
+            s.scale.set(1.4 );
         }else if(game1Data.crossObjects[i].type == "bike"){
             t = PIXI.loader.resources.bikeImg.texture;
             s = new PIXI.projection.Sprite2d(t);
+            s.scale.set(2);
         }
 
         s.type = game1Data.crossObjects[i].type;

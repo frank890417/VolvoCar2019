@@ -12,19 +12,19 @@ function game2Setup(Vars){
 
     game2Data.timeText_g2 = new PIXI.Text("Time", new PIXI.TextStyle({
         fontSize: 52,
-        fill: '#FFD25D',
+        fill: '#FFD3BE',
         fontWeight: 500
     }));
     game2Data.timeText_g2.position.set(common.app.screen.width/2, 60);
     game2Data.timeText_g2.anchor.set(0.5, 0);
     
     game2Data.timeRemainingText_g2 = new PIXI.Text("30", new PIXI.TextStyle({
-        fontSize: 52,
-        fill: '#FFD25D',
-        fontWeight: 'bold',
+        fontSize: 150,
+        fill: '#FFD3BE',
+        fontWeight: 500,
     }));
 
-    game2Data.timeRemainingText_g2.position.set(common.app.screen.width/2, 120);
+    game2Data.timeRemainingText_g2.position.set(common.app.screen.width/2-30, 100);
     game2Data.timeRemainingText_g2.anchor.set(0.5, 0);
 
     game2Data.hintRect_g2 =  new PIXI.Graphics();
@@ -133,7 +133,7 @@ function game2Setup(Vars){
     // stage2.addChild(mrImg_g2);
     // stage2.addChild(sysImg_g2);
     // stage2.addChild(timeText_g2);
-    // stage2.addChild(timeRemainingText_g2);
+    common.stage2.addChild(game2Data.timeRemainingText_g2);
     common.stage2.addChild(game2Data.rightBtn_g2);
     common.stage2.addChild(game2Data.leftBtn_g2);
     common.stage2.addChild(common.prePlayStartTextG2);

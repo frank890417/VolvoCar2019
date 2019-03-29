@@ -40,6 +40,7 @@ function registerGame1Event(){
         if(game1Data.isPrePlaying) return;
         game1Data.pressStop = true;
         game1Data.pedal.tint = 0X555555;
+        
     });
 
     game1Data.pedal.on("pointerup",function(){
@@ -48,10 +49,34 @@ function registerGame1Event(){
         game1Data.pedal.tint = 0XFFFFFF;
         game1Data.cityRoadAniBg.animationSpeed = game1Data.bgAnimationSpeed;
     });
+
+    $( "body" ).keydown(function(e) {
+        let k = e.keyCode;
+        if(k==32){
+            if(game1Data.isPrePlaying) return;
+            game1Data.pressStop = true;
+            game1Data.pedal.tint = 0X555555;
+            
+        }
+    });
+
+    $( "body" ).keyup(function(e) {
+        let k = e.keyCode;
+        if(k==32){
+            if(game1Data.isPrePlaying) return;
+            game1Data.pressStop = false;
+            game1Data.pedal.tint = 0XFFFFFF;
+            game1Data.cityRoadAniBg.animationSpeed = game1Data.bgAnimationSpeed;
+        }
+    });
+
+
     
     $( "body" ).keydown(function(e) {
-        
         let k = e.keyCode;
+        if(k==32){
+
+        }
         console.log(k);
         switch (k) {
             case 37:

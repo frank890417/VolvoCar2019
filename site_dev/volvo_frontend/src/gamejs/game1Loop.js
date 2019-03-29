@@ -29,7 +29,7 @@ function game1Loop(Vars){
             isInDangerZone = true;
         }
         
-        if(s.counterY<20000){
+        if(s.counterY<8000){
             if(s.visible==false){
                 s.visible = true;
                 TweenMax.fromTo(s, 1,{alpha:0}, {alpha:1});
@@ -45,11 +45,11 @@ function game1Loop(Vars){
 		if(s.counterY < 8000){
             
             if(s.type == "car"){
-                s.counterX += 30*sideVal;
+                s.counterX += 45*sideVal;
             }else if(s.type == "walk"){
-                s.counterX += 8*sideVal;
+                s.counterX += 12*sideVal;
             }else if(s.type == "bike"){
-                s.counterX += 15*sideVal;
+                s.counterX += 23*sideVal;
             }
 
 
@@ -81,9 +81,9 @@ function game1Loop(Vars){
 
 
     if(!game1Data.pressStop){
-        game1Data.groundMoveSpeedG1+=1;
-        if(game1Data.groundMoveSpeedG1>50){
-            game1Data.groundMoveSpeedG1 = 50;
+        game1Data.groundMoveSpeedG1+=5;
+        if(game1Data.groundMoveSpeedG1 > 100){
+            game1Data.groundMoveSpeedG1 = 100;
         }
     }else{
         game1Data.groundMoveSpeedG1-=2;
@@ -97,14 +97,16 @@ function game1Loop(Vars){
     
     if(game1Data.pressStop){
         if(game1Data.cityRoadAniBg.animationSpeed>0){
-            game1Data.cityRoadAniBg.animationSpeed -= 0.01;
+            game1Data.cityRoadAniBg.animationSpeed -= 0.02;
             if(game1Data.cityRoadAniBg.animationSpeed<0){
                 game1Data.cityRoadAniBg.animationSpeed = 0;
             }
         }
     }else{
-        if(game1Data.cityRoadAniBg.animationSpeed>1){
+        if(game1Data.cityRoadAniBg.animationSpeed < 0.05){
             game1Data.cityRoadAniBg.animationSpeed +=0.005;
+        }else if(game1Data.cityRoadAniBg.animationSpeed > 0.8){
+            game1Data.cityRoadAniBg.animationSpeed = 0.8;
         }
     }
     

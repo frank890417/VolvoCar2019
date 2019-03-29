@@ -99,7 +99,7 @@ let game1Data = {
     groupSpeedMin : 0.05,
     groupSpeed : 2,
     pressStop : false,
-    bgAnimationSpeed : 0.2,
+    bgAnimationSpeed : 1,
     
     cityRoad : null,
     cityRoadAniBg : null,
@@ -130,6 +130,7 @@ let game1Data = {
     roadWidth : 2600,
     lineGroup : null,
     hintTextG1 : null,
+    speedDownSound: null
 }
 
 let game2Data = {
