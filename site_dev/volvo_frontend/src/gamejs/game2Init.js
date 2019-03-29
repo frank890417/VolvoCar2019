@@ -1,6 +1,6 @@
 import game2Loop from "./game2Loop"
 
-export {game2Init, resetData};
+export {game2Init, resetData,game2Start,game2Pause};
 let vars;
 let common;
 let game2Data;
@@ -27,7 +27,16 @@ function game2Init(Vars){
     common.prePlayTimelineG2.restart();
     common.isGameRunning = false;
     common.isPrePlaying = true;
+
     common.app.ticker.start();
+}
+
+function game2Start(Vars){
+    common.app.ticker.start();
+}
+
+function game2Pause(Vars){
+    common.app.ticker.stop();
 }
 
 

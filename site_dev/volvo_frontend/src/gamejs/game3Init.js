@@ -1,6 +1,6 @@
 import game3Loop from "./game3Loop"
 
-export {game3Init, resetData};
+export {game3Init, resetData,game3Start,game3Pause};
 let vars;
 let common;
 let game3Data;
@@ -34,8 +34,15 @@ function game3Init(Vars){
     common.isGameRunning = false;
     common.isPrePlaying = true;
     common.app.ticker.start();
-
 }
+
+function game3Start(Vars){
+    common.app.ticker.start();
+}
+function game3Pause(Vars){
+    common.app.ticker.stop();
+}
+
 
 function registerGame3Event(){
     game3Data.rightBtn_g3.interactive = true;

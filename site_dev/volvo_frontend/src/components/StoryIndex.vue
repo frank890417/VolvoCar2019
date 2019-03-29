@@ -10,15 +10,27 @@
     section(v-for="(scene,sceneId) in scenes",
             :ref=" 'sceneObj'+sceneId ",
             :id="'sec_'+sceneId" )
-      h2 {{scene.title}}
-      .img-layers
-        .img-layer(
-          v-for="(layer,layerId) in scene.layers",
-          :style="{'z-index': layerId,'transform': 'translateY('+getPan(layer,sceneId,layerId)+'px) scale('+(layerId==0?1:1.05)+')', 'filter': 'brightness('+(1-0.1/layerId)+')' }")
-          img.wow(
-              :src="layer", 
-              :style="{ 'animation-delay': layerId+'s' }",
-              :class="getLayerClass(layer,layerId)")
+
+      div(v-if="scene.type=='game' && scene.title=='Game1'", @click="refGroup['1'].start()")
+        Game1(ref="game1")
+      div(v-if="scene.type=='game' && scene.title=='Game2'",  @click="refGroup['2'].start()")
+        Game2(ref="game2")
+      div(v-if="scene.type=='game' && scene.title=='Game3'", @click="refGroup['3'].start()")
+        Game3(ref="game3")
+        
+      div(v-else)
+        h2 {{scene.title}}
+        .img-layers
+          .img-layer(
+            v-for="(layer,layerId) in scene.layers",
+            :style="getLayerStyle(getLayerObject(layer),layerId,scene,sceneId)",
+            )
+            img.wow(
+                :src="getLayerObject(layer).src", 
+                :style="{ 'animation-delay': layerId/2+'s' }",
+                :class="getLayerClass(getLayerObject(layer),layerId)",
+                :title="getLayerObject(layer).src")
+          
       //- div(v-if="scene && scene.audios")
       //-   audio( v-for="audioSrc in scene.audios" :volume="0.1" :autoplay="currentPreSection===scene?true:false" preload)
       //-       source( :src="audioSrc")
@@ -58,6 +70,9 @@ import WOW from 'wow.js'
 import {mapState} from 'vuex'
 import {TweenMax} from 'gsap'
 import sceneData from '../sceneData.js'
+import Game1 from './Game1'
+import Game2 from './Game2'
+import Game3 from './Game3'
 
 export default {
   name: 'HelloWorld',
@@ -76,26 +91,74 @@ export default {
       this.getSectionHeightList()
     // document.getElementById("bgsound").volume=0.6
     // document.getElementById("bgsound").play()
+
+      console.log("Init game")
+      // console.log(this.refGroup)
+      // init game 
+      this.$set(this,'refGroup',{
+        '1': this.$refs.game1[0],
+        '2': this.$refs.game2[0],
+        '3': this.$refs.game3[0]
+      })
+      console.log(this.refGroup)
+      
+      setTimeout(()=>{
+       this.loadGame();
+
+      },2000)
+
+
     },500)
+
+
     // console.log(this.$refs.sceneObj2)
   },
+  components: {
+    Game1,Game2,Game3
+  },
   methods: {
-    getPan(layer, sceneId, layerId){
+
+    //根據塗層跟資料算出應該要的偏移量
+    getTransform(layer, sceneId, layerId){
       if (layerId==0) return 0
-      // if (layer.indexOf('對白')!=-1 || layer.indexOf('dialog')!=-1 ) return 0
-      let layerPan = -(this.scrollY- (this.sectionPositionList[sceneId] + window.outerHeight*0.6) ) /(-layerId+5) 
-      return layerPan
+      if (layer.src.indexOf('speedline')!=-1 || layer.src.indexOf('dialog')!=-1 ) return 0
+      
+      //滾動位置跟這個區塊的相對差距
+      let delta = (this.scrollY- (this.sectionPositionList[sceneId] + window.outerHeight*0.6) ) * 0.95
+
+      //滾動位置佔區塊的百分比
+      let deltaPercent = ((this.scrollY- this.sectionPositionList[sceneId]) / (this.sectionHeightList[sceneId] || 0) )
+
+      let layerPanX = layer.getPanX ? layer.getPanX(delta,deltaPercent): 0
+      let layerPanY = layer.getPanY ? layer.getPanY(delta,deltaPercent): (-delta/(-layerId*0.6+5) )
+      let layerScale = layer.getScale? layer.getScale(delta,deltaPercent):  (layerId==0?1:1.03)
+      
+      return {x: layerPanX,y: layerPanY, scale: layerScale}
     },
-    getLayerClass(layer,layerId){
+    getLayerStyle(layer,layerId,scene,sceneId){
+      let trans = this.getTransform(layer,sceneId,layerId)
       return {
-        wow: true, 
-        zoomIn: layer.indexOf('對白')!=-1 || layer.indexOf('dialog')!=-1,
-        tada: layer.indexOf('C01_speedline')!=-1,
-        slideInRight: layer.indexOf('A02_man')!=-1 || layer.indexOf('I02_box')!=-1 || layer.indexOf('I06_man')!=-1,
-        slideInBottom: layer.indexOf('D04_car')!=-1,
-        pulse: layer.indexOf('D04_car')!=-1,
-        frontItem: layerId!=0
+        'z-index': layerId,
+        'transform': 'scale('+trans.scale+') translate('+trans.x+'px,'+trans.y+'px)',
+        
       }
+    },
+
+    //根據資料算出應該要加的class
+    getLayerClass(layer,layerId){
+      let addClasses = layer.class?layer.classes:[]
+      let result = {
+        wow: true, 
+        zoomIn: layer.src.indexOf('dialog')!=-1 || layer.src.indexOf('explode')!=-1,
+        tada: layer.src.indexOf('C01_speedline')!=-1,
+        slideInRight: layer.src.indexOf('A02_man')!=-1 || layer.src.indexOf('I02_box')!=-1 || layer.src.indexOf('I06_man')!=-1,
+        slideInBottom: layer.src.indexOf('D04_car')!=-1,
+        pulse: layer.src.indexOf('D04_car')!=-1,
+        frontItem: layerId!=0,
+       
+      }
+      addClasses.forEach(cls=>result[cls]=true)
+      return result
     },
     getSectionHeightList(){
       this.sectionHeightList= this.scenes.map((d,i)=>{
@@ -106,6 +169,24 @@ export default {
         }
         return offsetTop
       })
+    },
+    getLayerObject(obj){
+      if (typeof obj == "string"){
+        return {
+          src: obj
+        }
+      }
+      return obj
+      
+    },
+    loadGame(){
+      for(var i=1;i<=3;i++){
+        console.log(this.refGroup[i])
+        this.refGroup[i].loadAsset(()=>{
+        this.refGroup[i].setUp(`.game${i} .game-container`);
+      });
+      }
+      
     },
   },
   computed: {
@@ -159,7 +240,33 @@ export default {
             paused: false
           })
         })
+
+
       }
+
+      // if ( pre.title != post.title ){
+      //   if (post.type=="game") {
+      //     if (post.title=="Game1"){
+      //       this.refGroup['1'].loadAsset(()=>{
+      //         this.refGroup['1'].setUp(`.game${'1'} .game-container`);
+      //         this.refGroup['1'].start()
+      //       });
+      //     }
+      //     if (post.title=="Game2"){
+      //       this.refGroup['2'].loadAsset(()=>{
+      //         this.refGroup['2'].setUp(`.game${'2'} .game-container`);
+      //         this.refGroup['2'].start()
+      //       });
+      //     }
+      //     if (post.title=="Game3"){
+      //       this.refGroup['3'].loadAsset(()=>{
+      //         this.refGroup['3'].setUp(`.game${'3'} .game-container`);
+      //         this.refGroup['3'].start()
+      //       });
+      //     }
+      //   }
+
+      // }
       this.audioElList.forEach(audioItem=>{
         if (audioItem.scene!==this.currentPreSection && audioItem.scene!==this.currentSection && !audioItem.paused){
           audioItem.paused=true
@@ -169,6 +276,65 @@ export default {
           },1000)
         }
       })
+
+      
+      if ( pre.title != post.title ){
+        if (post.type=="game") {
+          if (post.title=="Game1" && !this.gameStatus['1'] ){
+            this.gameStatus['1']=true
+            
+            this.refGroup['1'].loadAsset(()=>{
+              this.refGroup['1'].setUp(`.game${'1'} .game-container`);
+              this.refGroup['1'].start()
+            });
+          }
+          if (post.title=="Game2" && !this.gameStatus['2'] ){
+            this.gameStatus['2']=true
+            this.refGroup['2'].loadAsset(()=>{
+              this.refGroup['2'].setUp(`.game${'2'} .game-container`);
+              this.refGroup['2'].start()
+            });
+          }
+          if (post.title=="Game3" && !this.gameStatus['3'] ){
+            this.gameStatus['3']=true
+            this.refGroup['3'].loadAsset(()=>{
+              this.refGroup['3'].setUp(`.game${'3'} .game-container`);
+              this.refGroup['3'].start()
+            });
+          }
+        }
+
+      }
+      
+    },
+    currentSection(pre,post){
+      if ( pre.title != post.title ){
+        if (post.type=="game") {
+          if (post.title=="Game1" && !this.gameStatus['1'] ){
+            this.gameStatus['1']=true
+            
+            this.refGroup['1'].loadAsset(()=>{
+              this.refGroup['1'].setUp(`.game${'1'} .game-container`);
+              this.refGroup['1'].start()
+            });
+          }
+          if (post.title=="Game2" && !this.gameStatus['2'] ){
+            this.gameStatus['2']=true
+            this.refGroup['2'].loadAsset(()=>{
+              this.refGroup['2'].setUp(`.game${'2'} .game-container`);
+              this.refGroup['2'].start()
+            });
+          }
+          if (post.title=="Game3" && !this.gameStatus['3'] ){
+            this.gameStatus['3']=true
+            this.refGroup['3'].loadAsset(()=>{
+              this.refGroup['3'].setUp(`.game${'3'} .game-container`);
+              this.refGroup['3'].start()
+            });
+          }
+        }
+
+      }
     }
   },
   data(){
@@ -177,7 +343,9 @@ export default {
       audioElList: [],
       scrollY: 0,
       sectionHeight: window.outerWidth/1920*1080 ,
-      scenes: sceneData.scenes
+      scenes: sceneData.scenes,
+      refGroup: {},
+      gameStatus: {'1': false,'2': false,'3':false}
     }
   }
 }
@@ -195,12 +363,13 @@ img
     position: absolute
     left: 0
     top: 0
+    transform-origin: center center
   .img-layer:first-child
     position: relative
 section
   // border: solid 1px blue
   position: relative
-  background-color: #222
+  // background-color: #fff
   // padding-bottom: calc(1080/1920*100%)
   h2
     padding: 5px 20px

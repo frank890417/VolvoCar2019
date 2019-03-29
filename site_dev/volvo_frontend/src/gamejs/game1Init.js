@@ -1,7 +1,7 @@
 import game1Loop from "./game1Loop"
 import {generateCrossingGroup} from "./game1Setup"
 
-export {game1Init, resetData};
+export {game1Init, resetData,game1Start,game1Pause};
 let vars;
 let common;
 let game1Data;
@@ -26,10 +26,17 @@ function game1Init(Vars){
     common.prePlayTimelineG1.restart();
     common.isGameRunning = false;
     common.isPrePlaying = true;
+
     common.app.ticker.start();
 }
 
+function game1Start(Vars){
+    common.app.ticker.start();
+}
 
+function game1Pause(Vars){
+    common.app.ticker.stop();
+}
 
 function registerGame1Event(){
     //加入點擊事件
