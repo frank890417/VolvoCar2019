@@ -128,7 +128,8 @@ export default {
     //根據塗層跟資料算出應該要的偏移量
     getTransform(layer, sceneId, layerId){
       if (layerId==0) return 0
-      if (layer.src.indexOf('speedline')!=-1 || layer.src.indexOf('dialog')!=-1 ) return 0
+      if (layer.src.indexOf('speedline')!=-1 ) return 0
+      if (layer.src.indexOf('dialog')!=-1) return 0.4
       
       //滾動位置跟這個區塊的相對差距
       let delta = (this.scrollY- (this.sectionPositionList[sceneId] + window.outerHeight*0.6) ) * 0.95
@@ -160,7 +161,6 @@ export default {
         tada: layer.src.indexOf('C01_speedline')!=-1,
         slideInRight: layer.src.indexOf('A02_man')!=-1 || layer.src.indexOf('I02_box')!=-1 || layer.src.indexOf('I06_man')!=-1,
         slideInBottom: layer.src.indexOf('D04_car')!=-1,
-        pulse: layer.src.indexOf('D04_car')!=-1,
         frontItem: layerId!=0,
        
       }

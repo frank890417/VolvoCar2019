@@ -21,11 +21,7 @@ export default {
       // a.volume=0.1
       // a.play()
     },2000)
-    setTimeout(()=>{
-      // this.setLoading(false) 
-      let a = new Audio("Audio/explode.wav")
-      a.play()
-    },5000)
+
    
 
   },

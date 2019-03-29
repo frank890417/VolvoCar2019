@@ -29,8 +29,8 @@ export default {
     let counter = 0
     var startGame = ()=>{
       this.setLoading(false)
-      let a = new Audio("Audio/explode.wav")
-      a.play()
+      // let a = new Audio("Audio/explode.wav")
+      // a.play()
       clearInterval(c)
 
     }
@@ -39,12 +39,13 @@ export default {
       if (counter>10 ){
         startGame()
       }
-    },10)
+    },1000)
 
     this.setLoading(true)
     let pics = sceneData.scenes.map(item=>(item.layers || []).concat(item.audios || []) ).reduce((all,item)=>[...all,...item],[]).map(k=>typeof k !="string"?k.src:k)
     pics = pics.filter((d,i,arr)=>arr.indexOf(d)==i)
     console.log(pics)
+    pics.concat(["_Loading/loading_首頁-compressor.png"])
     preloader.load(pics).then(()=>{
       console.log("image all preloaded!")
       if (counter>5){
@@ -72,6 +73,7 @@ export default {
 html,body
   width: 100%
   margin: 0
+  overflow-x: hidden
 
 a
   cursor: pointer
