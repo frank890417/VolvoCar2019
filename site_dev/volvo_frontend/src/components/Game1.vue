@@ -14,7 +14,7 @@ import Vars from "../gamejs/globalVariables.js"
 import envSetting from "../gamejs/envSetting.js"
 import loadAllAssets from "../gamejs/assetLoader.js"
 import {game1Setup} from "../gamejs/game1Setup.js"
-import {game1Init, resetData,game1Start,game1Pause} from "../gamejs/game1Init.js"
+import {game1Init, resetData, game1Start, game1Pause} from "../gamejs/game1Init.js"
 
 export default {
   name: 'Game1',
@@ -22,7 +22,7 @@ export default {
     msg: String
   },
   mounted(){
-
+    // window.tempVars = Vars;
   },
   methods: {
     resizeCanvas(){
@@ -33,6 +33,7 @@ export default {
     resetData(){
       console.log("resetData");
       resetData();
+
     },
     loadAsset(callback){
       console.log("loadAsset");
@@ -52,11 +53,12 @@ export default {
       resetData();
     },
     start(){
-      game1Start();
-
+      Vars.common.app.ticker.start();
+      // game1Start(Vars);
     },
     pause(){
-      game1Pause();
+      Vars.common.app.ticker.stop();
+      // game1Pause(Vars);
     }
   },
   computed: {

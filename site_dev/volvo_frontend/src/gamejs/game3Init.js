@@ -33,14 +33,14 @@ function game3Init(Vars){
     common.prePlayTimelineG3.restart();
     common.isGameRunning = false;
     common.isPrePlaying = true;
-    common.app.ticker.start();
+    common.app.ticker.stop();
 }
 
 function game3Start(Vars){
-    common.app.ticker.start();
+    // Vars.common.app.ticker.start();
 }
 function game3Pause(Vars){
-    common.app.ticker.stop();
+    // Vars.common.app.ticker.stop();
 }
 
 

@@ -28,15 +28,15 @@ function game2Init(Vars){
     common.isGameRunning = false;
     common.isPrePlaying = true;
 
-    common.app.ticker.start();
+    common.app.ticker.stop();
 }
 
 function game2Start(Vars){
-    common.app.ticker.start();
+    Vars.common.app.ticker.start();
 }
 
 function game2Pause(Vars){
-    common.app.ticker.stop();
+    Vars.common.app.ticker.stop();
 }
 
 
