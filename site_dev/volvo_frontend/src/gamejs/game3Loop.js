@@ -12,7 +12,7 @@ function game3Loop(Vars) {
     for(let i=0; i< game3Data.lineGroup_g3.length; i++){
         let s = game3Data.lineGroup_g3[i];
         s.counterY -= game3Data.carSpeed;
-        console.log(s.counterY);
+        // console.log(s.counterY);
 
         s.position.y = s.counterY;
         if(s.counterY< -500){

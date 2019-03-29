@@ -42,7 +42,18 @@ export default {
       audios: [ ]
     },{
       title: "C02",
-      layers: ["C/C02/C02_bg.png","C/C02/C02_anderson.png","C/C02/C02_villain.png"],
+      layers: ["C/C02/C02_bg.png",{
+        src: "C/C02/C02_anderson.png",
+        // getPanX: d => -d*0.1,
+        // getPanY: d => d*0.1,
+        // getScale: d=>1.2
+
+      },{
+        src: "C/C02/C02_villain.png",
+        // getPanX: d => -d*0.1,
+        // getPanY: d => d*0.1,
+        // getScale: d=>1.2
+      }],
       audios: ["Audio/evillaugh.mp3"]
     },{
       title: "C03",

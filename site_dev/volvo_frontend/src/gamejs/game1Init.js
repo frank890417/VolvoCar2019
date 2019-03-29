@@ -26,6 +26,8 @@ function game1Init(Vars){
     common.prePlayTimelineG1.restart();
     common.isGameRunning = false;
     common.isPrePlaying = true;
+
+    common.app.ticker.start();
 }
 
 function game1Start(Vars){

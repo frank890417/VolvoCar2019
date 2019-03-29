@@ -88,7 +88,7 @@ export default {
   .game-container
     overflow: hidden
     width: 100%
-    height: 100vh
+    height: 56.25vw
     canvas
       transform-origin: 0 0
   position: relative

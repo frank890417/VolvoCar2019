@@ -11,11 +11,11 @@
             :ref=" 'sceneObj'+sceneId ",
             :id="'sec_'+sceneId" )
 
-      div(v-if="scene.type=='game' && scene.title=='Game1'")
+      div(v-if="scene.type=='game' && scene.title=='Game1'", @click="refGroup['1'].start()")
         Game1(ref="game1")
-      div(v-if="scene.type=='game' && scene.title=='Game2'")
+      div(v-if="scene.type=='game' && scene.title=='Game2'",  @click="refGroup['2'].start()")
         Game2(ref="game2")
-      div(v-if="scene.type=='game' && scene.title=='Game3'")
+      div(v-if="scene.type=='game' && scene.title=='Game3'", @click="refGroup['3'].start()")
         Game3(ref="game3")
         
       div(v-else)
@@ -101,10 +101,11 @@ export default {
         '3': this.$refs.game3[0]
       })
       console.log(this.refGroup)
+      
       setTimeout(()=>{
-        this.loadGame();
+       this.loadGame();
 
-      },500)
+      },2000)
 
 
     },500)
@@ -149,7 +150,7 @@ export default {
       let result = {
         wow: true, 
         zoomIn: layer.src.indexOf('dialog')!=-1 || layer.src.indexOf('explode')!=-1,
-        tada: layer.src.indexOf('speedline')!=-1,
+        tada: layer.src.indexOf('C01_speedline')!=-1,
         slideInRight: layer.src.indexOf('A02_man')!=-1 || layer.src.indexOf('I02_box')!=-1 || layer.src.indexOf('I06_man')!=-1,
         slideInBottom: layer.src.indexOf('D04_car')!=-1,
         pulse: layer.src.indexOf('D04_car')!=-1,
@@ -243,20 +244,29 @@ export default {
 
       }
 
-      if ( pre.title != post.title ){
-        if (post.type=="game"){
-          if (post.title=="Game1"){
-            this.refGroup['1'].start()
-          }
-          if (post.title=="Game2"){
-            this.refGroup['2'].start()
-          }
-          if (post.title=="Game3"){
-            this.refGroup['3'].start()
-          }
-        }
+      // if ( pre.title != post.title ){
+      //   if (post.type=="game") {
+      //     if (post.title=="Game1"){
+      //       this.refGroup['1'].loadAsset(()=>{
+      //         this.refGroup['1'].setUp(`.game${'1'} .game-container`);
+      //         this.refGroup['1'].start()
+      //       });
+      //     }
+      //     if (post.title=="Game2"){
+      //       this.refGroup['2'].loadAsset(()=>{
+      //         this.refGroup['2'].setUp(`.game${'2'} .game-container`);
+      //         this.refGroup['2'].start()
+      //       });
+      //     }
+      //     if (post.title=="Game3"){
+      //       this.refGroup['3'].loadAsset(()=>{
+      //         this.refGroup['3'].setUp(`.game${'3'} .game-container`);
+      //         this.refGroup['3'].start()
+      //       });
+      //     }
+      //   }
 
-      }
+      // }
       this.audioElList.forEach(audioItem=>{
         if (audioItem.scene!==this.currentPreSection && audioItem.scene!==this.currentSection && !audioItem.paused){
           audioItem.paused=true
@@ -268,8 +278,63 @@ export default {
       })
 
       
+      if ( pre.title != post.title ){
+        if (post.type=="game") {
+          if (post.title=="Game1" && !this.gameStatus['1'] ){
+            this.gameStatus['1']=true
+            
+            this.refGroup['1'].loadAsset(()=>{
+              this.refGroup['1'].setUp(`.game${'1'} .game-container`);
+              this.refGroup['1'].start()
+            });
+          }
+          if (post.title=="Game2" && !this.gameStatus['2'] ){
+            this.gameStatus['2']=true
+            this.refGroup['2'].loadAsset(()=>{
+              this.refGroup['2'].setUp(`.game${'2'} .game-container`);
+              this.refGroup['2'].start()
+            });
+          }
+          if (post.title=="Game3" && !this.gameStatus['3'] ){
+            this.gameStatus['3']=true
+            this.refGroup['3'].loadAsset(()=>{
+              this.refGroup['3'].setUp(`.game${'3'} .game-container`);
+              this.refGroup['3'].start()
+            });
+          }
+        }
 
+      }
       
+    },
+    currentSection(pre,post){
+      if ( pre.title != post.title ){
+        if (post.type=="game") {
+          if (post.title=="Game1" && !this.gameStatus['1'] ){
+            this.gameStatus['1']=true
+            
+            this.refGroup['1'].loadAsset(()=>{
+              this.refGroup['1'].setUp(`.game${'1'} .game-container`);
+              this.refGroup['1'].start()
+            });
+          }
+          if (post.title=="Game2" && !this.gameStatus['2'] ){
+            this.gameStatus['2']=true
+            this.refGroup['2'].loadAsset(()=>{
+              this.refGroup['2'].setUp(`.game${'2'} .game-container`);
+              this.refGroup['2'].start()
+            });
+          }
+          if (post.title=="Game3" && !this.gameStatus['3'] ){
+            this.gameStatus['3']=true
+            this.refGroup['3'].loadAsset(()=>{
+              this.refGroup['3'].setUp(`.game${'3'} .game-container`);
+              this.refGroup['3'].start()
+            });
+          }
+        }
+
+      }
     }
   },
   data(){
@@ -279,7 +344,8 @@ export default {
       scrollY: 0,
       sectionHeight: window.outerWidth/1920*1080 ,
       scenes: sceneData.scenes,
-      refGroup: {}
+      refGroup: {},
+      gameStatus: {'1': false,'2': false,'3':false}
     }
   }
 }
