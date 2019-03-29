@@ -33,7 +33,6 @@ export default {
     resetData(){
       console.log("resetData");
       resetData();
-
     },
     loadAsset(callback){
       console.log("loadAsset");
@@ -53,6 +52,7 @@ export default {
         game1Setup(Vars);
         game1Init(Vars);
         resetData();
+        Vars.common.app.ticker.stop();
       }
     },
     start(){

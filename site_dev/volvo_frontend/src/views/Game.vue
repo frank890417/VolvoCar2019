@@ -63,6 +63,9 @@ export default {
     },
     handleStageChange(stage){
       if(this.currentGame==stage) return; 
+      if(this.currentGame != 0){
+        this.refGroup[this.currentGame].pause();
+      }
       this.currentGame = stage;
       this.loadGame();
     }
@@ -75,8 +78,8 @@ export default {
 <style scoped lang="sass">
   .nav-bar
     position: absolute
-    left: -450px
-    bottom: 200px
+    left: -350px
+    bottom: 10px
     color: white
     background-color: black
     transition: 0.5s left

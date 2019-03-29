@@ -53,6 +53,7 @@ export default {
         game3Setup(Vars);
         game3Init(Vars);
         resetData();
+        Vars.common.app.ticker.stop();
       }
     },
     start(){

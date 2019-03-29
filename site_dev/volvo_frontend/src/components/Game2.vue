@@ -51,6 +51,7 @@ export default {
         game2Setup(Vars);
         game2Init(Vars);
         resetData();
+        Vars.common.app.ticker.stop();
       }
     },
     start(){
