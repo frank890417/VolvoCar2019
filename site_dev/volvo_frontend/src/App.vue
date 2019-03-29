@@ -42,7 +42,7 @@ export default {
     },10)
 
     this.setLoading(true)
-    let pics = sceneData.scenes.map(item=>item.layers.concat(item.audios || []) ).reduce((all,item)=>[...all,...item],[])
+    let pics = sceneData.scenes.map(item=>(item.layers || []).concat(item.audios || []) ).reduce((all,item)=>[...all,...item],[]).map(k=>typeof k !="string"?k.src:k)
     pics = pics.filter((d,i,arr)=>arr.indexOf(d)==i)
     console.log(pics)
     preloader.load(pics).then(()=>{

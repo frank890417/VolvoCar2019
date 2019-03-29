@@ -133,7 +133,11 @@ export default {
 
     {
       title: "E01",
-      layers: ["E/E01/E01_bg.png","E/E01/E01_car.png","E/E01/E01_Anderson.png","E/E01/E01_dialog.png","E/E01/E01_bike.png"]
+      layers: ["E/E01/E01_bg.png","E/E01/E01_car.png","E/E01/E01_Anderson.png","E/E01/E01_dialog.png",{
+        src: "E/E01/E01_bike.png",
+        getPanX: d=>-d*0.1 - 100,
+        // getPanY: d=>d*0.05
+      }]
     },
 
     {
