@@ -52,11 +52,10 @@ export default {
     
     },
     start(){
-      game2Start();
-
+      Vars.common.app.ticker.start();
     },
     pause(){
-      game2Pause();
+      Vars.common.app.ticker.stop();
     }
   },
   computed: {

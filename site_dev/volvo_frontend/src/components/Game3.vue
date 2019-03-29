@@ -54,12 +54,10 @@ export default {
     
     },
     start(){
-      game3Start();
-
-    
+      Vars.common.app.ticker.start();
     },
     pause(){
-      game3Pause();
+      Vars.common.app.ticker.stop();
     }
   },
   computed: {

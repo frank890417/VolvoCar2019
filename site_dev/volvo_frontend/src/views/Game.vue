@@ -4,11 +4,11 @@
     game2(ref="game2" v-show="currentGame==2")
     game3(ref="game3" v-show="currentGame==3")
     .nav-bar.active 
-      li(@click="currentGame=1;loadGame();startGame();", :class="{active: currentGame==1}") Game 1
-      li(@click="currentGame=2;loadGame();startGame();", :class="{active: currentGame==2}") Game 2
-      li(@click="currentGame=3;loadGame();startGame();", :class="{active: currentGame==3}") Game 3
-      li(@click="loadGame();startGame();") {{"開始"}}
-      li {{"重置"}}
+      li(@click="handleStageChange(1)", :class="{active: currentGame==1}") Game 1
+      li(@click="handleStageChange(2)", :class="{active: currentGame==2}") Game 2
+      li(@click="handleStageChange(3)", :class="{active: currentGame==3}") Game 3
+      li(@click="startGame") {{"開始"}}
+      li(@click="resetData") {{"重置"}}
       li(@click="toggleMenu") <
 
 </template>
@@ -33,15 +33,21 @@ export default {
   },
   data(){
     return{
-      currentGame: 1,
+      currentGame: 0,
+      isLoaded: false,
       refGroup: {}
     }
   },
   methods: {
     loadGame(){
-      this.refGroup[this.currentGame].loadAsset(()=>{
+      if(!this.isLoaded){
+        this.isLoaded = true;
+        this.refGroup[this.currentGame].loadAsset(()=>{
+          this.refGroup[this.currentGame].setUp(`.game${this.currentGame} .game-container`);
+        });
+      }else{
         this.refGroup[this.currentGame].setUp(`.game${this.currentGame} .game-container`);
-      });
+      }
     },
     startGame(){
       this.refGroup[this.currentGame].start();
@@ -51,6 +57,11 @@ export default {
     },
     toggleMenu(){
       $(".nav-bar").toggleClass("active");
+    },
+    handleStageChange(stage){
+      if(this.currentGame==stage) return; 
+      this.currentGame = stage;
+      this.loadGame();
     }
   },
   computed: {
