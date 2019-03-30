@@ -32,7 +32,7 @@ function game1Init(Vars){
 }
 
 function game1Start(Vars){
-    console.log("Game 1 start!")
+    console.log("Game 1 init!")
     Vars.common.prePlayTimelineG1.restart();
     Vars.common.isPrePlaying = true;
     Vars.common.app.ticker.start();
@@ -129,13 +129,12 @@ function updateAxisG1(){
 
 
 function addG1PrePlay(){
-
     common.prePlayTimelineG1 = new TimelineMax({paused:true});
     common.prePlayTimelineG1
     .add(()=>{
         game1Data.pedal.tint = 0X555555;
         game1Data.isPrePlaying = true;
-        game1Data.timeText.visible = false;
+        game1Data.timeText.visible = false; 
         game1Data.timeRemainingText.visible = false;
         game1Data.pressStop = true;
     }, 0)
@@ -197,6 +196,7 @@ function resetAllTimers(){
 
 
 function resetData(){
+    
     if(common.prePlayTimelineG1){
         common.prePlayTimelineG1.seek(0);
     }

@@ -33,7 +33,7 @@ export default {
       resetData();
     },
     loadAsset(callback){
-      console.log("[Game2] loadAsset");
+      console.log("[ALL Game] loadAsset");
       if(!PIXI.loader.resources.g1Ui){
         loadAllAssets.loadAllAssets(Vars, callback);
       }else{

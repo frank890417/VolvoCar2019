@@ -16,7 +16,7 @@ function game3Init(Vars){
     registerGame3Event();    
     updateAxisG3();
     setUpWifiAni();
-    addG3PrePlay();
+    addG3PrePlay(Vars);
     game3Data.rightBtnClick_g3 = false;
     game3Data.leftBtnClick_g3 = false;
 
