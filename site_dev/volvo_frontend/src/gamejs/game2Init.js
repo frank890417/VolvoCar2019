@@ -24,14 +24,16 @@ function game2Init(Vars){
     common.app.ticker.speed = 1;
     common.app.ticker.add(delta => game2Loop.game2Loop(Vars));
 
-    common.prePlayTimelineG2.restart();
+    // common.prePlayTimelineG2.restart();
     common.isGameRunning = false;
-    common.isPrePlaying = true;
+    // common.isPrePlaying = true;
 
     common.app.ticker.stop();
 }
 
 function game2Start(Vars){
+    Vars.common.isPrePlaying = true;
+    Vars.common.prePlayTimelineG2.restart();
     Vars.common.app.ticker.start();
 }
 
@@ -239,7 +241,7 @@ function resetAllTimers(){
 function resetData(){
 
     if(common.prePlayTimelineG2){
-        common.prePlayTimelineG2.restart();
+        common.prePlayTimelineG2.seek(0);
     }
 
     //重置橫線

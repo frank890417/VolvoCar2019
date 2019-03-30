@@ -23,7 +23,7 @@ function game1Init(Vars){
     common.app.ticker.speed = 1;
     common.app.ticker.add(delta => game1Loop.game1Loop(Vars));
 
-    common.prePlayTimelineG1.restart();
+    // common.prePlayTimelineG1.restart();
     common.isGameRunning = false;
     common.isPrePlaying = true;
 
@@ -31,11 +31,13 @@ function game1Init(Vars){
 }
 
 function game1Start(Vars){
-    // Vars.common.app.ticker.start();
+    Vars.common.prePlayTimelineG1.restart();
+    Vars.common.isPrePlaying = true;
+    Vars.common.app.ticker.start();
 }
 
 function game1Pause(Vars){
-    // Vars.common.app.ticker.stop();
+    Vars.common.app.ticker.stop();
 }
 
 function registerGame1Event(){
@@ -194,7 +196,7 @@ function resetAllTimers(){
 
 function resetData(){
     if(common.prePlayTimelineG1){
-        common.prePlayTimelineG1.restart();
+        common.prePlayTimelineG1.seek(0);
     }
     //根據斑馬線群組產生物件
     game1Data.crossingGroup.forEach(sprite => {

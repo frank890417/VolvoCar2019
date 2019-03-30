@@ -8,6 +8,7 @@ let game2Data;
 var timeCounter2 = 0;
 
 function game2Loop(Vars) {
+    console.log("Game Ticker 2")
     if(!vars) initLoopData(Vars);
 
     //更新橫線

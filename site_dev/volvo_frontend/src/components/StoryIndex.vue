@@ -190,7 +190,7 @@ export default {
       this.refGroup[1].loadAsset(()=>{
         for(var i=1;i<=3;i++){
           this.refGroup[i].setUp(`.game${i} .game-container`);
-          this.refGroup[i].start();
+          // this.refGroup[i].start();
         }
       });
       
@@ -260,79 +260,41 @@ export default {
       })
 
       
-      if ( pre.title != post.title ){
-        if (post.type=="game") {
-          if (post.title=="Game1" && !this.gameStatus['1'] ){
-            // this.gameStatus['1']=true
-            
-            // this.refGroup['1'].loadAsset(()=>{
-            //   this.refGroup['1'].setUp(`.game${'1'} .game-container`);
-            //   this.refGroup['1'].start()
-            // });
-
-          }
-          if (post.title=="Game2" && !this.gameStatus['2'] ){
-            // this.gameStatus['2']=true
-            
-            // this.refGroup['2'].loadAsset(()=>{
-            //   this.refGroup['2'].setUp(`.game${'2'} .game-container`);
-            //   this.refGroup['2'].start()
-            // });
-          }
-          if (post.title=="Game3" && !this.gameStatus['3'] ){
-            // this.gameStatus['3']=true
-            
-            // this.refGroup['3'].loadAsset(()=>{
-            //   this.refGroup['3'].setUp(`.game${'3'} .game-container`);
-            //   this.refGroup['3'].start()
-            // });
-          }
-        }
-
-      }
       
-    },
-    currentSection(pre, post){
       if ( pre.title != post.title ){
         if (post.type=="game") {
-          return;
-          if (post.title=="Game1" && !this.gameStatus['1'] ){
+          // return;
+          if (post.title=="Game1"  ){
             console.log("遊戲一開始");
             this.gameStatus['1']=true
             this.gameStatus['2']=false
             this.gameStatus['3']=false
             this.refGroup['1'].resetData();
             this.refGroup['1'].start();
-            this.refGroup['2'].pause();
-            this.refGroup['3'].pause();
             // this.refGroup['1'].loadAsset(()=>{
             //   this.refGroup['1'].setUp(`.game${'1'} .game-container`);
             //   this.refGroup['1'].start()
             // });
           }
-          if (post.title=="Game2" && !this.gameStatus['2'] ){
+          if (post.title=="Game2"  ){
             console.log("遊戲二開始");
             this.gameStatus['2']=true
             this.gameStatus['1']=false
             this.gameStatus['3']=false
             this.refGroup['2'].resetData();
             this.refGroup['2'].start();
-            this.refGroup['1'].pause();
-            this.refGroup['3'].pause();
             // this.refGroup['2'].loadAsset(()=>{
             //   this.refGroup['2'].setUp(`.game${'2'} .game-container`);
             //   this.refGroup['2'].start()
             // });
           }
-          if (post.title=="Game3" && !this.gameStatus['3'] ){
+          if (post.title=="Game3" ){
             console.log("遊戲三開始");
             this.gameStatus['3']=true
             this.gameStatus['2']=false
             this.gameStatus['1']=false
             this.refGroup['3'].resetData();
             this.refGroup['3'].start();
-            this.refGroup['2'].pause();
-            this.refGroup['1'].pause();
             // this.refGroup['3'].loadAsset(()=>{
             //   this.refGroup['3'].setUp(`.game${'3'} .game-container`);
             //   this.refGroup['3'].start()
@@ -341,6 +303,8 @@ export default {
         }
 
       }
+    },
+    currentSection(pre, post){
     }
   },
   data(){

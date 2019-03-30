@@ -5,6 +5,7 @@ let common;
 let game1Data;
 
 function game1Loop(Vars){
+    console.log("Game Ticker 1")
     if(!vars) initLoopData(Vars);
     
     //橫線

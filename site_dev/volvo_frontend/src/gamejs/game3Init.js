@@ -30,17 +30,19 @@ function game3Init(Vars){
     common.app.ticker.speed = 1;
     common.app.ticker.add(delta => game3Loop.game3Loop(Vars));
 
-    common.prePlayTimelineG3.restart();
+    
     common.isGameRunning = false;
-    common.isPrePlaying = true;
+    
     common.app.ticker.stop();
 }
 
 function game3Start(Vars){
-    // Vars.common.app.ticker.start();
+    Vars.common.prePlayTimelineG3.restart();
+    Vars.common.isPrePlaying = true;
+    Vars.common.app.ticker.start();
 }
 function game3Pause(Vars){
-    // Vars.common.app.ticker.stop();
+    Vars.common.app.ticker.stop();
 }
 
 
@@ -500,7 +502,7 @@ function resetAllTimers(){
 function resetData(){
     game3Data.carSideSequenceIndex = 0;
     if(common.prePlayTimelineG3){
-        common.prePlayTimelineG3.play();
+        // common.prePlayTimelineG3.play();
         common.prePlayTimelineG3.seek(0);
     }
     resetAllTimers();
