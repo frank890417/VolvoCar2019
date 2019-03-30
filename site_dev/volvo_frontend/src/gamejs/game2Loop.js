@@ -3,6 +3,7 @@ export default {game2Loop};
 let vars;
 let common;
 let game2Data;
+let currentApp;
 
 
 var timeCounter2 = 0;
@@ -115,15 +116,15 @@ function game2Loop(Vars) {
     }
 
     game2Data.currentCarPosition-=game2Data.carSpeed*3;
-    game2Data.car_g2.position.set(common.app.screen.width/2, game2Data.currentCarPosition);
-    // safeAreaHint.position.set(common.app.screen.width/2, game2Data.currentCarPosition);
+    game2Data.car_g2.position.set(currentApp.screen.width/2, game2Data.currentCarPosition);
+    // safeAreaHint.position.set(currentApp.screen.width/2, game2Data.currentCarPosition);
     for (let i = 0; i < 4; i++) {
-        game2Data.safeAreaHint[i].position.set(common.app.screen.width/2, game2Data.currentCarPosition-100);
+        game2Data.safeAreaHint[i].position.set(currentApp.screen.width/2, game2Data.currentCarPosition-100);
     }
     game2Data.safeAreaHint.height = 1500;
 
     timeCounter2++;
-    game2Data.car_g2.position.x = Math.sin(timeCounter2/40)*50 +common.app.screen.width/2;
+    game2Data.car_g2.position.x = Math.sin(timeCounter2/40)*50 +currentApp.screen.width/2;
     
     //消失點左右移動
     // world3D_g2.position.x = Math.sin(timeCounter2/140)*300;
@@ -134,4 +135,5 @@ function initLoopData(Vars){
     vars = Vars;
     common = Vars.common;
     game2Data = Vars.game2Data;
+    currentApp = game2Data.app;
 }

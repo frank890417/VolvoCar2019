@@ -1,10 +1,13 @@
+export {game2Setup};
+
 let common;
 let game2Data;
-export {game2Setup};
+let currentApp;
 
 function game2Setup(Vars){
     common = Vars.common;
     game2Data = Vars.game2Data;
+    currentApp = game2Data.app;
 
     game2Data.g2Ui =  new PIXI.Sprite(PIXI.loader.resources.g2Ui.texture);
     game2Data.g2Ui.position.set(0, 0);
@@ -15,7 +18,7 @@ function game2Setup(Vars){
         fill: '#FFD3BE',
         fontWeight: 500
     }));
-    game2Data.timeText_g2.position.set(common.app.screen.width/2, 60);
+    game2Data.timeText_g2.position.set(currentApp.screen.width/2, 60);
     game2Data.timeText_g2.anchor.set(0.5, 0);
     
     game2Data.timeRemainingText_g2 = new PIXI.Text("30", new PIXI.TextStyle({
@@ -24,13 +27,13 @@ function game2Setup(Vars){
         fontWeight: 500,
     }));
 
-    game2Data.timeRemainingText_g2.position.set(common.app.screen.width/2-30, 100);
+    game2Data.timeRemainingText_g2.position.set(currentApp.screen.width/2-30, 100);
     game2Data.timeRemainingText_g2.anchor.set(0.5, 0);
 
     game2Data.hintRect_g2 =  new PIXI.Graphics();
     game2Data.hintRect_g2.beginFill(0x000000, 0);
     game2Data.hintRect_g2.lineStyle(80, 0xFF0000, 1);
-    game2Data.hintRect_g2.drawRect(0, 0, common.app.screen.width, common.app.screen.height);
+    game2Data.hintRect_g2.drawRect(0, 0, currentApp.screen.width, currentApp.screen.height);
     game2Data.hintRect_g2.endFill();
     game2Data.hintRect_g2.visible = false;
 
@@ -47,12 +50,12 @@ function game2Setup(Vars){
 
 
     // cityRoad_g2 =  new PIXI.Sprite(PIXI.loader.resources.cityImg.texture);
-    // cityRoad_g2.position.set(common.app.screen.width/2, common.app.screen.height/2);
+    // cityRoad_g2.position.set(currentApp.screen.width/2, currentApp.screen.height/2);
     // cityRoad_g2.scale.set(1.8, 1.8);
     // cityRoad_g2.anchor.set(0.5, 0.5);
 
     game2Data.missImg_g2 =  new PIXI.Sprite(PIXI.loader.resources.missImg.texture);
-    game2Data.missImg_g2.position.set(common.app.screen.width-60, common.app.screen.height/2-game2Data.missImg_g2.height);
+    game2Data.missImg_g2.position.set(currentApp.screen.width-60, currentApp.screen.height/2-game2Data.missImg_g2.height);
     game2Data.missImg_g2.anchor.set(1, 0);
     game2Data.missImg_g2.scale.set(0.6, 0.6);
 
@@ -67,26 +70,26 @@ function game2Setup(Vars){
     game2Data.sysImg_g2.scale.set(0.6, 0.6);
 
     game2Data.dash_g2 =  new PIXI.Sprite(PIXI.loader.resources.dashImg.texture);
-    game2Data.dash_g2.position.set(common.app.screen.width/2, common.app.screen.height);
+    game2Data.dash_g2.position.set(currentApp.screen.width/2, currentApp.screen.height);
     game2Data.dash_g2.anchor.set(0.5, 1);
     game2Data.dash_g2.scale.set(0.8, 0.8);
 
     // safeHintImg
     // car_g2 =  new PIXI.Sprite(PIXI.loader.resources.carMidImg.texture);
-    // car_g2.position.set(common.app.screen.width/2, 200);
+    // car_g2.position.set(currentApp.screen.width/2, 200);
     // car_g2.scale.set(0.5, 0.5);
     // car_g2.anchor.set(0.5, 0.5);
 
     game2Data.leftBtn_g2 =  new PIXI.Sprite(PIXI.loader.resources.leftBtnImg.texture);
-    game2Data.leftBtn_g2.position.set(60, common.app.screen.height-60);
+    game2Data.leftBtn_g2.position.set(60, currentApp.screen.height-60);
     game2Data.leftBtn_g2.anchor.set(0, 1);
 
     game2Data.rightBtn_g2 =  new PIXI.Sprite(PIXI.loader.resources.rightBtnImg.texture);
-    game2Data.rightBtn_g2.position.set(common.app.screen.width -60 -game2Data.rightBtn_g2.width, common.app.screen.height-60);
+    game2Data.rightBtn_g2.position.set(currentApp.screen.width -60 -game2Data.rightBtn_g2.width, currentApp.screen.height-60);
     game2Data.rightBtn_g2.anchor.set(0, 1);
 
     game2Data.hint_g2 =  new PIXI.Sprite(PIXI.loader.resources.hintImg.texture);
-    game2Data.hint_g2.position.set(common.app.screen.width-60, common.app.screen.height/2 + game2Data.missImg_g2.height+100);
+    game2Data.hint_g2.position.set(currentApp.screen.width-60, currentApp.screen.height/2 + game2Data.missImg_g2.height+100);
     game2Data.hint_g2.anchor.set(1, 1);
     game2Data.hint_g2.scale.set(0.6, 0.6);
 
@@ -94,7 +97,7 @@ function game2Setup(Vars){
     // safeAreaRect =  new PIXI.Graphics();
     // safeAreaRect.beginFill(0x00DD00, 0.4);
     
-    // safeAreaRect.drawRect(0, safeAreaMin, common.app.screen.width, (safeAreaMax-safeAreaMin)*2);
+    // safeAreaRect.drawRect(0, safeAreaMin, currentApp.screen.width, (safeAreaMax-safeAreaMin)*2);
     // safeAreaRect.endFill();
 
 
@@ -104,7 +107,7 @@ function game2Setup(Vars){
         fontWeight: 500
     }));
 
-    game2Data.hintTextG2.position.set(common.app.screen.width/2, common.app.screen.height - game2Data.dash_g2.height - 30);
+    game2Data.hintTextG2.position.set(currentApp.screen.width/2, currentApp.screen.height - game2Data.dash_g2.height - 30);
     game2Data.hintTextG2.anchor.set(0.5, 0.5);
 
     common.prePlayStartTextG2 = new PIXI.Text("5", new PIXI.TextStyle({
@@ -113,7 +116,7 @@ function game2Setup(Vars){
         fontWeight: 500
     }));
 
-    common.prePlayStartTextG2.position.set(common.app.screen.width/2, common.app.screen.height/2 - 200);
+    common.prePlayStartTextG2.position.set(currentApp.screen.width/2, currentApp.screen.height/2 - 200);
     common.prePlayStartTextG2.anchor.set(0.5, 0.5);
     common.prePlayStartTextG2.visible = false;
 
@@ -164,13 +167,13 @@ function addVanishingAssetG3(){
     game2Data.lineLeft_g2.tint = 0xffffff;
     game2Data.lineLeft_g2.scale.set(1, 1000);
     game2Data.lineLeft_g2.anchor.set(0.5, 0.5);
-    game2Data.lineLeft_g2.position.set((common.app.screen.width-game2Data.roadWidth_g2)/2, 0);
+    game2Data.lineLeft_g2.position.set((currentApp.screen.width-game2Data.roadWidth_g2)/2, 0);
 
     game2Data.lineRight_g2 = new PIXI.projection.Sprite2d(game2Data.bigWhiteTexture);
     game2Data.lineRight_g2.tint = 0xffffff;
     game2Data.lineRight_g2.scale.set(1, 1000);
     game2Data.lineRight_g2.anchor.set(0.5, 0.5);
-    game2Data.lineRight_g2.position.set((common.app.screen.width+game2Data.roadWidth_g2)/2, 0);
+    game2Data.lineRight_g2.position.set((currentApp.screen.width+game2Data.roadWidth_g2)/2, 0);
     
     // world3D_g2.addChild(lineLeft_g2);
     //world3D_g2.addChild(lineRight_g2);
@@ -184,7 +187,7 @@ function addVanishingAssetG3(){
         s.anchor.set(0.5);
         s.counterY = 6000*i;
         s.counterX = 0;
-        s.position.set(common.app.screen.width/2, 10000);
+        s.position.set(currentApp.screen.width/2, 10000);
         //調整物體水平還是垂直
         s.proj.affine = PIXI.projection.AFFINE.AXIS_X;
         //紀錄物件參考
@@ -201,9 +204,9 @@ function addVanishingAssetG3(){
         s.scale.y = -8;
         if(i%2 == 0){
             s.scale.x = -8;
-            s.position.set(common.app.screen.width/2 + game2Data.roadWidth_g2/2, 30000);
+            s.position.set(currentApp.screen.width/2 + game2Data.roadWidth_g2/2, 30000);
         }else{
-            s.position.set(common.app.screen.width/2 - game2Data.roadWidth_g2/2, 30000);
+            s.position.set(currentApp.screen.width/2 - game2Data.roadWidth_g2/2, 30000);
         }
         s.anchor.set(0, 1);
         s.counterY = 36000*i;
@@ -224,7 +227,7 @@ function addVanishingAssetG3(){
         tempS.scale.y = -1;
         tempS.tint = 0xff0000;
         tempS.anchor.set(0.5, 0);
-        tempS.position.set(common.app.screen.width/2, game2Data.currentCarPosition);
+        tempS.position.set(currentApp.screen.width/2, game2Data.currentCarPosition);
         game2Data.safeAreaHint.push(tempS);
         game2Data.world3D_g2.addChild(tempS);
     }
@@ -233,7 +236,7 @@ function addVanishingAssetG3(){
     game2Data.car_g2 = new PIXI.projection.Sprite2d(PIXI.loader.resources.carMidImg.texture);
     game2Data.car_g2.scale.set(5, -5);
     game2Data.car_g2.anchor.set(0.5, 1);
-    game2Data.car_g2.position.set(common.app.screen.width/2, game2Data.currentCarPosition);
+    game2Data.car_g2.position.set(currentApp.screen.width/2, game2Data.currentCarPosition);
     game2Data.car_g2.proj.affine = PIXI.projection.AFFINE.AXIS_Y;
     game2Data.world3D_g2.addChild(game2Data.car_g2);
 

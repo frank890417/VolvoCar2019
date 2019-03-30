@@ -3,6 +3,7 @@ export default {game3Loop};
 let vars;
 let common;
 let game3Data;
+let currentApp;
 
 let timeCounter3 = 0;
 function game3Loop(Vars) {
@@ -70,12 +71,13 @@ function initLoopData(Vars){
     vars = Vars;
     common = Vars.common;
     game3Data = Vars.game3Data;
+    currentApp = Vars.game3Data.app;
 }
 
 
 function setToCenter(){
     TweenMax.to(game3Data.car_g3.position, 1,{
-        x: common.app.screen.width/2,
+        x: currentApp.screen.width/2,
         ease: Power0.easeNone
     });
     TweenMax.to(game3Data.mirrorBgRight_g3.position, 1,{

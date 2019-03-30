@@ -4,11 +4,13 @@ export {game2Init, resetData,game2Start,game2Pause};
 let vars;
 let common;
 let game2Data;
+let currentApp;
 
 function game2Init(Vars){
     vars = Vars;
     common = Vars.common;
     game2Data = Vars.game2Data;
+    currentApp = game2Data.app;
 
     let tl = new TimelineMax();
     tl.fromTo(game2Data.hintRect_g2, 0.25, {alpha: 0}, {alpha: 1}).yoyo(1).repeat(-1);
@@ -20,25 +22,25 @@ function game2Init(Vars){
     addG2PrePlay();
 
 
-    common.app.stage.addChild(common.stage2);
-    common.app.ticker.speed = 1;
-    common.app.ticker.add(delta => game2Loop.game2Loop(Vars));
+    currentApp.stage.addChild(common.stage2);
+    currentApp.ticker.speed = 1;
+    currentApp.ticker.add(delta => game2Loop.game2Loop(Vars));
 
     // common.prePlayTimelineG2.restart();
     common.isGameRunning = false;
     // common.isPrePlaying = true;
 
-    common.app.ticker.stop();
+    currentApp.ticker.stop();
 }
 
 function game2Start(Vars){
     Vars.common.isPrePlaying = true;
     Vars.common.prePlayTimelineG2.restart();
-    Vars.common.app.ticker.start();
+    Vars.currentApp.ticker.start();
 }
 
 function game2Pause(Vars){
-    Vars.common.app.ticker.stop();
+    Vars.currentApp.ticker.stop();
 }
 
 
@@ -249,7 +251,7 @@ function resetData(){
         let s = game2Data.lineGroup_g2[i];
         s.counterY = 6000*i;
         s.counterX = 0;
-        s.position.set(common.app.screen.width/2, 10000);
+        s.position.set(currentApp.screen.width/2, 10000);
     }
     
     //重置路燈
@@ -257,9 +259,9 @@ function resetData(){
         let s = game2Data.streetLightGroup_g2[i];
         if(i%2 == 0){
             s.scale.x = -8;
-            s.position.set(common.app.screen.width/2 + game2Data.roadWidth_g2/2, 30000);
+            s.position.set(currentApp.screen.width/2 + game2Data.roadWidth_g2/2, 30000);
         }else{
-            s.position.set(common.app.screen.width/2 - game2Data.roadWidth_g2/2, 30000);
+            s.position.set(currentApp.screen.width/2 - game2Data.roadWidth_g2/2, 30000);
         }
         s.anchor.set(0, 1);
         s.counterY = 24000*i;

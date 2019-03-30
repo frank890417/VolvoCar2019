@@ -3,6 +3,7 @@ export default {game1Loop};
 let vars;
 let common;
 let game1Data;
+let currentApp;
 
 function game1Loop(Vars){
     console.log("Game Ticker 1")
@@ -26,7 +27,7 @@ function game1Loop(Vars){
         s.counterY -= game1Data.groundMoveSpeedG1;
         s.position.y = s.counterY;
         s.position.x = s.counterX;
-        if(s.position.y < 150 && s.position.x > common.app.screen.width/2 - game1Data.roadWidth/4 && s.position.x < common.app.screen.width/2 + game1Data.roadWidth/2){
+        if(s.position.y < 150 && s.position.x > currentApp.screen.width/2 - game1Data.roadWidth/4 && s.position.x < currentApp.screen.width/2 + game1Data.roadWidth/2){
             isInDangerZone = true;
         }
         
@@ -54,7 +55,7 @@ function game1Loop(Vars){
             }
 
 
-            if(s.position.x < common.app.screen.width/2 + game1Data.roadWidth/4){
+            if(s.position.x < currentApp.screen.width/2 + game1Data.roadWidth/4){
                 isInWarningRange = true;
             }
 
@@ -124,4 +125,5 @@ function initLoopData(Vars){
     vars = Vars;
     common = Vars.common;
     game1Data = Vars.game1Data;
+    currentApp = game1Data.app;
 }

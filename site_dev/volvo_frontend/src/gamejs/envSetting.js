@@ -3,33 +3,40 @@ let vars;
 let common;
 let game1Data;
 
-export default {
-    setupEnv(containerSelector, Vars){
-        vars = Vars;
-        common = Vars.common;
-        game1Data = Vars.game1Data;
+export default {setupEnv}
 
-        let type = "WebGL";
-        if(!PIXI.utils.isWebGLSupported()){
-            type = "canvas";
-        }
-        // PIXI.utils.sayHello(type);
-        PIXI.utils.skipHello();
+function setupEnv(containerSelector, currentGame, Vars){
+    vars = Vars;
+    common = Vars.common;
+    game1Data = Vars.game1Data;
 
-        Vars.common.app = new PIXI.Application({
-            width: Vars.common.DEFAULT_STAGE_WIDTH,
-            height: Vars.common.DEFAULT_STAGE_HEIGHT,
-            antialias: true,
-            // transparent: true,
-            transparent: false,
-            backgroundColor: 0x333333,
-            resolution: 1
-        });
-    
-        Vars.common.app.renderer.autoResize = true;
-        $(containerSelector).append(Vars.common.app.view);
-        setupCommonData();
+    let type = "WebGL";
+    if(!PIXI.utils.isWebGLSupported()){
+        type = "canvas";
     }
+
+    PIXI.utils.skipHello();
+
+    let app = new PIXI.Application({
+        width: Vars.common.DEFAULT_STAGE_WIDTH,
+        height: Vars.common.DEFAULT_STAGE_HEIGHT,
+        antialias: true,
+        // transparent: true,
+        transparent: false,
+        backgroundColor: 0x333333,
+        resolution: 1,
+        sharedTicker: false
+    });
+
+    console.log(`game${currentGame}Data`);
+
+    Vars[`game${currentGame}Data`].app = app;
+
+    app.renderer.autoResize = true;
+
+    $(containerSelector).append(app.view);
+    
+    setupCommonData();
 }
 
 function setupCommonData(){

@@ -5,11 +5,13 @@ export {game1Init, resetData, game1Start, game1Pause};
 let vars;
 let common;
 let game1Data;
+let currentApp;
 
 function game1Init(Vars){
     vars = Vars;
     common = Vars.common;
     game1Data = Vars.game1Data;
+    currentApp = game1Data.app;
 
     let tl = new TimelineMax();
     tl.fromTo(game1Data.pedalWarning, 0.5, {alpha: 0}, {alpha: 1}).yoyo(1).repeat(-1);
@@ -20,26 +22,26 @@ function game1Init(Vars){
 
     console.log("Game 1 init!")
 
-    common.app.stage.addChild(common.stage1);
-    common.app.ticker.speed = 1;
-    common.app.ticker.add(delta => game1Loop.game1Loop(Vars));
+    currentApp.stage.addChild(common.stage1);
+    currentApp.ticker.speed = 1;
+    currentApp.ticker.add(delta => game1Loop.game1Loop(Vars));
 
     // common.prePlayTimelineG1.restart();
     common.isGameRunning = false;
     common.isPrePlaying = true;
 
-    common.app.ticker.stop();
+    currentApp.ticker.stop();
 }
 
 function game1Start(Vars){
     console.log("Game 1 init!")
     Vars.common.prePlayTimelineG1.restart();
     Vars.common.isPrePlaying = true;
-    Vars.common.app.ticker.start();
+    Vars.currentApp.ticker.start();
 }
 
 function game1Pause(Vars){
-    Vars.common.app.ticker.stop();
+    Vars.currentApp.ticker.stop();
 }
 
 function registerGame1Event(){

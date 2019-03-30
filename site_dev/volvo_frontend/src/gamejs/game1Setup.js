@@ -1,9 +1,12 @@
 let common;
 let game1Data;
+let currentApp;
+
 export {game1Setup, generateCrossingGroup};
 function game1Setup(Vars){
     common = Vars.common;
     game1Data = Vars.game1Data;
+    currentApp = game1Data.app;
 
     game1Data.g1Ui =  new PIXI.Sprite(PIXI.loader.resources.g1Ui.texture);
     game1Data.g1Ui.position.set(0, 0);
@@ -14,7 +17,7 @@ function game1Setup(Vars){
         fill: '#FFD3BE',
         fontWeight: 500
     }));
-    game1Data.timeText.position.set(common.app.screen.width/2, 60);
+    game1Data.timeText.position.set(currentApp.screen.width/2, 60);
     game1Data.timeText.anchor.set(0.5, 0);
     
     game1Data.timeRemainingText = new PIXI.Text("30", new PIXI.TextStyle({
@@ -23,18 +26,18 @@ function game1Setup(Vars){
         fontWeight: 500
     }));
 
-    game1Data.timeRemainingText.position.set(common.app.screen.width/2 - 30, 100);
+    game1Data.timeRemainingText.position.set(currentApp.screen.width/2 - 30, 100);
     game1Data.timeRemainingText.anchor.set(0.5, 0);
     
     game1Data.hintRect =  new PIXI.Graphics();
     game1Data.hintRect.beginFill(0x000000, 0);
     game1Data.hintRect.lineStyle(80, 0xFF0000, 1);
-    game1Data.hintRect.drawRect(0, 0, common.app.screen.width, common.app.screen.height);
+    game1Data.hintRect.drawRect(0, 0, currentApp.screen.width, currentApp.screen.height);
     game1Data.hintRect.endFill();
     game1Data.hintRect.visible = false;
 
     game1Data.pedal =  new PIXI.Sprite(PIXI.loader.resources.pedalImg.texture);
-    game1Data.pedal.position.set(common.app.screen.width-60 , common.app.screen.height-60);
+    game1Data.pedal.position.set(currentApp.screen.width-60 , currentApp.screen.height-60);
     game1Data.pedal.anchor.set(1, 1);
 
     game1Data.pedalWarning =  new PIXI.Sprite(PIXI.loader.resources.pedalWarningImg.texture);
@@ -61,12 +64,12 @@ function game1Setup(Vars){
     // bgTexs.baseTexture.source.play();
 
     game1Data.cityRoad =  new PIXI.Sprite(PIXI.loader.resources.cityImg.texture);
-    game1Data.cityRoad.position.set(common.app.screen.width/2, common.app.screen.height/2);
+    game1Data.cityRoad.position.set(currentApp.screen.width/2, currentApp.screen.height/2);
     game1Data.cityRoad.scale.set(1.8, 1.8);
     game1Data.cityRoad.anchor.set(0.5, 0.5);
 
     game1Data.missImg =  new PIXI.Sprite(PIXI.loader.resources.missImg.texture);
-    game1Data.missImg.position.set(common.app.screen.width-60, common.app.screen.height/2-game1Data.missImg.height);
+    game1Data.missImg.position.set(currentApp.screen.width-60, currentApp.screen.height/2-game1Data.missImg.height);
     game1Data.missImg.anchor.set(1, 0);
     game1Data.missImg.scale.set(0.6, 0.6);
 
@@ -111,7 +114,7 @@ function game1Setup(Vars){
 
 
     game1Data.dash =  new PIXI.Sprite(PIXI.loader.resources.dashImg.texture);
-    game1Data.dash.position.set(common.app.screen.width/2, common.app.screen.height);
+    game1Data.dash.position.set(currentApp.screen.width/2, currentApp.screen.height);
     game1Data.dash.anchor.set(0.5, 1);
     game1Data.dash.scale.set(0.8, 0.8);
 
@@ -121,7 +124,7 @@ function game1Setup(Vars){
         fontWeight: 500
     }));
 
-    game1Data.hintTextG1.position.set(common.app.screen.width/2, common.app.screen.height - game1Data.dash.height - 30);
+    game1Data.hintTextG1.position.set(currentApp.screen.width/2, currentApp.screen.height - game1Data.dash.height - 30);
     game1Data.hintTextG1.anchor.set(0.5, 0.5);
 
     common.prePlayStartTextG1 = new PIXI.Text("5", new PIXI.TextStyle({
@@ -130,7 +133,7 @@ function game1Setup(Vars){
         fontWeight: 500
     }));
 
-    common.prePlayStartTextG1.position.set(common.app.screen.width/2, common.app.screen.height/2 - 200);
+    common.prePlayStartTextG1.position.set(currentApp.screen.width/2, currentApp.screen.height/2 - 200);
     common.prePlayStartTextG1.anchor.set(0.5, 0.5);
     common.prePlayStartTextG1.visible = false;
 
@@ -180,13 +183,13 @@ function addVanishingAsset(){
     game1Data.lineLeft.tint = 0xffffff;
     game1Data.lineLeft.scale.set(1, 1000);
     game1Data.lineLeft.anchor.set(0.5, 0.5);
-    game1Data.lineLeft.position.set((common.app.screen.width-game1Data.roadWidth)/2, 0);
+    game1Data.lineLeft.position.set((currentApp.screen.width-game1Data.roadWidth)/2, 0);
 
     game1Data.lineRight = new PIXI.projection.Sprite2d(game1Data.bigWhiteTexture);
     game1Data.lineRight.tint = 0xffffff;
     game1Data.lineRight.scale.set(1, 1000);
     game1Data.lineRight.anchor.set(0.5, 0.5);
-    game1Data.lineRight.position.set((common.app.screen.width+game1Data.roadWidth)/2, 0);
+    game1Data.lineRight.position.set((currentApp.screen.width+game1Data.roadWidth)/2, 0);
     
     // world3D.addChild(lineLeft);
     // world3D.addChild(lineRight);
@@ -200,7 +203,7 @@ function addVanishingAsset(){
         s.anchor.set(0.5);
         s.counterY = 6000*i;
         s.counterX = 0;
-        s.position.set(common.app.screen.width/2, 10000);
+        s.position.set(currentApp.screen.width/2, 10000);
         //調整物體水平還是垂直
         s.proj.affine = PIXI.projection.AFFINE.AXIS_X;
         //紀錄物件參考
@@ -253,10 +256,10 @@ function generateCrossingGroup(){
                s.counterX = -5000;
             }
         }else{
-            s.counterX = common.app.screen.width + 1500;
+            s.counterX = currentApp.screen.width + 1500;
             s.scale.x = -1*s.scale.x;
             if(s.type == "car"){
-                s.counterX = common.app.screen.width + 5000;
+                s.counterX = currentApp.screen.width + 5000;
                 s.scale.set(-2.5, 2.5);
             }
         }

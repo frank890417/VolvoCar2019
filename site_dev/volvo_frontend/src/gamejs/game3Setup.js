@@ -1,17 +1,21 @@
 let common;
 let game3Data;
+let currentApp;
+
 export {game3Setup};
 
 function game3Setup(Vars){
     common = Vars.common;
     game3Data = Vars.game3Data;
+    currentApp = Vars.game3Data.app;
+
 
     game3Data.timeText_g3 = new PIXI.Text("Time", new PIXI.TextStyle({
         fontSize: 52,
         fill: '#FFD25D',
         fontWeight: 500
     }));
-    game3Data.timeText_g3.position.set(common.app.screen.width/2, 60);
+    game3Data.timeText_g3.position.set(currentApp.screen.width/2, 60);
     game3Data.timeText_g3.anchor.set(0.5, 0);
     
     game3Data.timeRemainingText_g3 = new PIXI.Text("30", new PIXI.TextStyle({
@@ -20,30 +24,30 @@ function game3Setup(Vars){
         fontWeight: 'bold',
     }));
 
-    game3Data.timeRemainingText_g3.position.set(common.app.screen.width/2, 120);
+    game3Data.timeRemainingText_g3.position.set(currentApp.screen.width/2, 120);
     game3Data.timeRemainingText_g3.anchor.set(0.5, 0);
 
     game3Data.hintRect_g3 =  new PIXI.Graphics();
     game3Data.hintRect_g3.beginFill(0xFF0000, 1);
     //game3Data.hintRect_g3.lineStyle(80, 0xFF0000, 1);
-    game3Data.hintRect_g3.drawRect(0, 0, common.app.screen.width, common.app.screen.height);
+    game3Data.hintRect_g3.drawRect(0, 0, currentApp.screen.width, currentApp.screen.height);
     game3Data.hintRect_g3.endFill()
     game3Data.hintRect_g3.alpha = 0;
 
     game3Data.hintRectGood_g3 =  new PIXI.Graphics();
     game3Data.hintRectGood_g3.beginFill(0x000000, 0);
     game3Data.hintRectGood_g3.lineStyle(80, 0x00FF00, 1);
-    game3Data.hintRectGood_g3.drawRect(0, 0, common.app.screen.width, common.app.screen.height);
+    game3Data.hintRectGood_g3.drawRect(0, 0, currentApp.screen.width, currentApp.screen.height);
     game3Data.hintRectGood_g3.endFill()
     game3Data.hintRectGood_g3.alpha = 0;
 
     game3Data.cityRoad_g3 =  new PIXI.Sprite(PIXI.loader.resources.cityG3Img.texture);
-    game3Data.cityRoad_g3.position.set(common.app.screen.width/2, common.app.screen.height/2);
+    game3Data.cityRoad_g3.position.set(currentApp.screen.width/2, currentApp.screen.height/2);
     game3Data.cityRoad_g3.scale.set(1, 1);
     game3Data.cityRoad_g3.anchor.set(0.5, 0.5);
 
     game3Data.missImg_g3 =  new PIXI.Sprite(PIXI.loader.resources.missImg.texture);
-    game3Data.missImg_g3.position.set(common.app.screen.width-60, common.app.screen.height/2-game3Data.missImg_g3.height);
+    game3Data.missImg_g3.position.set(currentApp.screen.width-60, currentApp.screen.height/2-game3Data.missImg_g3.height);
     game3Data.missImg_g3.anchor.set(1, 0);
     game3Data.missImg_g3.scale.set(0.6, 0.6);
 
@@ -58,25 +62,25 @@ function game3Setup(Vars){
     game3Data.sysImg_g3.scale.set(0.6, 0.6);
 
     game3Data.dash_g3 =  new PIXI.Sprite(PIXI.loader.resources.dashImg.texture);
-    game3Data.dash_g3.position.set(common.app.screen.width/2, common.app.screen.height);
+    game3Data.dash_g3.position.set(currentApp.screen.width/2, currentApp.screen.height);
     game3Data.dash_g3.anchor.set(0.5, 1);
     game3Data.dash_g3.scale.set(0.8, 0.8);
 
     // game3Data.car_g3 =  new PIXI.Sprite(PIXI.loader.resources.carMidImg.texture);
-    // game3Data.car_g3.position.set(common.app.screen.width/2, 500);
+    // game3Data.car_g3.position.set(currentApp.screen.width/2, 500);
     // game3Data.car_g3.anchor.set(0.5, 0.5);
     // game3Data.car_g3.scale.set(0.6, 0.6);
 
     game3Data.leftBtn_g3 =  new PIXI.Sprite(PIXI.loader.resources.leftBtnG3Img.texture);
-    game3Data.leftBtn_g3.position.set(60, common.app.screen.height-60);
+    game3Data.leftBtn_g3.position.set(60, currentApp.screen.height-60);
     game3Data.leftBtn_g3.anchor.set(0, 1);
 
     game3Data.rightBtn_g3 =  new PIXI.Sprite(PIXI.loader.resources.rightBtnG3Img.texture);
-    game3Data.rightBtn_g3.position.set(common.app.screen.width -60 -game3Data.rightBtn_g3.width, common.app.screen.height-60);
+    game3Data.rightBtn_g3.position.set(currentApp.screen.width -60 -game3Data.rightBtn_g3.width, currentApp.screen.height-60);
     game3Data.rightBtn_g3.anchor.set(0, 1);
 
     game3Data.hint_g3 =  new PIXI.Sprite(PIXI.loader.resources.hintG3Img.texture);
-    game3Data.hint_g3.position.set(common.app.screen.width-60, common.app.screen.height/2 + game3Data.missImg_g3.height+100);
+    game3Data.hint_g3.position.set(currentApp.screen.width-60, currentApp.screen.height/2 + game3Data.missImg_g3.height+100);
     game3Data.hint_g3.anchor.set(1, 1);
     game3Data.hint_g3.scale.set(0.6, 0.6);
 
@@ -102,11 +106,11 @@ function game3Setup(Vars){
 
 
     let mirrorLeftPosition = {
-        x: common.app.screen.width/2 - game3Data.mirrorBgLeft_g3.width + 190,
+        x: currentApp.screen.width/2 - game3Data.mirrorBgLeft_g3.width + 190,
         y: 80
     }
     let mirrorRightPosition = {
-        x: common.app.screen.width/2 +100,
+        x: currentApp.screen.width/2 +100,
         y: 80
     }
 
@@ -155,7 +159,7 @@ function game3Setup(Vars){
         fontWeight: 500
     }));
 
-    game3Data.hintTextG3.position.set(common.app.screen.width/2, common.app.screen.height/2 );
+    game3Data.hintTextG3.position.set(currentApp.screen.width/2, currentApp.screen.height/2 );
     game3Data.hintTextG3.anchor.set(0.5, 0.5);
 
 
@@ -165,7 +169,7 @@ function game3Setup(Vars){
         fontWeight: 500
     }));
 
-    common.prePlayStartTextG3.position.set(common.app.screen.width/2, common.app.screen.height/2 - 200);
+    common.prePlayStartTextG3.position.set(currentApp.screen.width/2, currentApp.screen.height/2 - 200);
     common.prePlayStartTextG3.anchor.set(0.5, 0.5);
     common.prePlayStartTextG3.visible = false;
 
@@ -214,13 +218,13 @@ function addVanishingAssetG3(){
     game3Data.lineLeft_g3.tint = 0xffffff;
     game3Data.lineLeft_g3.scale.set(1, 1000);
     game3Data.lineLeft_g3.anchor.set(0.5, 0.5);
-    game3Data.lineLeft_g3.position.set((common.app.screen.width-game3Data.roadWidth_g3)/2, 0);
+    game3Data.lineLeft_g3.position.set((currentApp.screen.width-game3Data.roadWidth_g3)/2, 0);
 
     game3Data.lineRight_g3 = new PIXI.projection.Sprite2d(game3Data.bigWhiteTexture);
     game3Data.lineRight_g3.tint = 0xffffff;
     game3Data.lineRight_g3.scale.set(1, 1000);
     game3Data.lineRight_g3.anchor.set(0.5, 0.5);
-    game3Data.lineRight_g3.position.set((common.app.screen.width+game3Data.roadWidth_g3)/2, 0);
+    game3Data.lineRight_g3.position.set((currentApp.screen.width+game3Data.roadWidth_g3)/2, 0);
     
     game3Data.world3D_g3.addChild(game3Data.lineLeft_g3);
     game3Data.world3D_g3.addChild(game3Data.lineRight_g3);
@@ -234,7 +238,7 @@ function addVanishingAssetG3(){
         s.anchor.set(0.5);
         s.counterY = 3000*i;
         s.counterX = 0;
-        s.position.set(common.app.screen.width/2, 10000);
+        s.position.set(currentApp.screen.width/2, 10000);
         //調整物體水平還是垂直
         s.proj.affine = PIXI.projection.AFFINE.AXIS_X;
         //紀錄物件參考
@@ -251,11 +255,11 @@ function addVanishingAssetG3(){
         tempLeftWifi.scale.set(-1.2, -1.2);
         tempLeftWifi.tint = 0xffd25d;
         tempLeftWifi.visible = false;
-        tempLeftWifi.position.set(common.app.screen.width/2 - 300, game3Data.carPosY_g3 - 500);
+        tempLeftWifi.position.set(currentApp.screen.width/2 - 300, game3Data.carPosY_g3 - 500);
         game3Data.leftWifi.push(tempLeftWifi);
 
         let tempRightWifi=  new PIXI.projection.Sprite2d(tempTex);
-        tempRightWifi.position.set(common.app.screen.width/2 + 50, game3Data.carPosY_g3 - 500);
+        tempRightWifi.position.set(currentApp.screen.width/2 + 50, game3Data.carPosY_g3 - 500);
         tempRightWifi.scale.set(1.2, -1.2);
         tempRightWifi.tint = 0xffd25d;
         tempRightWifi.visible = false;
@@ -270,7 +274,7 @@ function addVanishingAssetG3(){
     game3Data.carComingLeft_g3 =  new PIXI.projection.Sprite2d(PIXI.loader.resources.carComingLeftImg.texture);
     game3Data.carComingLeft_g3.scale.set(5, -5);
     game3Data.carComingLeft_g3.anchor.set(0.5);
-    game3Data.carComingLeft_g3.position.set(common.app.screen.width/2 - game3Data.roadWidth_g3/4 +100, -1000);
+    game3Data.carComingLeft_g3.position.set(currentApp.screen.width/2 - game3Data.roadWidth_g3/4 +100, -1000);
     game3Data.carComingLeft_g3.proj.affine = PIXI.projection.AFFINE.AXIS_Y;
     game3Data.carComingLeft_g3.visible = false;
     game3Data.world3D_g3.addChild(game3Data.carComingLeft_g3);
@@ -278,7 +282,7 @@ function addVanishingAssetG3(){
     game3Data.carComingRight_g3 =  new PIXI.projection.Sprite2d(PIXI.loader.resources.carComingRightImg.texture);
     game3Data.carComingRight_g3.scale.set(5, -5);
     game3Data.carComingRight_g3.anchor.set(0.5);
-    game3Data.carComingRight_g3.position.set(common.app.screen.width/2+ game3Data.roadWidth_g3/4 -100, -1000);
+    game3Data.carComingRight_g3.position.set(currentApp.screen.width/2+ game3Data.roadWidth_g3/4 -100, -1000);
     game3Data.carComingRight_g3.proj.affine = PIXI.projection.AFFINE.AXIS_Y;
     game3Data.carComingRight_g3.visible = false;
     game3Data.world3D_g3.addChild(game3Data.carComingRight_g3);
@@ -287,7 +291,7 @@ function addVanishingAssetG3(){
     game3Data.car_g3 = new PIXI.projection.Sprite2d(PIXI.loader.resources.carMidImg.texture);
     game3Data.car_g3.scale.set(5, -5);
     game3Data.car_g3.anchor.set(0.5, 0.5);
-    game3Data.car_g3.position.set(common.app.screen.width/2, game3Data.carPosY_g3);
+    game3Data.car_g3.position.set(currentApp.screen.width/2, game3Data.carPosY_g3);
     game3Data.car_g3.proj.affine = PIXI.projection.AFFINE.AXIS_Y;
     game3Data.world3D_g3.addChild(game3Data.car_g3);    
     

@@ -52,7 +52,6 @@ let common = {
     DEFAULT_STAGE_HEIGHT : 1080,
 
     //stage manage
-    app,
     currentStage : 0,
     stage1 : 0,
     stage2 : 0,
@@ -63,6 +62,8 @@ let common = {
 };
 
 let game1Data = {
+    app: null,
+
     crossingGroups : [],
     crossingGroup: null,
     crossLine: null,
@@ -134,6 +135,8 @@ let game1Data = {
 }
 
 let game2Data = {
+    app: null,
+
     //第二關
     g2Ui: null,
     hintRect_g2: null,
@@ -186,7 +189,7 @@ let game2Data = {
 }
 
 let game3Data = {
-
+    app: null,
 
     //第三關
     carSideSequenceIndex : 0,
@@ -264,7 +267,7 @@ let game3Data = {
 }
 
 let game4Data = {
-
+    app: null,
 
 }
 

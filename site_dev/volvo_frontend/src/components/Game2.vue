@@ -44,20 +44,23 @@ export default {
       if(!this.isInit){
         this.isInit = true;
         console.log("[Game2] setup");
-        Vars.common.currentStage = 2;
-        envSetting.setupEnv(gameContainerSelector, Vars);
+        
+        envSetting.setupEnv(gameContainerSelector, this.currentGame, Vars);
         this.resizeCanvas();
         game2Setup(Vars);
         game2Init(Vars);
         resetData();
-        Vars.common.app.ticker.stop();
+        Vars.game2Data.app.ticker.stop();
       }
     },
     start(){
-      Vars.common.app.ticker.start();
+      console.log("[Game2] start");
+      // Vars.game2Data.prePlayTimelineG2.restart();
+      Vars.game2Data.app.ticker.start();
     },
     pause(){
-      Vars.common.app.ticker.stop();
+      console.log("[Game2] pause");
+      Vars.game2Data.app.ticker.stop();
     }
   },
   computed: {
@@ -68,14 +71,14 @@ export default {
   },
   destroyed: function() {
     //移除 vue instance 之後
-    delete Vars.common.app;
-
+    // delete Vars.game2Data.app;
   },
   watch:{
     
   },
   data(){
     return {
+      currentGame: 2,
       gameContainer: ".game2 .game-container",
       isInit: false
     }

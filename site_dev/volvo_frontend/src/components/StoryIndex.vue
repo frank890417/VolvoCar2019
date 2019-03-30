@@ -121,7 +121,7 @@ export default {
     // console.log(this.$refs.sceneObj2)
   },
   components: {
-    Game1,Game2,Game3
+    Game1, Game2, Game3
   },
   methods: {
 
@@ -148,7 +148,6 @@ export default {
       return {
         'z-index': layerId,
         'transform': 'scale('+trans.scale+') translate('+trans.x+'px,'+trans.y+'px)',
-        
       }
     },
 
@@ -194,8 +193,6 @@ export default {
         this.refGroup['3'].setUp(`.game3 .game-container`);
       });
 
-     
-      
     },
   },
   computed: {
@@ -265,43 +262,19 @@ export default {
       
       if ( pre.title != post.title ){
         if (post.type=="game") {
-          // return;
-          if (post.title=="Game1"  ){
-            console.log("遊戲一開始");
-            this.gameStatus['1']=true
-            this.gameStatus['2']=false
-            this.gameStatus['3']=false
-            this.refGroup['1'].resetData();
-            this.refGroup['1'].start();
-            // this.refGroup['1'].loadAsset(()=>{
-            //   this.refGroup['1'].setUp(`.game${'1'} .game-container`);
-            //   this.refGroup['1'].start()
-            // });
+
+          let checkGame = post.title.split('e')[1];
+          for(let i=1; i<4; i++){
+            let tempGroup = this.refGroup[i];
+            if(i == checkGame){
+              tempGroup.resetData();
+              tempGroup.start();
+              console.log(`遊戲 ${i} 開始`);
+            }else{
+              tempGroup.pause();
+            }
           }
-          if (post.title=="Game2"  ){
-            console.log("遊戲二開始");
-            this.gameStatus['2']=true
-            this.gameStatus['1']=false
-            this.gameStatus['3']=false
-            this.refGroup['2'].resetData();
-            this.refGroup['2'].start();
-            // this.refGroup['2'].loadAsset(()=>{
-            //   this.refGroup['2'].setUp(`.game${'2'} .game-container`);
-            //   this.refGroup['2'].start()
-            // });
-          }
-          if (post.title=="Game3" ){
-            console.log("遊戲三開始");
-            this.gameStatus['3']=true
-            this.gameStatus['2']=false
-            this.gameStatus['1']=false
-            this.refGroup['3'].resetData();
-            this.refGroup['3'].start();
-            // this.refGroup['3'].loadAsset(()=>{
-            //   this.refGroup['3'].setUp(`.game${'3'} .game-container`);
-            //   this.refGroup['3'].start()
-            // });
-          }
+
         }
 
       }

@@ -1,15 +1,17 @@
 import game3Loop from "./game3Loop"
 
-export {game3Init, resetData,game3Start,game3Pause};
+export {game3Init, resetData, game3Start, game3Pause};
 let vars;
 let common;
 let game3Data;
+let currentApp;
 
 
 function game3Init(Vars){
     vars = Vars;
     common = Vars.common;
     game3Data = Vars.game3Data;
+    currentApp = Vars.game3Data.app;
 
     setUpCarMovingAnimation();
     addMirrorCarAni();
@@ -26,23 +28,21 @@ function game3Init(Vars){
     tr.fromTo(game3Data.mirrorHintRight_g3, 0.2, {alpha: 0}, {alpha: 1}).yoyo(1).repeat(-1);
 
 
-    common.app.stage.addChild(common.stage3);
-    common.app.ticker.speed = 1;
-    common.app.ticker.add(delta => game3Loop.game3Loop(Vars));
+    currentApp.stage.addChild(common.stage3);
+    currentApp.ticker.speed = 1;
+    currentApp.ticker.add(delta => game3Loop.game3Loop(Vars));
 
-    
     common.isGameRunning = false;
-    
-    common.app.ticker.stop();
+    currentApp.ticker.stop();
 }
 
 function game3Start(Vars){
     Vars.common.prePlayTimelineG3.restart();
     Vars.common.isPrePlaying = true;
-    Vars.common.app.ticker.start();
+    Vars.currentApp.ticker.start();
 }
 function game3Pause(Vars){
-    Vars.common.app.ticker.stop();
+    Vars.currentApp.ticker.stop();
 }
 
 
@@ -177,7 +177,7 @@ function setUpCarMovingAnimation(){
 
             //車子往左靠的動畫
             game3Data.carMoveLeftAni = TweenMax.to(game3Data.car_g3.position, 3,{
-                x: common.app.screen.width/2 - 300, ease: Power0.easeNone
+                x: currentApp.screen.width/2 - 300, ease: Power0.easeNone
             }).delay(3);
             //鏡子中的也要移動
             game3Data.carMoveRightAniMirror = TweenMax.to(game3Data.mirrorBgRight_g3.position, 3,{
@@ -210,7 +210,7 @@ function setUpCarMovingAnimation(){
         if(game3Data.carMoveLeftAni){
             //如果位移動畫存在，代表沒有成功，也就是要撞到了
             TweenMax.to(game3Data.car_g3.position, 0.5,{
-                x: common.app.screen.width/2 - 150,
+                x: currentApp.screen.width/2 - 150,
                 ease: Elastic.easeOut.config(1, 0.3)
             });
             //回到中間
@@ -238,7 +238,7 @@ function setUpCarMovingAnimation(){
             
             //這邊會建立 車子往右靠的動畫
             game3Data.carMoveRightAni = TweenMax.to(game3Data.car_g3.position, 3,{
-                x: common.app.screen.width/2 + 300, ease: Power0.easeNone
+                x: currentApp.screen.width/2 + 300, ease: Power0.easeNone
             }).delay(3);
             game3Data.carMoveRightAniMirror = TweenMax.to(game3Data.mirrorBgRight_g3.position, 3,{
                 x: -400, ease: Power0.easeNone
@@ -271,7 +271,7 @@ function setUpCarMovingAnimation(){
         if(game3Data.carMoveRightAni){
             //撞到的動畫
             TweenMax.to(game3Data.car_g3.position, 0.5,{
-                x: common.app.screen.width/2 + 150,
+                x: currentApp.screen.width/2 + 150,
                 ease: Elastic.easeOut.config(1, 0.3)
             });
             let tl = new TimelineMax({
@@ -288,7 +288,7 @@ function setUpCarMovingAnimation(){
 
 function setToCenter(){
     TweenMax.to(game3Data.car_g3.position, 1,{
-        x: common.app.screen.width/2,
+        x: currentApp.screen.width/2,
         ease: Power0.easeNone
     });
     TweenMax.to(game3Data.mirrorBgRight_g3.position, 1,{
@@ -401,7 +401,7 @@ function addG3PrePlay(){
         game3Data.carLeftTimeline_g3.seek(4);
         //車子向左靠
         game3Data.carMoveLeftAni = TweenMax.to(game3Data.car_g3.position, 3,{
-            x: common.app.screen.width/2 - 300,
+            x: currentApp.screen.width/2 - 300,
             ease: Power0.easeNone
         });
         game3Data.carMoveRightAniMirror = TweenMax.to(game3Data.mirrorBgRight_g3.position, 3,{
@@ -438,7 +438,7 @@ function addG3PrePlay(){
     .add(()=>{
         //車子向右靠
         game3Data.carMoveRightAni = TweenMax.to(game3Data.car_g3.position, 2, {
-            x: common.app.screen.width/2 + 300,
+            x: currentApp.screen.width/2 + 300,
             ease: Power0.easeNone
         });
         game3Data.carMoveRightAniMirror = TweenMax.to(game3Data.mirrorBgRight_g3.position, 2,{

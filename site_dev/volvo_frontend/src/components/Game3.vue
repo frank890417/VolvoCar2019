@@ -14,7 +14,7 @@ import Vars from "../gamejs/globalVariables.js"
 import envSetting from "../gamejs/envSetting.js"
 import loadAllAssets from "../gamejs/assetLoader.js"
 import {game3Setup} from "../gamejs/game3Setup.js"
-import {game3Init, resetData, game3Start,game3Pause} from "../gamejs/game3Init.js"
+import {game3Init, resetData, game3Start, game3Pause} from "../gamejs/game3Init.js"
 
 export default {
   name: 'Game3',
@@ -22,7 +22,6 @@ export default {
     msg: String
   },
   mounted(){
-    window.tempVars = Vars;
 
   },
   methods: {
@@ -43,22 +42,24 @@ export default {
     },
     setUp(gameContainerSelector){
       if(!this.isInit){
-        this.isInit = true;
         console.log("[Game3] setup");
-        Vars.common.currentStage = 3;
-        envSetting.setupEnv(gameContainerSelector, Vars);
+        this.isInit = true;
+        envSetting.setupEnv(gameContainerSelector, this.currentGame, Vars);
         this.resizeCanvas();
         game3Setup(Vars);
         game3Init(Vars);
         resetData();
-        Vars.common.app.ticker.stop();
+        Vars.game3Data.app.ticker.stop();
       }
     },
     start(){
-      Vars.common.app.ticker.start();
+      console.log("[Game3] start");
+      // Vars.game3Data.prePlayTimelineG3.restart();
+      Vars.game3Data.app.ticker.start();
     },
     pause(){
-      Vars.common.app.ticker.stop();
+      console.log("[Game3] pause");
+      Vars.game3Data.app.ticker.stop();
     }
   },
   computed: {
@@ -68,13 +69,14 @@ export default {
     
   },
   destroyed: function() {
-    delete Vars.common.app;
+    delete Vars.game3Data.app;
   },
   watch:{
     
   },
   data(){
     return {
+      currentGame: 3,
       gameContainer: ".game3 .game-container",
       isInit: false
     }
