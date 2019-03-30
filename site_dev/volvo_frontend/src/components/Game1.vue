@@ -56,7 +56,7 @@ export default {
     },
     start(){
       console.log("[Game1] start");
-      // Vars.game1Data.prePlayTimelineG1.restart();
+      Vars.common.prePlayTimelineG1.restart();
       Vars.game1Data.app.ticker.start();
     },
     pause(){
@@ -69,11 +69,11 @@ export default {
   },
   beforeDestroy: function() {
     //移除 vue instance 之前
+    // delete Vars.game1Data.app;
     console.log('beforeDestroy');
   },
   destroyed: function() {
     //移除 vue instance 之後
-    delete Vars.game1Data.app;
     console.log('destroyed');
   },
   watch:{

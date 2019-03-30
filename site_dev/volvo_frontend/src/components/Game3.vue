@@ -54,7 +54,7 @@ export default {
     },
     start(){
       console.log("[Game3] start");
-      // Vars.game3Data.prePlayTimelineG3.restart();
+      Vars.common.prePlayTimelineG3.restart();
       Vars.game3Data.app.ticker.start();
     },
     pause(){
@@ -66,10 +66,10 @@ export default {
     ...mapState(['debug']),
   },
   beforeDestroy: function() {
-    
+    // delete Vars.game3Data.app;
   },
   destroyed: function() {
-    delete Vars.game3Data.app;
+    
   },
   watch:{
     

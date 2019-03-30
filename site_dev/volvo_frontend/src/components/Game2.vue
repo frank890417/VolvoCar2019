@@ -55,7 +55,7 @@ export default {
     },
     start(){
       console.log("[Game2] start");
-      // Vars.game2Data.prePlayTimelineG2.restart();
+      Vars.common.prePlayTimelineG2.restart();
       Vars.game2Data.app.ticker.start();
     },
     pause(){
@@ -67,11 +67,10 @@ export default {
     ...mapState(['debug']),
   },
   beforeDestroy: function() {
-    
+    // delete Vars.game2Data.app;
   },
   destroyed: function() {
     //移除 vue instance 之後
-    // delete Vars.game2Data.app;
   },
   watch:{
     
