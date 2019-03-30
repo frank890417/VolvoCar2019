@@ -100,5 +100,6 @@ export default {
       background-color: #eee
   .game
     overflow: hidden
-
+    canvas
+      width: 100%
 </style>

@@ -18,7 +18,8 @@ function game1Init(Vars){
     updateAxisG1();
     addG1PrePlay();
 
-    
+    console.log("Game 1 init!")
+
     common.app.stage.addChild(common.stage1);
     common.app.ticker.speed = 1;
     common.app.ticker.add(delta => game1Loop.game1Loop(Vars));
@@ -31,6 +32,7 @@ function game1Init(Vars){
 }
 
 function game1Start(Vars){
+    console.log("Game 1 start!")
     Vars.common.prePlayTimelineG1.restart();
     Vars.common.isPrePlaying = true;
     Vars.common.app.ticker.start();

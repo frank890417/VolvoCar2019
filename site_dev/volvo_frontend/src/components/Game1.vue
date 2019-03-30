@@ -27,8 +27,9 @@ export default {
   methods: {
     resizeCanvas(){
       let ratio = $(window).innerWidth()/1920;
-      $("canvas").css("transform", `scale(${ratio})`);
-      $("canvas").css("transform-origin", "0 0");
+      // $("canvas").css("transform", `scale(${ratio})`);
+      // $("canvas").css("transform-origin", "0 0");
+      $("canvas").css("width","100%");
     },
     resetData(){
       console.log("resetData");
