@@ -187,12 +187,18 @@ export default {
       
     },
     loadGame(){
-      this.refGroup[1].loadAsset(()=>{
-        for(var i=1;i<=3;i++){
-          this.refGroup[i].setUp(`.game${i} .game-container`);
-          // this.refGroup[i].start();
-        }
+      
+      this.refGroup['1'].loadAsset(()=>{
+        this.refGroup['1'].setUp(`.game1 .game-container`);
       });
+      this.refGroup['2'].loadAsset(()=>{
+        this.refGroup['2'].setUp(`.game2 .game-container`);
+      });
+      this.refGroup['3'].loadAsset(()=>{
+        this.refGroup['3'].setUp(`.game3 .game-container`);
+      });
+
+     
       
     },
   },

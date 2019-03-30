@@ -26,17 +26,17 @@ export default {
   },
   methods: {
     resizeCanvas(){
-      let ratio = $(window).innerWidth()/1920;
+      // let ratio = $(window).innerWidth()/1920;
       // $("canvas").css("transform", `scale(${ratio})`);
       // $("canvas").css("transform-origin", "0 0");
       $("canvas").css("width","100%");
     },
     resetData(){
-      console.log("resetData");
+      console.log("[Game1] resetData");
       resetData();
     },
     loadAsset(callback){
-      console.log("loadAsset");
+      console.log("[Game1] loadAsset");
       if(!PIXI.loader.resources.g1Ui){
         loadAllAssets.loadAllAssets(Vars, callback);
       }else{
@@ -44,7 +44,7 @@ export default {
       }
     },
     setUp(gameContainerSelector){
-      console.log("setup");
+      console.log("[Game1] setup");
       if(!this.isInit){
         this.isInit = true;
         Vars.common.currentStage = 1;

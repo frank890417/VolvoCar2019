@@ -133,10 +133,13 @@ export default {
 
     {
       title: "E01",
-      layers: ["E/E01/E01_bg.png","E/E01/E01_car.png","E/E01/E01_Anderson.png","E/E01/E01_dialog.png",{
+      layers: ["E/E01/E01_bg.png","E/E01/E01_car.png",{
+        src: "E/E01/E01_Anderson.png",
+        classes: ['slideInRight']
+      },"E/E01/E01_dialog.png",{
         src: "E/E01/E01_bike.png",
         getPanX: d=>-d*0.1 - 100,
-        // getPanY: d=>d*0.05
+        getPanY: d=>d*0.01
       }]
     },
 
@@ -203,7 +206,20 @@ export default {
     },
     {
       title: "G03",
-      layers: ["G/G03/G03_bg.png","G/G03/G03_car.png"],
+      layers: ["G/G03/G03_bg.png",{
+        src: "G/G03/G03_car_a.png",
+        getPanX: (d)=>d*0.3,
+        getPanY: (d)=>d*-0.2
+
+      },{
+        src: "G/G03/G03_car_v1.png",
+        getPanX: (d)=>d*0.45,
+        getPanY: (d)=>d*-0.35
+      },{
+        src: "G/G03/G03_car_v2.png",
+        getPanX: (d)=>d*0.5,
+        getPanY: (d)=>d*-0.4
+      }],
       audios: ["Audio/carspeedup.wav"]
     },
     {
@@ -289,7 +305,8 @@ export default {
       title: "I06",
       layers: ["I/I06/I06_bg.png",{
         src: "I/I06/I06_anderson.png",
-        getPanX: (d,dp)=>d*-0.3
+        getPanX: (d,dp)=>d*-0.3,
+        getPanY: (d,dp)=>d*-0.1
       }],
       audios: ["Audio/car_crash.wav"]
     },

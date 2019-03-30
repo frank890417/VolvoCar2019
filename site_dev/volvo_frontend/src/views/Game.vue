@@ -44,10 +44,12 @@ export default {
         this.isLoaded = true;
         this.refGroup[this.currentGame].loadAsset(()=>{
           this.refGroup[this.currentGame].setUp(`.game${this.currentGame} .game-container`);
+          this.refGroup[this.currentGame].resetData();
           this.refGroup[this.currentGame].start();
         });
       }else{
         this.refGroup[this.currentGame].setUp(`.game${this.currentGame} .game-container`);
+        this.refGroup[this.currentGame].resetData();
         this.refGroup[this.currentGame].start();  
       }
 
@@ -64,6 +66,7 @@ export default {
     handleStageChange(stage){
       if(this.currentGame==stage) return; 
       if(this.currentGame != 0){
+        
         this.refGroup[this.currentGame].pause();
       }
       this.currentGame = stage;
