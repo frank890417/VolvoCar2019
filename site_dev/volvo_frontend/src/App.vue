@@ -11,7 +11,9 @@
       <router-link to="/game">遊戲測試</router-link>
     </div>
     <transition name="fade" mode="out-in">
-      <router-view :key= "$route.path" />
+      <keep-alive>
+        <router-view :key= "$route.path" />
+      </keep-alive>
     </transition>
   </div>
 </template>

@@ -41,19 +41,23 @@ export default {
       }
     },
     setUp(gameContainerSelector){
-      if(!this.isInit){
+      if(!Vars.game2Data.app){
         this.isInit = true;
         console.log("[Game2] setup");
-        
         envSetting.setupEnv(gameContainerSelector, this.currentGame, Vars);
         this.resizeCanvas();
         game2Setup(Vars);
         game2Init(Vars);
         resetData();
         Vars.game2Data.app.ticker.stop();
+      }else{
+        $(gameContainerSelector).append(Vars.game2Data.app.view);
       }
     },
     start(){
+      if($(this.gameContainer).children().length == 0){
+        $(this.gameContainer).append(Vars.game2Data.app.view);
+      }
       console.log("[Game2] start");
       Vars.common.prePlayTimelineG2.restart();
       Vars.game2Data.app.ticker.start();
@@ -67,10 +71,10 @@ export default {
     ...mapState(['debug']),
   },
   beforeDestroy: function() {
-    // delete Vars.game2Data.app;
+    
   },
   destroyed: function() {
-    //移除 vue instance 之後
+    
   },
   watch:{
     

@@ -7,7 +7,7 @@ let currentApp;
 
 let timeCounter3 = 0;
 function game3Loop(Vars) {
-    console.log("Game Ticker 3")
+    // console.log("Game Ticker 3")
     if(!vars) initLoopData(Vars);
 
     //更新橫線

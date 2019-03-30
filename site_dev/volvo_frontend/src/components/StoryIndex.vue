@@ -258,8 +258,6 @@ export default {
         }
       })
 
-      
-      
       if ( pre.title != post.title ){
         if (post.type=="game") {
 

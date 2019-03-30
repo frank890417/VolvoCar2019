@@ -6,7 +6,7 @@ let game1Data;
 let currentApp;
 
 function game1Loop(Vars){
-    console.log("Game Ticker 1")
+    // console.log("Game Ticker 1")
     if(!vars) initLoopData(Vars);
     
     //橫線

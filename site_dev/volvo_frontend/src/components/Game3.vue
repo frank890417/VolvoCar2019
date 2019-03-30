@@ -41,7 +41,7 @@ export default {
       }
     },
     setUp(gameContainerSelector){
-      if(!this.isInit){
+      if(!Vars.game3Data.app){
         console.log("[Game3] setup");
         this.isInit = true;
         envSetting.setupEnv(gameContainerSelector, this.currentGame, Vars);
@@ -50,10 +50,15 @@ export default {
         game3Init(Vars);
         resetData();
         Vars.game3Data.app.ticker.stop();
+      }else{
+        $(gameContainerSelector).append(Vars.game3Data.app.view);
       }
     },
     start(){
       console.log("[Game3] start");
+      if($(this.gameContainer).children().length == 0){
+        $(this.gameContainer).append(Vars.game3Data.app.view);
+      }
       Vars.common.prePlayTimelineG3.restart();
       Vars.game3Data.app.ticker.start();
     },
@@ -66,7 +71,7 @@ export default {
     ...mapState(['debug']),
   },
   beforeDestroy: function() {
-    // delete Vars.game3Data.app;
+    
   },
   destroyed: function() {
     
