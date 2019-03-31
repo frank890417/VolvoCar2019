@@ -47,11 +47,11 @@ function game1Loop(Vars){
 		if(s.counterY < 6500){
             
             if(s.type == "car"){
-                s.counterX += 50*sideVal;
+                s.counterX += 55*sideVal;
             }else if(s.type == "walk"){
-                s.counterX += 18*sideVal;
+                s.counterX += 22*sideVal;
             }else if(s.type == "bike"){
-                s.counterX += 25*sideVal;
+                s.counterX += 30*sideVal;
             }
 
 

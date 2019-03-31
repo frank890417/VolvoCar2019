@@ -11,15 +11,27 @@
             :ref=" 'sceneObj'+sceneId ",
             :id="'sec_'+sceneId" )
 
-      div(v-if="scene.type=='game' && scene.title=='Game1'", @click="refGroup['1'].start()")
+      div.story-game(v-if="scene.type=='game' && scene.title=='Game1'")
         Game1(ref="game1")
-      div(v-if="scene.type=='game' && scene.title=='Game2'",  @click="refGroup['2'].start()")
+        transition(name="fade")
+          img.explain(src="_Game1/Game1_說明_v1.png",
+                      v-if="!gameStatus[1]"
+                      @click="gameStatus[1]=true;startGame('1')")
+      div.story-game(v-if="scene.type=='game' && scene.title=='Game2'")
         Game2(ref="game2")
-      div(v-if="scene.type=='game' && scene.title=='Game3'", @click="refGroup['3'].start()")
+        transition(name="fade")
+          img.explain(src="_Game2/Game2_說明_v1.png",
+                      v-if="!gameStatus[2]"
+                      @click="gameStatus[2]=true;startGame('2')")
+      div.story-game(v-if="scene.type=='game' && scene.title=='Game3'")
         Game3(ref="game3")
+        transition(name="fade")
+          img.explain(src="_Game3/Game3_說明_v1.png",
+                      v-if="!gameStatus[3]"
+                      @click="gameStatus[3]=true;startGame('3')")
         
       div(v-else)
-        h2 {{scene.title}}
+        h2(v-if="debug") {{scene.title}}
         .img-layers
           .img-layer(
             v-for="(layer,layerId) in scene.layers",
@@ -194,6 +206,19 @@ export default {
       });
 
     },
+    startGame(checkGame){
+      for(let i=1; i<4; i++){
+        let tempGroup = this.refGroup[i];
+        if(i == checkGame){
+          tempGroup.resetData();
+          tempGroup.start();
+          console.log(`遊戲 ${i} 開始`);
+        }else{
+          tempGroup.pause();
+        }
+      }
+
+    }
   },
   computed: {
     ...mapState(['debug']),
@@ -258,24 +283,14 @@ export default {
         }
       })
 
-      if ( pre.title != post.title ){
-        if (post.type=="game") {
+      // if ( pre.title != post.title ){
+      //   if (post.type=="game") {
 
-          let checkGame = post.title.split('e')[1];
-          for(let i=1; i<4; i++){
-            let tempGroup = this.refGroup[i];
-            if(i == checkGame){
-              tempGroup.resetData();
-              tempGroup.start();
-              console.log(`遊戲 ${i} 開始`);
-            }else{
-              tempGroup.pause();
-            }
-          }
+      //     let checkGame = post.title.split('e')[1];
+          
+      //   }
 
-        }
-
-      }
+      // }
     },
     currentSection(pre, post){
     }
@@ -326,6 +341,14 @@ section
     position: absolute
     top: 10px
     left: 20px
+.story-game
+  position: relative
+  .explain
+    position: absolute
+    left: 0
+    top: 0
+    cursor: pointer
+
 .currentSection
   position: fixed
   top: 10px
@@ -334,4 +357,5 @@ section
   color: black
   padding: 2px 10px
   z-index: 1000
+  
 </style>
